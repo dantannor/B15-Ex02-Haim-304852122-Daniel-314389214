@@ -13,32 +13,51 @@ namespace B15_Ex02_1
         public static void Main(string[] args)
         {
             // Scan input
-            scanInput();
+            scanInputAndInitialize();
         }
 
         /*
          * Scan user input
          */
-
-        private static void scanInput()
+        private static void scanInputAndInitialize()
         {
             Console.WriteLine("Enter Player1 name");
             string player1Name = Console.ReadLine();
             checkInput(player1Name);
 
             // If valid string, initialize player1
-            Player player1 = new Player(name, player);
+            Player player1 = new Player(player1Name, player);
 
             Console.WriteLine(@"Choose your opponent:
                                  1. Player
                                  2. Computer");
 
             string opponentType = Console.ReadLine();
-
-            if (opponentType)
+            while (opponentType != 1 || != 2)
             {
-
+                checkInput(opponentType);
             }
+
+            if (opponentType == 1)
+            {
+                Console.WriteLine("Enter Player2 name");
+                string player2Name = Console.ReadLine();
+                checkInput(player2Name);
+                Player player2 = new Player(player2Name, player);
+            }
+            else if (opponentType == 2)
+            {
+                Player computer = new Player(pc, pc);
+            }
+
+            Console.WriteLine("Please enter board size (min 6 or 8)");
+            string boardSize = Console.ReadLine();
+            while (boardSize < 6)
+            {
+                checkInput(boardSize);
+            }
+
+            Board board = new Board(boardSize);
 
         }
 
