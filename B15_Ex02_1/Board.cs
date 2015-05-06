@@ -10,6 +10,7 @@ namespace B15_Ex02_1
     {
         public Board(int boardSize)
         {
+            int a;
             throw new NotImplementedException();
         }
     }
