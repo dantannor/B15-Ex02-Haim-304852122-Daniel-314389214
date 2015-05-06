@@ -10,11 +10,7 @@ namespace B15_Ex02_1
 
     public class Program
     {
-        public static void Main(string[] args)
-        {
-            // Scan input
-            scanInputAndInitialize();
-        }
+
 
         /*
          * Scan user input
