@@ -15,7 +15,7 @@ namespace B15_Ex02_1
         {
             Console.WriteLine("Enter Player1 name");
             string player1Name = Console.ReadLine();
-            validateInput(checkInputType(player1Name), string, 0, 0);
+            validateInput(player1Name, string, 0, 0);
 
             // If valid string, initialize player1
             Player player1 = new Player(player1Name, player);
