@@ -6,8 +6,28 @@ using System.Threading.Tasks;
 
 namespace B15_Ex02_1
 {
-    class UI
+    public class UI
     {
-        
+        /*
+         * Scans player name
+         */
+        public static string ScanPlayerName()
+        {
+            Console.WriteLine("Please enter player name:");
+            return Console.ReadLine();
+        }
+
+        public static void PrintInvalidInput(string invalidInputMsg)
+        {
+            Console.WriteLine(invalidInputMsg);
+        }
+
+        public static string AskPlayerType()
+        {
+            Console.WriteLine(@"Choose your opponent:
+                                 1. Player
+                                 2. PC");
+            return Console.ReadLine();
+        }
     }
 }

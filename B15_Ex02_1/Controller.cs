@@ -6,16 +6,112 @@ using System.Threading.Tasks;
 
 namespace B15_Ex02_1
 {
-    class Controller
+    internal class Controller
     {
         /*
         * Scan user input
         */
+
+        public Controller()
+        {
+        }
+
+        private enum playerType
+        {
+            Player2 = 1,
+
+            PC = 2
+        };
+
+        /*
+         * scans and validates correct player name using UI
+         */
+
+        private static string getPlayerName()
+        {
+            // Read player name and check input
+            string playerName = UI.ScanPlayerName();
+
+            while (!validatePlayerName(playerName))
+            {
+                UI.PrintInvalidInput("Sorry, that's an invalid player name. Please re-enter:");
+                playerName = UI.ScanPlayerName();
+            }
+
+            return playerName;
+        }
+
+        /*
+         * Player or PC
+         */
+        private static playerType getPlayer2Type()
+        {
+            playerType playerOrPC = (playerType)UI.AskPlayerType();
+
+            while (!validatePlayerType(playerOrPC))
+            {
+                UI.PrintInvalidInput("Sorry, that's an invalid player type. Please re-enter:");
+                playerOrPC = (playerType)UI.AskPlayerType();
+            }
+
+            return playerOrPC;
+        }
+
+        /*
+         * Initial start up of values at game beginning.
+         */
         private static void scanInputAndInitialize()
         {
-            Console.WriteLine("Enter Player1 name");
-            string player1Name = Console.ReadLine();
-            validateInput(player1Name, string, 0, 0);
+            string player1Name = getPlayerName();
+            Player player1 = new Player(player1Name);
+
+            // Determine player2 type and act accordingly
+            playerType playerOrPC = getPlayer2Type();
+            
+            switch (playerOrPC)
+            {
+                case playerType.Player2:
+                    string player2Name = getPlayerName();
+                    Player player2 = new Player(player2Name);
+                    break;
+
+                case playerType.PC:
+                    Player player2 = new Player("PC");
+                    break;
+            }
+            
+
+            string player2Name = UI.ScanPlayer();
+
+
+            Player player2 = new Player(player2Name);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                /*
+            
 
             // If valid string, initialize player1
             Player player1 = new Player(player1Name, player);
@@ -53,47 +149,52 @@ namespace B15_Ex02_1
 
         }
 
-        /*
-         * Makes sure input fits demands
-         */
-        private static void validateInput(string io_input, string io_inputType, int i_minNumSize, int i_maxNumSize)
+                 * */
+        private bool validatePlayerName(string io_playerName)
         {
-
+            throw new NotImplementedException();
         }
+             
 
-        /*
+                /*
          * Checks input type
          */
-        private string checkInputType(string io_input)
-        {
-            int number;
-            bool isNumber = int.TryParse(io_input, out number);
-            int inputNum;
-            bool v_validStringInput = false;
-            string inputType;
-
-            // Check if it's a 10 digit number
-            bool v_validNumericInput = int.TryParse(io_input, out inputNum) && !(inputNum < 0);
-
-            if (!v_validNumericInput)
+            private
+            string checkInputType 
+            (string
+            io_input)
             {
-                v_validStringInput = (io_input != null) && io_input.All(Char.IsLetter);
+                int number;
+                bool isNumber = int.TryParse(io_input, out number);
+                int inputNum;
+                bool v_validStringInput = false;
+                string inputType;
+
+                // Check if it's a 10 digit number
+                bool v_validNumericInput = int.TryParse(io_input, out inputNum) && !(inputNum < 0);
+
+                if (!v_validNumericInput)
+                {
+                    v_validStringInput = (io_input != null) && io_input.All(Char.IsLetter);
+                }
+
+                if (v_validNumericInput)
+                {
+                    inputType = "numeric";
+                }
+                else if (v_validStringInput)
+                {
+                    inputType = "string";
+                }
+                else
+                {
+                    inputType = "invalid";
+                }
+
+                return inputType;
             }
 
-            if (v_validNumericInput)
-            {
-                inputType = "numeric";
-            }
-            else if (v_validStringInput)
-            {
-                inputType = "string";
-            }
-            else
-            {
-                inputType = "invalid";
-            }
 
-            return inputType;
         }
 
     }

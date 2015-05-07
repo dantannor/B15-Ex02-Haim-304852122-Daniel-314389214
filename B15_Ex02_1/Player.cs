@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace B15_Ex02_1
 {
-    class Player
+    public class Player
     {
-        string m_name;
-        int m_points;
+        private string m_playerName;
+        private int m_points;
 
-        public Player(string io_name)
+        public Player(string io_PlayerName)
         {
-            this.m_name = io_name;
+            this.m_playerName = io_PlayerName;
             this.m_points = 0;
         }
 
@@ -22,9 +22,10 @@ namespace B15_Ex02_1
             get { return m_points; }
             set { m_points = value; }
         }
+
         public string GetPlayerName
         {
-            get { return this.m_name; }
+            get { return this.m_playerName; }
         }
     }
 }
