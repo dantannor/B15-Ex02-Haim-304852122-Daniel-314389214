@@ -11,7 +11,7 @@ namespace B15_Ex02_1
         private string m_playerName;
         private int m_points;
 
-        public Player(string io_PlayerName)
+        public Player(string io_PlayerName, string playerType)
         {
             this.m_playerName = io_PlayerName;
             this.m_points = 0;
