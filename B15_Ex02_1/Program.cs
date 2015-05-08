@@ -11,10 +11,13 @@ namespace B15_Ex02_1
     public class Program
     {
 
+    }
+}
 
         /*
          * Scan user input
          */
+        /*
         private static void scanInputAndInitialize()
         {
             Console.WriteLine("Enter Player1 name");
@@ -60,6 +63,7 @@ namespace B15_Ex02_1
         /*
          * Makes sure input fits demands
          */
+        /*
         private static void validateInput(string io_input, string io_inputType, int i_minNumSize, int i_maxNumSize)
         {
             
@@ -68,6 +72,7 @@ namespace B15_Ex02_1
         /*
          * Checks input type
          */
+        /*
         private string checkInputType(string io_input)
         {
             int number;
@@ -101,5 +106,6 @@ namespace B15_Ex02_1
         }
     }
 }
+         * */
 
     

@@ -17,26 +17,27 @@ namespace B15_Ex02_1
             cells = new char[boardSize * boardSize];
             m_boardSize = boardSize;
         }
-
+        // get the specific cell - number and big letter
         public char getCell(char num, char letter)
         {
             int letterToNumber = letter - 65;
             int numTonumber = num - 49;
             return cells[numTonumber * m_boardSize + letterToNumber];
         }
-
+        // this method for internal use in darwBoard method
         public char getCell(int num1, int num2)
         {
             return cells[num1 * m_boardSize + num2];
         }
-
+        // set value in a specific cell
         public void setCell(char c, char num, char letter)
         {
             int letterToNumber = letter - 65;
             int numTonumber = num - 49;
             cells[numTonumber * m_boardSize + letterToNumber] = c;
         }
-
+        // draw the board and initialize it with two 'O' and two 'x'
+        // there is option to 6 size board and 8 size, by the m_boardSize
         public void drawBoard(Board io_Board)
         {
             int size = m_boardSize;
