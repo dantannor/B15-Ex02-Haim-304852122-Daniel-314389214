@@ -9,8 +9,8 @@ namespace B15_Ex02_1
 
     public class Board
     {
-        char[] cells;
-        int m_boardSize;
+        private char[] cells;
+        private int m_boardSize;
 
         public Board(int boardSize)
         {

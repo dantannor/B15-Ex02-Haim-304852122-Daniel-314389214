@@ -10,6 +10,7 @@ namespace B15_Ex02_1
 
     public class Program
     {
+<<<<<<< HEAD
 
     }
 }
@@ -74,38 +75,19 @@ namespace B15_Ex02_1
          */
         /*
         private string checkInputType(string io_input)
+=======
+        public static void Main(string[] args)
+>>>>>>> origin/master
         {
-            int number;
-            bool isNumber = int.TryParse(io_input, out number);
-            int inputNum;
-            bool v_validStringInput = false;
-            string inputType;
-
-            // Check if it's a 10 digit number
-            bool v_validNumericInput = int.TryParse(io_input, out inputNum) && !(inputNum < 0);
-
-            if (!v_validNumericInput)
-            {
-                v_validStringInput = (io_input != null) && io_input.All(Char.IsLetter);
-            }
-
-            if (v_validNumericInput)
-            {
-                inputType = "numeric";
-            }
-            else if (v_validStringInput)
-            {
-                inputType = "string";
-            }
-            else
-            {
-                inputType = "invalid";
-            }
-
-            return inputType;
+            // Start game
+            Controller.ScanInputAndInitialize();
         }
     }
+<<<<<<< HEAD
 }
          * */
 
     
+=======
+}
+>>>>>>> origin/master

@@ -6,18 +6,31 @@ using System.Threading.Tasks;
 
 namespace B15_Ex02_1
 {
-    class UI
+    public class UI
     {
-
-        public static void Main()
+        /*
+         * Scans player name
+         */
+        public static string ScanPlayerName()
         {
+            Console.WriteLine("Please enter player name:");
+            return Console.ReadLine();
+        }
 
-            Player player1 = new Player("a");
-            Player player2 = new Player("b");
-            Controller c = new Controller(player1, player2, 8, 2);
+        public static void PrintInvalidInput(string invalidInputMsg)
+        {
+            Console.WriteLine(invalidInputMsg);
+        }
 
-            c.GameAgainstPlayer();
-
+        /*
+         * Asks who the player wants to play against
+         */
+        public static string AskPlayerType()
+        {
+            Console.WriteLine(@"Choose your opponent:
+                                 1. Player
+                                 2. PC");
+             return Console.ReadLine();
         }
     }
 }

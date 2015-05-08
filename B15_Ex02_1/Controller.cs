@@ -6,140 +6,167 @@ using System.Threading.Tasks;
 
 namespace B15_Ex02_1
 {
-    class Controller
+    public class Controller 
     {
-        private Player m_firstPlayer;
-        private Player m_secondPlayer;
-        private int m_currentPlayer;
-        public Board m_Board;
-        private int m_BoardSize;
-        private eOpponent m_OpponentType;
+        /*
+        * Scan user input
+        */
 
-        enum eOpponent
+        public Controller()
         {
-            Computer = 1,
-            User = 2
         }
 
-        public Controller(Player io_player1, Player io_player2, int boardSize, int io_opponentType)
+        private enum playerType
         {
-            m_firstPlayer = io_player1;
-            m_secondPlayer = io_player2;
-            m_currentPlayer = 1;
-            m_BoardSize = boardSize;
-            m_Board = new Board(boardSize);
-            if (boardSize == 8)
+            Player2 = 1,
+
+            PC = 2
+        };
+
+        /*
+         * scans and validates correct player name using UI
+         */
+
+        private static string getPlayerName()
+        {
+            // Read player name and check input
+            string playerName = UI.ScanPlayerName();
+
+            while (!validatePlayerName(playerName))
             {
-                m_Board.setCell('O', '4', 'D');
-                m_Board.setCell('X', '4', 'E');
-                m_Board.setCell('X', '5', 'D');
-                m_Board.setCell('O', '5', 'E');
-            }
-            else
-            {
-                if (boardSize == 6)
-                {
-                    m_Board.setCell('O', '3', 'C');
-                    m_Board.setCell('X', '3', 'D');
-                    m_Board.setCell('X', '4', 'C');
-                    m_Board.setCell('O', '4', 'D');
-                }
+                UI.PrintInvalidInput("Sorry, that's an invalid player name. Please re-enter:");
+                playerName = UI.ScanPlayerName();
             }
 
-
-            if (io_opponentType == (int)eOpponent.Computer)
-            {
-                this.m_OpponentType = eOpponent.Computer;
-            }
-            else
-            {
-                this.m_OpponentType = eOpponent.User;
-            }
+            return playerName;
         }
 
-        public void GameAgainstPlayer()
+        /*
+         * Player or PC
+         */
+        private static playerType getPlayer2Type()
         {
+            int playerTypeNum;
+            bool validNum = false;
+            validNum = int.TryParse(UI.AskPlayerType(), out playerTypeNum);
 
-            Ex02.ConsoleUtils.Screen.Clear();
-            char row;
-            char column;
-            m_Board.drawBoard(m_Board);
-            System.Console.WriteLine();
-            System.Console.WriteLine("please enter row and column in this form 1A:");
-            String input = System.Console.ReadLine();
-            if (input == "Q")
+            while (!validNum || (playerTypeNum != 1) || (playerTypeNum != 2))
             {
-                return;
+                UI.PrintInvalidInput("Sorry, that's an invalid player type. Please re-enter:");
+                validNum = int.TryParse(UI.AskPlayerType(), out playerTypeNum);
             }
 
-            while (input.Length != 2)
+            return (playerType)playerTypeNum;
+        }
+
+        /*
+         * Initial start up of values at game beginning.
+         */
+        public static void ScanInputAndInitialize()
+        {
+            string player1Name = getPlayerName();
+            Player player1 = new Player(player1Name, "player");
+            Player player2;
+
+            // Determine player2 type and act accordingly
+            playerType playerOrPC = getPlayer2Type();
+            
+            switch (playerOrPC)
             {
+                case playerType.Player2:
+                    string player2Name = getPlayerName();
+                    player2 = new Player(player2Name, "player");
+                    break;
 
-                System.Console.WriteLine("invalid input, please enter row and column in this form 1A:");
-                input = System.Console.ReadLine();
-
+                case playerType.PC:
+                    player2 = new Player("PC", "PC");
+                    break;
             }
-            row = input[0];
-            column = input[1];
 
-            while (row < 49 || row > 56 || column < 65 || column > 72)
+
+                /*
+            
+
+            // If valid string, initialize player1
+            Player player1 = new Player(player1Name, player);
+            
+
+            
+            while (opponentType != 1 || != 2)
             {
-                System.Console.WriteLine("invalid input, please enter row and column in this form 1A:");
-                input = System.Console.ReadLine();
-                if (input == "Q")
+                checkInputType(opponentType);
+            }
+
+            if (opponentType == 1)
+            {
+                Console.WriteLine("Enter Player2 name");
+                string player2Name = Console.ReadLine();
+                checkInputType(player2Name);
+                Player player2 = new Player(player2Name, player);
+            }
+            else if (opponentType == 2)
+            {
+                Player computer = new Player(pc, pc);
+            }
+
+            Console.WriteLine("Please enter board size (min 6 or 8)");
+            string boardSize = Console.ReadLine();
+            while (boardSize < 6)
+            {
+                checkInputType(boardSize);
+            }
+
+            Board board = new Board(boardSize);
+
+        }
+
+                 * */
+        private bool validatePlayerName(string io_playerName)
+        {
+            throw new NotImplementedException();
+        }
+             
+
+                /*
+         * Checks input type
+         */
+            private
+            string checkInputType 
+            (string
+            io_input)
+            {
+                int number;
+                bool isNumber = int.TryParse(io_input, out number);
+                int inputNum;
+                bool v_validStringInput = false;
+                string inputType;
+
+                // Check if it's a 10 digit number
+                bool v_validNumericInput = int.TryParse(io_input, out inputNum) && !(inputNum < 0);
+
+                if (!v_validNumericInput)
                 {
-                    return;
+                    v_validStringInput = (io_input != null) && io_input.All(Char.IsLetter);
                 }
-                row = input[0];
-                column = input[1];
 
-            }
-
-            if (checkedValidCell(m_Board, row, column))
-            {
-                if (m_currentPlayer == 1)
+                if (v_validNumericInput)
                 {
-                    m_Board.setCell('O', row, column);
-                    m_currentPlayer = 2;
+                    inputType = "numeric";
+                }
+                else if (v_validStringInput)
+                {
+                    inputType = "string";
                 }
                 else
                 {
-                    m_Board.setCell('X', row, column);
-                    m_currentPlayer = 1;
-
+                    inputType = "invalid";
                 }
-                GameAgainstPlayer();
-            }
-            else
-            {
-                GameAgainstPlayer();
-            }
 
-            m_Board.setCell('X', '4', 'D');
-            GameAgainstPlayer();
-        }
-        private static bool checkedValidCell(Board board, char row, char column)
-        {
-
-            while (board.getCell(row, column) == 'O' || board.getCell(row, column) == 'X')
-            {
-                return false;
-
+                return inputType;
             }
 
 
-            return true;
-        }
-
-        private static bool checkedValidMove(Board board, char row, char column)
-        {
-
-
-
-
-            return true;
         }
 
     }
 }
-
