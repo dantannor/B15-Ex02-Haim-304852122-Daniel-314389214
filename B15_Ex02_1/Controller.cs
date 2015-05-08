@@ -16,7 +16,7 @@ namespace B15_Ex02_1
         {
         }
 
-        private enum playerType
+        private enum ePlayerType
         {
             Player2 = 1,
 
@@ -42,21 +42,20 @@ namespace B15_Ex02_1
         }
 
         /*
-         * Player or PC
+         * Ask for Player 2 or PC from user and validate
          */
-        private static playerType getPlayer2Type()
+        private static ePlayerType getPlayer2Type()
         {
             int playerTypeNum;
-            bool validNum = false;
-            validNum = int.TryParse(UI.AskPlayerType(), out playerTypeNum);
+            int.TryParse(UI.AskPlayerType(), out playerTypeNum);
 
-            while (!validNum || (playerTypeNum != 1) || (playerTypeNum != 2))
+            while (!(Enum.IsDefined(typeof(ePlayerType), playerTypeNum)))
             {
                 UI.PrintInvalidInput("Sorry, that's an invalid player type. Please re-enter:");
-                validNum = int.TryParse(UI.AskPlayerType(), out playerTypeNum);
+                int.TryParse(UI.AskPlayerType(), out playerTypeNum);
             }
 
-            return (playerType)playerTypeNum;
+            return (ePlayerType)playerTypeNum;
         }
 
         /*
@@ -69,16 +68,16 @@ namespace B15_Ex02_1
             Player player2;
 
             // Determine player2 type and act accordingly
-            playerType playerOrPC = getPlayer2Type();
+            ePlayerType ePlayerOrPc = getPlayer2Type();
             
-            switch (playerOrPC)
+            switch (ePlayerOrPc)
             {
-                case playerType.Player2:
+                case ePlayerType.Player2:
                     string player2Name = getPlayerName();
                     player2 = new Player(player2Name, "player");
                     break;
 
-                case playerType.PC:
+                case ePlayerType.PC:
                     player2 = new Player("PC", "PC");
                     break;
             }
