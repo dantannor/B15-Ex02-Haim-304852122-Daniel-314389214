@@ -10,17 +10,10 @@ namespace B15_Ex02_1
 
     public class Program
     {
-<<<<<<< HEAD
         public static void Main(string[] args)
         {
-            // Scan input
-            Controller.scanInputAndInitialize();
+            // Start game
+            Controller.ScanInputAndInitialize();
         }
-=======
-
->>>>>>> origin/master
-
-           }
+    }
 }
-
-    

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace B15_Ex02_1
 {
-    internal class Controller
+    public class Controller 
     {
         /*
         * Scan user input
@@ -46,24 +46,27 @@ namespace B15_Ex02_1
          */
         private static playerType getPlayer2Type()
         {
-            playerType playerOrPC = (playerType)UI.AskPlayerType();
+            int playerTypeNum;
+            bool validNum = false;
+            validNum = int.TryParse(UI.AskPlayerType(), out playerTypeNum);
 
-            while (!validatePlayerType(playerOrPC))
+            while (!validNum || (playerTypeNum != 1) || (playerTypeNum != 2))
             {
                 UI.PrintInvalidInput("Sorry, that's an invalid player type. Please re-enter:");
-                playerOrPC = (playerType)UI.AskPlayerType();
+                validNum = int.TryParse(UI.AskPlayerType(), out playerTypeNum);
             }
 
-            return playerOrPC;
+            return (playerType)playerTypeNum;
         }
 
         /*
          * Initial start up of values at game beginning.
          */
-        private static void scanInputAndInitialize()
+        public static void ScanInputAndInitialize()
         {
             string player1Name = getPlayerName();
-            Player player1 = new Player(player1Name);
+            Player player1 = new Player(player1Name, "player");
+            Player player2;
 
             // Determine player2 type and act accordingly
             playerType playerOrPC = getPlayer2Type();
@@ -72,42 +75,13 @@ namespace B15_Ex02_1
             {
                 case playerType.Player2:
                     string player2Name = getPlayerName();
-                    Player player2 = new Player(player2Name);
+                    player2 = new Player(player2Name, "player");
                     break;
 
                 case playerType.PC:
-                    Player player2 = new Player("PC");
+                    player2 = new Player("PC", "PC");
                     break;
             }
-            
-
-            string player2Name = UI.ScanPlayer();
-
-
-            Player player2 = new Player(player2Name);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
                 /*
@@ -115,12 +89,9 @@ namespace B15_Ex02_1
 
             // If valid string, initialize player1
             Player player1 = new Player(player1Name, player);
+            
 
-            Console.WriteLine(@"Choose your opponent:
-                                 1. Player
-                                 2. Computer");
-
-            string opponentType = Console.ReadLine();
+            
             while (opponentType != 1 || != 2)
             {
                 checkInputType(opponentType);

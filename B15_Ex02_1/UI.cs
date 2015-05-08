@@ -22,12 +22,15 @@ namespace B15_Ex02_1
             Console.WriteLine(invalidInputMsg);
         }
 
+        /*
+         * Asks who the player wants to play against
+         */
         public static string AskPlayerType()
         {
             Console.WriteLine(@"Choose your opponent:
                                  1. Player
                                  2. PC");
-            return Console.ReadLine();
+             return Console.ReadLine();
         }
     }
 }
