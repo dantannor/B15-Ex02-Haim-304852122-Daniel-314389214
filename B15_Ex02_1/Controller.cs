@@ -6,22 +6,11 @@
 
 namespace B15_Ex02_1
 {
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
     using System;
     using System.Security.Cryptography.X509Certificates;
     using System.Text.RegularExpressions;
 
->>>>>>> origin/master
     public class Controller
-=======
-    public class Controller 
->>>>>>> parent of 65523e8... a
-=======
-    public class Controller 
->>>>>>> parent of 65523e8... a
     {
         private static Board m_Board;
 
@@ -94,12 +83,6 @@ namespace B15_Ex02_1
             initPlayers();
             initBoard();
 
-<<<<<<< HEAD
-            // Determine player2 type and act accordingly
-            ePlayerType ePlayerOrPc = getPlayer2Type();
-            
-            switch (ePlayerOrPc)
-=======
         }
 
         /*
@@ -110,7 +93,6 @@ namespace B15_Ex02_1
             eBoardSize boardSize = getBoardSize();
 
             switch (boardSize)
->>>>>>> origin/master
             {
                 case eBoardSize.Six:
                     m_Board = new Board(6);
@@ -120,73 +102,9 @@ namespace B15_Ex02_1
                     m_Board = new Board(8);
                     break;
             }
+        }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
         /*
-<<<<<<< HEAD
-=======
-
-                /*
->>>>>>> parent of 65523e8... a
-=======
-
-                /*
->>>>>>> parent of 65523e8... a
-            
-
-            // If valid string, initialize player1
-            Player player1 = new Player(player1Name, player);
-            
-
-            
-            while (opponentType != 1 || != 2)
-            {
-                checkInputType(opponentType);
-            }
-
-            if (opponentType == 1)
-            {
-                Console.WriteLine("Enter Player2 name");
-                string player2Name = Console.ReadLine();
-                checkInputType(player2Name);
-                Player player2 = new Player(player2Name, player);
-            }
-            else if (opponentType == 2)
-            {
-                Player computer = new Player(pc, pc);
-            }
-
-            Console.WriteLine("Please enter board size (min 6 or 8)");
-            string boardSize = Console.ReadLine();
-            while (boardSize < 6)
-            {
-                checkInputType(boardSize);
-            }
-
-            Board board = new Board(boardSize);
-
-        }
-
-                 * */
-        private bool validatePlayerName(string io_playerName)
-        {
-            throw new NotImplementedException();
-        }
-             
-
-                /*
-         * Checks input type
-         */
-            private
-            string checkInputType 
-            (string
-            io_input)
-<<<<<<< HEAD
-            {
-<<<<<<< HEAD
-                v_validStringInput = (io_input != null) && io_input.All(Char.IsLetter);
-=======
          * Scan board size and create instance
          */
         private static eBoardSize getBoardSize()
@@ -226,93 +144,9 @@ namespace B15_Ex02_1
                 case ePlayerType.PC:
                     m_Player2 = new Player("PC", "PC");
                     break;
->>>>>>> origin/master
-=======
-            {
-                int number;
-                bool isNumber = int.TryParse(io_input, out number);
-                int inputNum;
-                bool v_validStringInput = false;
-                string inputType;
-
-                // Check if it's a 10 digit number
-                bool v_validNumericInput = int.TryParse(io_input, out inputNum) && !(inputNum < 0);
-
-                if (!v_validNumericInput)
-                {
-                    v_validStringInput = (io_input != null) && io_input.All(Char.IsLetter);
-                }
-
-                if (v_validNumericInput)
-                {
-                    inputType = "numeric";
-                }
-                else if (v_validStringInput)
-                {
-                    inputType = "string";
-                }
-                else
-                {
-                    inputType = "invalid";
-                }
-
-                return inputType;
->>>>>>> parent of 65523e8... a
             }
         }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-            if (v_validNumericInput)
-            {
-                inputType = "numeric";
-            }
-            else if (v_validStringInput)
-            {
-                inputType = "string";
-            }
-            else
-            {
-                inputType = "invalid";
-            }
-=======
-                int number;
-                bool isNumber = int.TryParse(io_input, out number);
-                int inputNum;
-                bool v_validStringInput = false;
-                string inputType;
-
-                // Check if it's a 10 digit number
-                bool v_validNumericInput = int.TryParse(io_input, out inputNum) && !(inputNum < 0);
-
-                if (!v_validNumericInput)
-                {
-                    v_validStringInput = (io_input != null) && io_input.All(Char.IsLetter);
-                }
-
-                if (v_validNumericInput)
-                {
-                    inputType = "numeric";
-                }
-                else if (v_validStringInput)
-                {
-                    inputType = "string";
-                }
-                else
-                {
-                    inputType = "invalid";
-                }
-
-                return inputType;
-            }
-
->>>>>>> parent of 65523e8... a
-
-        }
-
-<<<<<<< HEAD
-
-=======
         /*
          * Board size
          */
@@ -329,23 +163,6 @@ namespace B15_Ex02_1
         {
             // Get valid moves
         }
->>>>>>> origin/master
-=======
->>>>>>> parent of 65523e8... a
     }
 }
-<<<<<<< HEAD
 
-<<<<<<< HEAD
-
-=======
->>>>>>> origin/master
-=======
->>>>>>> parent of 65523e8... a
-=======
-
-        }
-
-    }
-}
->>>>>>> parent of 65523e8... a
