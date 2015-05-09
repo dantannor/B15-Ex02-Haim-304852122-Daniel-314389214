@@ -12,6 +12,13 @@ namespace B15_Ex02_1
 
     public class Controller
     {
+        private static Board m_Board;
+
+        private static Player m_Player1;
+
+        private static Player m_Player2;
+
+
         /*
          * 2nd Player type PC/Player 2
          */
@@ -71,11 +78,58 @@ namespace B15_Ex02_1
         /*
          * Initial start up of values at game beginning.
          */
-        public static void ScanInputAndInitializePlayers()
+        public static void Init()
+        {
+            initPlayers();
+            initBoard();
+
+        }
+
+        /*
+         * Initializes the board by scanning a size and creating.
+         */
+        private static void initBoard()
+        {
+            eBoardSize boardSize = getBoardSize();
+
+            switch (boardSize)
+            {
+                case eBoardSize.Six:
+                    m_Board = new Board(6);
+                    break;
+
+                case eBoardSize.Eight:
+                    m_Board = new Board(8);
+                    break;
+            }
+        }
+
+        /*
+         * Scan board size and create instance
+         */
+        private static eBoardSize getBoardSize()
+        {
+            int boardSizeNum;
+            string boardSize = UI.AskBoardSize();
+            int.TryParse(boardSize, out boardSizeNum);
+
+            while (!Enum.IsDefined(typeof(eBoardSize), boardSizeNum))
+            {
+                Console.WriteLine();
+                UI.PrintInvalidInput("Sorry, that's an invalid board size. Please re-enter:");
+                int.TryParse(UI.AskPlayerType(), out boardSizeNum);
+            }
+
+            return (eBoardSize)boardSizeNum;
+        }
+
+        /*
+         * Scan player names and create instances
+         */
+        private static void initPlayers()
         {
             string player1Name = getPlayerName();
-            Player player1 = new Player(player1Name, "player");
-            Player player2;
+            m_Player1 = new Player(player1Name, "player");
 
             // Determine player2 type and act accordingly
             ePlayerType ePlayerOrPc = getPlayer2Type();
@@ -84,22 +138,23 @@ namespace B15_Ex02_1
             {
                 case ePlayerType.Player2:
                     string player2Name = getPlayerName();
-                    player2 = new Player(player2Name, "player");
+                    m_Player2 = new Player(player2Name, "player");
                     break;
 
                 case ePlayerType.PC:
-                    player2 = new Player("PC", "PC");
+                    m_Player2 = new Player("PC", "PC");
                     break;
             }
         }
 
         /*
-         *TODO: Initialize board
-         */ 
-        private void scanAndInitializeBoard()
-        {
-            
-        }
+         * Board size
+         */
+        private enum eBoardSize
+         {
+                Six = 1,
+                Eight = 2
+         }
 
         /*
          * TODO: Decide whose turn it is
@@ -108,49 +163,6 @@ namespace B15_Ex02_1
         {
             // Get valid moves
         }
-
-
-          
-
-                /*
-         * Checks input type
-         */
-            /*
-            private
-            string checkInputType 
-            (string
-            io_input)
-            {
-                int number;
-                bool isNumber = int.TryParse(io_input, out number);
-                int inputNum;
-                bool v_validStringInput = false;
-                string inputType;
-
-                // Check if it's a 10 digit number
-                bool v_validNumericInput = int.TryParse(io_input, out inputNum) && !(inputNum < 0);
-
-                if (!v_validNumericInput)
-                {
-                    v_validStringInput = (io_input != null) && io_input.All(Char.IsLetter);
-                }
-
-                if (v_validNumericInput)
-                {
-                    inputType = "numeric";
-                }
-                else if (v_validStringInput)
-                {
-                    inputType = "string";
-                }
-                else
-                {
-                    inputType = "invalid";
-                }
-
-                return inputType;
-            }
-        **/
-        }
     }
 }
+

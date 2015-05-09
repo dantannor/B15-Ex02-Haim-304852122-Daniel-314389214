@@ -10,7 +10,7 @@ namespace B15_Ex02_1
     {
         public static void Main(string[] args)
         {
-            Controller.ScanInputAndInitializePlayers();
+            Controller.Init();
         }
     }
 }
