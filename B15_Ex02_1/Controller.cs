@@ -4,15 +4,14 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
+using System;
+using System.Linq;
+using System.Text.RegularExpressions;
+
+using B15_Ex02_1;
+
 namespace B15_Ex02_1
 {
-<<<<<<< HEAD
-=======
-    using System;
-    using System.Security.Cryptography.X509Certificates;
-    using System.Text.RegularExpressions;
-
->>>>>>> origin/master
     public class Controller
     {
         private static Board m_Board;
@@ -151,13 +150,6 @@ namespace B15_Ex02_1
 
 }
 
-         * */
-        private static bool validatePlayerName(string io_playerName)
-        {
-            throw new NotImplementedException();
-        }
-
-
         /*
  * Checks input type
  */
@@ -178,7 +170,7 @@ namespace B15_Ex02_1
             if (!v_validNumericInput)
             {
                 v_validStringInput = (io_input != null) && io_input.All(Char.IsLetter);
-=======
+         /*
          * Scan board size and create instance
          */
         private static eBoardSize getBoardSize()
