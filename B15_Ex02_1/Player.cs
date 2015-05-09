@@ -23,7 +23,7 @@ namespace B15_Ex02_1
             set { m_points = value; }
         }
 
-        public string GetPlayerName
+        public string PlayerName
         {
             get { return this.m_playerName; }
         }
