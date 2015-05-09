@@ -10,15 +10,6 @@ namespace B15_Ex02_1
 
     public class UI
     {
-        public static void Main()
-        {
-            Board board = new Board(8);
-            board.drawBoard(board);
-            System.Console.ReadLine();
-        }
-
-
-
         /*
          * Scans player name
          */

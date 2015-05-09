@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+<<<<<<< HEAD
 /*
 =======
 ﻿// --------------------------------------------------------------------------------------------------------------------
@@ -13,6 +14,9 @@ using System.Threading.Tasks;
 // --------------------------------------------------------------------------------------------------------------------
 
 >>>>>>> origin/master
+=======
+
+>>>>>>> parent of 65523e8... a
 namespace B15_Ex02_1
 {
     public class Program
@@ -22,7 +26,7 @@ namespace B15_Ex02_1
 
     }
 }
-*/
+
         /*
          * Scan user input
          */
@@ -96,11 +100,14 @@ namespace B15_Ex02_1
 }
          * */
 
- /*   
+    
 =======
 }
 >>>>>>> origin/master
+<<<<<<< HEAD
 */
 =======
 }
 >>>>>>> origin/master
+=======
+>>>>>>> parent of 65523e8... a
