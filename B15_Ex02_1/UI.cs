@@ -54,27 +54,5 @@ namespace B15_Ex02_1
         {
             throw new NotImplementedException();
         }
-
-        /*
-         * Scans board size
-         */
-        public static string AskBoardSize()
-        {
-            Console.WriteLine();
-            Console.WriteLine(
-@"Choose board size:
-
-1. 6x6
-2. 8x8");
-
-            return Console.ReadKey().KeyChar.ToString();
-        }
-
-        /*
-         * TODO: Prints end of game
-         */
-        public static void PrintGameOver(int io_Player1Points, int io_Player2Points, int i_Victor)
-        {
-        }
     }
 }

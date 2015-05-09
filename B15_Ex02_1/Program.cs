@@ -88,7 +88,7 @@ namespace B15_Ex02_1
 >>>>>>> origin/master
         public static void Main(string[] args)
         {
-            Controller.Init();
+            Controller.ScanInputAndInitializePlayers();
         }
     }
 <<<<<<< HEAD
