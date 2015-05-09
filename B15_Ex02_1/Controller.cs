@@ -1,32 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="Controller.cs" company="">
+//   
+// </copyright>
+// --------------------------------------------------------------------------------------------------------------------
 
 namespace B15_Ex02_1
 {
-    public class Controller 
+    using System;
+    using System.Security.Cryptography.X509Certificates;
+    using System.Text.RegularExpressions;
+
+    public class Controller
     {
         /*
-        * Scan user input
-        */
-
-        public Controller()
-        {
-        }
-
+         * 2nd Player type PC/Player 2
+         */
         private enum ePlayerType
         {
             Player2 = 1,
-
             PC = 2
-        };
+        }
 
         /*
          * scans and validates correct player name using UI
          */
-
         private static string getPlayerName()
         {
             // Read player name and check input
@@ -34,6 +31,7 @@ namespace B15_Ex02_1
 
             while (!validatePlayerName(playerName))
             {
+                Console.WriteLine();
                 UI.PrintInvalidInput("Sorry, that's an invalid player name. Please re-enter:");
                 playerName = UI.ScanPlayerName();
             }
@@ -47,10 +45,12 @@ namespace B15_Ex02_1
         private static ePlayerType getPlayer2Type()
         {
             int playerTypeNum;
-            int.TryParse(UI.AskPlayerType(), out playerTypeNum);
+            string playerType = UI.AskPlayerType();
+            int.TryParse(playerType, out playerTypeNum);
 
-            while (!(Enum.IsDefined(typeof(ePlayerType), playerTypeNum)))
+            while (!Enum.IsDefined(typeof(ePlayerType), playerTypeNum))
             {
+                Console.WriteLine();
                 UI.PrintInvalidInput("Sorry, that's an invalid player type. Please re-enter:");
                 int.TryParse(UI.AskPlayerType(), out playerTypeNum);
             }
@@ -59,9 +59,19 @@ namespace B15_Ex02_1
         }
 
         /*
+          * Validates correct input for player name
+          */
+        private static bool validatePlayerName(string io_playerName)
+        {
+            const string sPattern = "[A-Za-z0-9]+";
+
+            return Regex.IsMatch(io_playerName, sPattern);
+        }
+
+        /*
          * Initial start up of values at game beginning.
          */
-        public static void ScanInputAndInitialize()
+        public static void ScanInputAndInitializePlayers()
         {
             string player1Name = getPlayerName();
             Player player1 = new Player(player1Name, "player");
@@ -81,54 +91,31 @@ namespace B15_Ex02_1
                     player2 = new Player("PC", "PC");
                     break;
             }
-
-
-                /*
-            
-
-            // If valid string, initialize player1
-            Player player1 = new Player(player1Name, player);
-            
-
-            
-            while (opponentType != 1 || != 2)
-            {
-                checkInputType(opponentType);
-            }
-
-            if (opponentType == 1)
-            {
-                Console.WriteLine("Enter Player2 name");
-                string player2Name = Console.ReadLine();
-                checkInputType(player2Name);
-                Player player2 = new Player(player2Name, player);
-            }
-            else if (opponentType == 2)
-            {
-                Player computer = new Player(pc, pc);
-            }
-
-            Console.WriteLine("Please enter board size (min 6 or 8)");
-            string boardSize = Console.ReadLine();
-            while (boardSize < 6)
-            {
-                checkInputType(boardSize);
-            }
-
-            Board board = new Board(boardSize);
-
         }
 
-                 * */
-        private bool validatePlayerName(string io_playerName)
+        /*
+         *TODO: Initialize board
+         */ 
+        private void scanAndInitializeBoard()
         {
-            throw new NotImplementedException();
+            
         }
-             
+
+        /*
+         * TODO: Decide whose turn it is
+         */
+        private void decideTurn()
+        {
+            // Get valid moves
+        }
+
+
+          
 
                 /*
          * Checks input type
          */
+            /*
             private
             string checkInputType 
             (string
@@ -163,9 +150,7 @@ namespace B15_Ex02_1
 
                 return inputType;
             }
-
-
+        **/
         }
-
     }
 }
