@@ -1,8 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="Player.cs" company="">
+//   
+// </copyright>
+// --------------------------------------------------------------------------------------------------------------------
 
 namespace B15_Ex02_1
 {
@@ -23,9 +23,23 @@ namespace B15_Ex02_1
             set { m_points = value; }
         }
 
-        public string GetPlayerName
+        public string PlayerName
         {
             get { return this.m_playerName; }
+        }
+
+        /*
+         * TODO: Asks for move from the user and commits
+         */
+        public static void Move(string playerType)
+        {
+            // get valid moves
+
+            // If human
+            UI.ScanPlayerMove();
+            
+
+            // else if pc create random move
         }
     }
 }

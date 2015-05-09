@@ -1,15 +1,23 @@
+<<<<<<< HEAD
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 /*
+=======
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="Program.cs" company="">
+//   
+// </copyright>
+// --------------------------------------------------------------------------------------------------------------------
+
+>>>>>>> origin/master
 namespace B15_Ex02_1
 {
-    using System.Media;
-
     public class Program
     {
+<<<<<<< HEAD
 <<<<<<< HEAD
 
     }
@@ -76,13 +84,14 @@ namespace B15_Ex02_1
         /*
         private string checkInputType(string io_input)
 =======
-        public static void Main(string[] args)
+=======
 >>>>>>> origin/master
+        public static void Main(string[] args)
         {
-            // Start game
-            Controller.ScanInputAndInitialize();
+            Controller.Init();
         }
     }
+<<<<<<< HEAD
 <<<<<<< HEAD
 }
          * */
@@ -92,3 +101,6 @@ namespace B15_Ex02_1
 }
 >>>>>>> origin/master
 */
+=======
+}
+>>>>>>> origin/master
