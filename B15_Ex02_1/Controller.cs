@@ -8,6 +8,7 @@ namespace B15_Ex02_1
 {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
     using System;
     using System.Security.Cryptography.X509Certificates;
@@ -15,6 +16,9 @@ namespace B15_Ex02_1
 
 >>>>>>> origin/master
     public class Controller
+=======
+    public class Controller 
+>>>>>>> parent of 65523e8... a
 =======
     public class Controller 
 >>>>>>> parent of 65523e8... a
@@ -118,8 +122,13 @@ namespace B15_Ex02_1
             }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
         /*
 <<<<<<< HEAD
+=======
+
+                /*
+>>>>>>> parent of 65523e8... a
 =======
 
                 /*
@@ -173,6 +182,7 @@ namespace B15_Ex02_1
             string checkInputType 
             (string
             io_input)
+<<<<<<< HEAD
             {
 <<<<<<< HEAD
                 v_validStringInput = (io_input != null) && io_input.All(Char.IsLetter);
@@ -217,9 +227,41 @@ namespace B15_Ex02_1
                     m_Player2 = new Player("PC", "PC");
                     break;
 >>>>>>> origin/master
+=======
+            {
+                int number;
+                bool isNumber = int.TryParse(io_input, out number);
+                int inputNum;
+                bool v_validStringInput = false;
+                string inputType;
+
+                // Check if it's a 10 digit number
+                bool v_validNumericInput = int.TryParse(io_input, out inputNum) && !(inputNum < 0);
+
+                if (!v_validNumericInput)
+                {
+                    v_validStringInput = (io_input != null) && io_input.All(Char.IsLetter);
+                }
+
+                if (v_validNumericInput)
+                {
+                    inputType = "numeric";
+                }
+                else if (v_validStringInput)
+                {
+                    inputType = "string";
+                }
+                else
+                {
+                    inputType = "invalid";
+                }
+
+                return inputType;
+>>>>>>> parent of 65523e8... a
             }
         }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
             if (v_validNumericInput)
             {
@@ -299,4 +341,11 @@ namespace B15_Ex02_1
 =======
 >>>>>>> origin/master
 =======
+>>>>>>> parent of 65523e8... a
+=======
+
+        }
+
+    }
+}
 >>>>>>> parent of 65523e8... a
