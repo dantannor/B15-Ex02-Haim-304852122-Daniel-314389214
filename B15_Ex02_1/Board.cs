@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Project1
+namespace B15_Ex02_1
 {
     public class Board
     {
@@ -21,7 +21,7 @@ namespace Project1
             int letterToNumber = letter - 65;
             int numTonumber = num - 49;
             // Cell outside board
-            if (numTonumber < 1 || numTonumber > 8 || letterToNumber < 1 || letterToNumber > 8)
+            if (numTonumber < 0 || numTonumber > 7 || letterToNumber < 0 || letterToNumber > 7)
             {
                 return '-';
             }

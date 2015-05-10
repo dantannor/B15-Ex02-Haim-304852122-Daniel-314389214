@@ -12,6 +12,11 @@ namespace B15_Ex02_1
 
     public class Controller
     {
+
+        private int foundLegalMove = 0;
+        private int numberOfCellsNeededToChange = 1;
+        private bool changeTheSequence = false;
+
         private static Board m_Board;
 
         private static Player m_Player1;
@@ -163,6 +168,7 @@ namespace B15_Ex02_1
         {
             // Get valid moves
         }
+
     }
 }
 
