@@ -22,9 +22,9 @@ namespace B15_Ex02_1
         /*
          * 2nd Player type PC/Player 2
          */
-        private enum ePlayerType
+        public enum ePlayerType
         {
-            Player2 = 1,
+            Player = 1,
             PC = 2
         }
 
@@ -129,20 +129,20 @@ namespace B15_Ex02_1
         private static void initPlayers()
         {
             string player1Name = getPlayerName();
-            m_Player1 = new Player(player1Name, "player");
+            m_Player1 = new Player(player1Name, ePlayerType.Player);
 
             // Determine player2 type and act accordingly
             ePlayerType ePlayerOrPc = getPlayer2Type();
             
             switch (ePlayerOrPc)
             {
-                case ePlayerType.Player2:
+                case ePlayerType.Player:
                     string player2Name = getPlayerName();
-                    m_Player2 = new Player(player2Name, "player");
+                    m_Player2 = new Player(player2Name, ePlayerType.Player);
                     break;
 
                 case ePlayerType.PC:
-                    m_Player2 = new Player("PC", "PC");
+                    m_Player2 = new Player("*PC*", ePlayerType.PC);
                     break;
             }
         }

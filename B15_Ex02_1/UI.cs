@@ -40,10 +40,16 @@ namespace B15_Ex02_1
              return Console.ReadKey().KeyChar.ToString();
         }
 
-        // TODO: gets the player's move
-        public static void ScanPlayerMove()
+        /**
+         * Gets the player's move
+         */
+        public static string ScanPlayerMove(string io_PlayerName)
         {
-            throw new NotImplementedException();
+            Console.WriteLine(
+@"{0}'s Move:
+",
+ io_PlayerName);
+            return Console.ReadLine();
         }
 
         /*
@@ -62,10 +68,20 @@ namespace B15_Ex02_1
         }
 
         /*
-         * TODO: Prints end of game
+         * Prints end of game
          */
-        public static void PrintGameOver(int io_Player1Points, int io_Player2Points, int i_Victor)
+        public static void PrintGameOver(int io_Player1Points, int io_Player2Points, string i_Victor, string io_Player2)
         {
+            Console.WriteLine(
+@"The game has finished!
+
+{0} is the victor with {1} points!
+And {2} with {3} points!
+",
+ i_Victor,
+ io_Player1Points,
+ io_Player2,
+ io_Player2Points);       
         }
     }
 }
