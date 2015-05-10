@@ -27,6 +27,11 @@ namespace B15_Ex02_1
             get { return this.m_PlayerPoints; }
             set { this.m_PlayerPoints = value; }
         }
+
+        public Controller.ePlayerType Type
+        {
+            get { return this.m_PlayerType; }
+        }
         public string PlayerName
         {
             get { return this.m_PlayerName; }

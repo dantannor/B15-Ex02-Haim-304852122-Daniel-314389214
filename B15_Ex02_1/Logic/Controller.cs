@@ -156,7 +156,7 @@ namespace B15_Ex02_1
         /*
          * Board size
          */
-        private enum eBoardSize
+        public enum eBoardSize
          {
                 Six = 1,
                 Eight = 2

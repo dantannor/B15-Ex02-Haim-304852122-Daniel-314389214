@@ -13,7 +13,7 @@ namespace B15_Ex02_1
         private bool changeTheSequence = false;
 
         // check all adjacent cells to  specific cell
-        private bool checkedValidMove(Board board, char row, char column)
+        private bool checkedValidMove(Board board, char row, char column, Player playerType)
         {
 
             int minusLine = row - 1;
@@ -21,17 +21,18 @@ namespace B15_Ex02_1
             int plusLine = row + 1;
             int plusColumn = column + 1;
             // player one turn
-            if (m_currentPlayer == 1)
+            // TODO:
+            if (Player.Ty)
             {
                 // get all adjacent cells 
-                char neighber0 = board.getCell((char)minusLine, (char)minusColumn);
-                char neighber1 = board.getCell((char)minusLine, column);
-                char neighber2 = board.getCell((char)minusLine, (char)plusColumn);
-                char neighber3 = board.getCell(row, (char)minusColumn);
-                char neighber4 = board.getCell(row, (char)plusColumn);
-                char neighber5 = board.getCell((char)plusLine, (char)minusColumn);
-                char neighber6 = board.getCell((char)plusLine, column);
-                char neighber7 = board.getCell((char)plusLine, (char)plusColumn);
+                eCoin neighber0 = board.getCell((char)minusLine, (char)minusColumn);
+                eCoin neighber1 = board.getCell((char)minusLine, column);
+                eCoin neighber2 = board.getCell((char)minusLine, (char)plusColumn);
+                eCoin neighber3 = board.getCell(row, (char)minusColumn);
+                eCoin neighber4 = board.getCell(row, (char)plusColumn);
+                eCoin neighber5 = board.getCell((char)plusLine, (char)minusColumn);
+                eCoin neighber6 = board.getCell((char)plusLine, column);
+                eCoin neighber7 = board.getCell((char)plusLine, (char)plusColumn);
                 // insert adjacent cells to array 
                 char[] neighbers = new char[] {neighber0, neighber1 ,neighber2,neighber3 ,neighber4
                 ,neighber5, neighber6, neighber7};

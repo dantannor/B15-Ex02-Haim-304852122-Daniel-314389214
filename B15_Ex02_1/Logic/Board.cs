@@ -20,82 +20,100 @@ namespace B15_Ex02_1
             m_boardSize = boardSize;
         }
 
-        public char getCell(char num, char letter)
+        /*
+         * Get matrix cell data
+         */
+        public eCoin getCell(char num, char letter)
         {
             int letterToNumber = letter - 65;
             int numTonumber = num - 49;
-            // Cell outside board
+
+            // Return empty coin if we leave board limit
             if (numTonumber < 0 || numTonumber > 7 || letterToNumber < 0 || letterToNumber > 7)
             {
-                return '-';
+                return eCoin.E;
             }
             return cells[numTonumber, letterToNumber];
         }
 
-        public char getCell(int num1, int num2)
+        public eCoin getCell(int num1, int num2)
         {
 
-            return cells[num1 * m_boardSize + num2];
+            return cells[num1, num2];
         }
 
-        public void setCell(char c, char num, char letter)
+        public void setCell(eCoin c, char num, char letter)
         {
             int letterToNumber = letter - 65;
             int numTonumber = num - 49;
-            cells[numTonumber * m_boardSize + letterToNumber] = c;
+            cells[numTonumber, letterToNumber] = c;
         }
 
         public void drawBoard(Board io_Board)
         {
-            int size = m_boardSize;
             char[] firtRowBoardSizeEight = new char[] { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H' };
             char[] firtRowBoardSizeSix = new char[] { 'A', 'B', 'C', 'D', 'E', 'F' };
             char[] firtColBoardSizeEight = new char[] { '1', '2', '3', '4', '5', '6', '7', '8' };
             char[] firtColBoardSizeSix = new char[] { '1', '2', '3', '4', '5', '6' };
 
-            String LineEight = " =================================";
-            String LineSix = " =========================";
+            const string LineEight = " =================================";
+            const string LineSix = " =========================";
 
-            if (size == 8)
+            if (m_boardSize == 8)
             {
 
                 System.Console.Write("   {0}   ", firtRowBoardSizeEight[0]);
-                for (int i = 1; i < size; i++)
+                for (int i = 1; i < m_boardSize; i++)
                 {
                     System.Console.Write("{0}   ", firtRowBoardSizeEight[i]);
                 }
                 System.Console.WriteLine();
                 System.Console.Write(LineEight);
 
-                for (int i = 0; i < size; i++)
+                for (int i = 0; i < m_boardSize; i++)
                 {
                     System.Console.WriteLine();
-                    System.Console.Write("{0}| {1} | {2} | {3} | {4} | {5} | {6} | {7} | {8} |", firtColBoardSizeEight[i],
-                        io_Board.getCell(i, 0), io_Board.getCell(i, 1), io_Board.getCell(i, 2), io_Board.getCell(i, 3), io_Board.getCell(i, 4),
-                        io_Board.getCell(i, 5), io_Board.getCell(i, 6), io_Board.getCell(i, 7));
+                    System.Console.Write(
+                        "{0}| {1} | {2} | {3} | {4} | {5} | {6} | {7} | {8} |",
+                        firtColBoardSizeEight[i],
+                        io_Board.getCell(i, 0),
+                        io_Board.getCell(i, 1),
+                        io_Board.getCell(i, 2),
+                        io_Board.getCell(i, 3),
+                        io_Board.getCell(i, 4),
+                        io_Board.getCell(i, 5),
+                        io_Board.getCell(i, 6),
+                        io_Board.getCell(i, 7));
                     System.Console.WriteLine();
                     System.Console.Write(LineEight);
                 }
             }
             else
             {
-                if (size == 6)
+                if (m_boardSize == 6)
                 {
 
                     System.Console.Write("   {0}   ", firtRowBoardSizeSix[0]);
-                    for (int i = 1; i < size; i++)
+                    for (int i = 1; i < m_boardSize; i++)
                     {
                         System.Console.Write("{0}   ", firtRowBoardSizeSix[i]);
                     }
                     System.Console.WriteLine();
                     System.Console.Write(LineSix);
 
-                    for (int i = 0; i < size; i++)
+                    for (int i = 0; i < m_boardSize; i++)
                     {
                         System.Console.WriteLine();
-                        System.Console.Write("{0}| {1} | {2} | {3} | {4} | {5} | {6} |", firtColBoardSizeEight[i],
-                            io_Board.getCell(i, 0), io_Board.getCell(i, 1), io_Board.getCell(i, 2), io_Board.getCell(i, 3), io_Board.getCell(i, 4),
-                        io_Board.getCell(i, 5), io_Board.getCell(i, 6));
+                        System.Console.Write(
+                            "{0}| {1} | {2} | {3} | {4} | {5} | {6} |",
+                            firtColBoardSizeEight[i],
+                            io_Board.getCell(i, 0),
+                            io_Board.getCell(i, 1),
+                            io_Board.getCell(i, 2),
+                            io_Board.getCell(i, 3),
+                            io_Board.getCell(i, 4),
+                            io_Board.getCell(i, 5),
+                            io_Board.getCell(i, 6));
                         System.Console.WriteLine();
                         System.Console.Write(LineSix);
                     }
@@ -104,7 +122,7 @@ namespace B15_Ex02_1
         }
     }
 
-    internal enum eCoin
+    public enum eCoin
     {
         O,
 
