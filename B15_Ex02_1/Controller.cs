@@ -30,7 +30,8 @@ namespace B15_Ex02_1
         public enum ePlayerType
         {
             Player = 1,
-            PC = 2
+            PC = 2,
+            Player2 = 3
         }
 
         /*
@@ -60,7 +61,7 @@ namespace B15_Ex02_1
             string playerType = UI.AskPlayerType();
             int.TryParse(playerType, out playerTypeNum);
 
-            while (!Enum.IsDefined(typeof(ePlayerType), playerTypeNum))
+            while (!Enum.IsDefined(typeof(ePlayerType), playerTypeNum) && (playerTypeNum != (int)ePlayerType.Player2))
             {
                 Console.WriteLine();
                 UI.PrintInvalidInput("Sorry, that's an invalid player type. Please re-enter:");
@@ -143,7 +144,7 @@ namespace B15_Ex02_1
             {
                 case ePlayerType.Player:
                     string player2Name = getPlayerName();
-                    m_Player2 = new Player(player2Name, ePlayerType.Player);
+                    m_Player2 = new Player(player2Name, ePlayerType.Player2);
                     break;
 
                 case ePlayerType.PC:
