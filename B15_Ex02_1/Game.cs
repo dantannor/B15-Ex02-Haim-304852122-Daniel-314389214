@@ -12,11 +12,10 @@ namespace B15_Ex02_1
         private int numberOfCellsNeededToChange = 1;
         private bool changeTheSequence = false;
 
-
         // check all adjacent cells to  specific cell
         private bool checkedValidMove(Board board, char row, char column)
         {
-            
+
             int minusLine = row - 1;
             int minusColumn = column - 1;
             int plusLine = row + 1;
@@ -43,13 +42,13 @@ namespace B15_Ex02_1
                     numberOfCellsNeededToChange = 1;
                     if (neighbers[i] == 'X')
                     {
-                       
+
                         if (i == 0)
                         {
                             bool check = checkedValidMoveContinue(board, (char)minusLine, (char)minusColumn, i);
                             if (check)
                             {
-                                
+
                                 changeTheSequence = true;
                             }
 
@@ -118,11 +117,11 @@ namespace B15_Ex02_1
                             }
                         }
 
-             
+
                     }
                 }
             }
-                // player two turn 
+            // player two turn 
             else
             {
                 char neighber0 = board.getCell((char)minusLine, (char)minusColumn);
@@ -142,7 +141,7 @@ namespace B15_Ex02_1
                     numberOfCellsNeededToChange = 1;
                     if (neighbers[i] == 'O')
                     {
-                        
+
                         if (i == 0)
                         {
                             bool check = checkedValidMoveContinue(board, (char)minusLine, (char)minusColumn, i);
@@ -232,7 +231,7 @@ namespace B15_Ex02_1
         // change sign for each cell in the sequence 
         private void drawAllChangeCells(Board board, char row, char column, int i)
         {
-            
+
             int row1 = ((int)row);
             int column1 = ((int)column);
             // player one turn
@@ -246,7 +245,7 @@ namespace B15_Ex02_1
                         row1++;
                         column1++;
                     }
-                    
+
                 }
                 if (i == 1)
                 {
@@ -256,7 +255,7 @@ namespace B15_Ex02_1
                         row1++;
 
                     }
-                    
+
                 }
                 if (i == 2)
                 {
@@ -266,7 +265,7 @@ namespace B15_Ex02_1
                         row1++;
                         column1--;
                     }
-                    
+
                 }
                 if (i == 3)
                 {
@@ -275,7 +274,7 @@ namespace B15_Ex02_1
                         board.setCell('O', (char)row1, (char)column1);
                         column1++;
                     }
-                   
+
                 }
                 if (i == 4)
                 {
@@ -284,7 +283,7 @@ namespace B15_Ex02_1
                         board.setCell('O', (char)row1, (char)column1);
                         column1--;
                     }
-                    
+
                 }
                 if (i == 5)
                 {
@@ -294,7 +293,7 @@ namespace B15_Ex02_1
                         row1--;
                         column1++;
                     }
-                   
+
                 }
                 if (i == 6)
                 {
@@ -304,7 +303,7 @@ namespace B15_Ex02_1
                         row1--;
 
                     }
-                    
+
                 }
                 if (i == 7)
                 {
@@ -314,10 +313,10 @@ namespace B15_Ex02_1
                         row1--;
                         column1--;
                     }
-                    
+
                 }
             }
-                //player2
+            //player2
             else
             {
                 if (i == 0)
@@ -328,7 +327,7 @@ namespace B15_Ex02_1
                         row1++;
                         column1++;
                     }
-                    
+
                 }
                 if (i == 1)
                 {
@@ -338,7 +337,7 @@ namespace B15_Ex02_1
                         row1++;
 
                     }
-                   
+
                 }
                 if (i == 2)
                 {
@@ -348,7 +347,7 @@ namespace B15_Ex02_1
                         row1++;
                         column1--;
                     }
-                   
+
                 }
                 if (i == 3)
                 {
@@ -357,7 +356,7 @@ namespace B15_Ex02_1
                         board.setCell('X', (char)row1, (char)column1);
                         column1++;
                     }
-                    
+
                 }
                 if (i == 4)
                 {
@@ -366,7 +365,7 @@ namespace B15_Ex02_1
                         board.setCell('X', (char)row1, (char)column1);
                         column1--;
                     }
-                    
+
                 }
                 if (i == 5)
                 {
@@ -376,7 +375,7 @@ namespace B15_Ex02_1
                         row1--;
                         column1++;
                     }
-                   
+
                 }
                 if (i == 6)
                 {
@@ -386,7 +385,7 @@ namespace B15_Ex02_1
                         row1--;
 
                     }
-                    
+
                 }
                 if (i == 7)
                 {
@@ -396,7 +395,7 @@ namespace B15_Ex02_1
                         row1--;
                         column1--;
                     }
-                   
+
                 }
             }
         }
@@ -404,7 +403,7 @@ namespace B15_Ex02_1
         // if found a legal move use drawAllChangeCells method to change the sequence
         private bool checkedValidMoveContinue(Board board, char row, char column, int i)
         {
-            
+
             int minusLine = row - 1;
             int minusColumn = column - 1;
             int plusLine = row + 1;
@@ -424,13 +423,10 @@ namespace B15_Ex02_1
                     else if (neighber0 == 'O')
                     {
                         foundLegalMove = 1;
-                        drawAllChangeCells(board, row, column,  i);
+                        drawAllChangeCells(board, row, column, i);
                         return true;
                     }
-                    if (foundLegalMove == 1)
-                    {
-                        return true;
-                    }
+
                 }
                 if (i == 1)
                 {
@@ -446,10 +442,7 @@ namespace B15_Ex02_1
                         drawAllChangeCells(board, row, column, i);
                         return true;
                     }
-                    if (foundLegalMove == 1)
-                    {
-                        return true;
-                    }
+
                 }
                 if (i == 2)
                 {
@@ -465,10 +458,7 @@ namespace B15_Ex02_1
                         drawAllChangeCells(board, row, column, i);
                         return true;
                     }
-                    if (foundLegalMove == 1)
-                    {
-                        return true;
-                    }
+
                 }
                 if (i == 3)
                 {
@@ -484,10 +474,7 @@ namespace B15_Ex02_1
                         drawAllChangeCells(board, row, column, i);
                         return true;
                     }
-                    if (foundLegalMove == 1)
-                    {
-                        return true;
-                    }
+
                 }
                 if (i == 4)
                 {
@@ -503,10 +490,7 @@ namespace B15_Ex02_1
                         drawAllChangeCells(board, row, column, i);
                         return true;
                     }
-                    if (foundLegalMove == 1)
-                    {
-                        return true;
-                    }
+
                 }
                 if (i == 5)
                 {
@@ -522,10 +506,7 @@ namespace B15_Ex02_1
                         drawAllChangeCells(board, row, column, i);
                         return true;
                     }
-                    if (foundLegalMove == 1)
-                    {
-                        return true;
-                    }
+
                 }
                 if (i == 6)
                 {
@@ -541,10 +522,7 @@ namespace B15_Ex02_1
                         drawAllChangeCells(board, row, column, i);
                         return true;
                     }
-                    if (foundLegalMove == 1)
-                    {
-                        return true;
-                    }
+
                 }
                 if (i == 7)
                 {
@@ -580,10 +558,7 @@ namespace B15_Ex02_1
                         drawAllChangeCells(board, row, column, i);
                         return true;
                     }
-                    if (foundLegalMove == 1)
-                    {
-                        return true;
-                    }
+
                 }
                 if (i == 1)
                 {
@@ -599,10 +574,7 @@ namespace B15_Ex02_1
                         drawAllChangeCells(board, row, column, i);
                         return true;
                     }
-                    if (foundLegalMove == 1)
-                    {
-                        return true;
-                    }
+
                 }
                 if (i == 2)
                 {
@@ -618,10 +590,7 @@ namespace B15_Ex02_1
                         drawAllChangeCells(board, row, column, i);
                         return true;
                     }
-                    if (foundLegalMove == 1)
-                    {
-                        return true;
-                    }
+
                 }
                 if (i == 3)
                 {
@@ -637,10 +606,7 @@ namespace B15_Ex02_1
                         drawAllChangeCells(board, row, column, i);
                         return true;
                     }
-                    if (foundLegalMove == 1)
-                    {
-                        return true;
-                    }
+
                 }
                 if (i == 4)
                 {
@@ -656,10 +622,7 @@ namespace B15_Ex02_1
                         drawAllChangeCells(board, row, column, i);
                         return true;
                     }
-                    if (foundLegalMove == 1)
-                    {
-                        return true;
-                    }
+
                 }
                 if (i == 5)
                 {
@@ -675,10 +638,7 @@ namespace B15_Ex02_1
                         drawAllChangeCells(board, row, column, i);
                         return true;
                     }
-                    if (foundLegalMove == 1)
-                    {
-                        return true;
-                    }
+
                 }
                 if (i == 6)
                 {
@@ -694,10 +654,7 @@ namespace B15_Ex02_1
                         drawAllChangeCells(board, row, column, i);
                         return true;
                     }
-                    if (foundLegalMove == 1)
-                    {
-                        return true;
-                    }
+
                 }
                 if (i == 7)
                 {
@@ -716,9 +673,12 @@ namespace B15_Ex02_1
 
                 }
             }
+            if (foundLegalMove == 1)
+            {
+                return true;
+            }
             return false;
         }
 
-    }
     }
 }
