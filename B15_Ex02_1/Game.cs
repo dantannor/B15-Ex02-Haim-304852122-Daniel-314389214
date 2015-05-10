@@ -10,7 +10,7 @@ namespace B15_Ex02_1
     {
         private int foundLegalMove = 0;
         private int numberOfCellsNeededToChange = 1;
-        private bool changeTheSequence = false;
+        private bool v_FlipCoinsColor = false;
 
 
         // check all adjacent cells to  specific cell
@@ -46,75 +46,75 @@ namespace B15_Ex02_1
                        
                         if (i == 0)
                         {
-                            bool check = checkedValidMoveContinue(board, (char)minusLine, (char)minusColumn, i);
-                            if (check)
+                            bool v_FoundValidMove = this.checkSquareDirection(board, (char)minusLine, (char)minusColumn, i);
+                            if (v_FoundValidMove)
                             {
                                 
-                                changeTheSequence = true;
+                                this.v_FlipCoinsColor = true;
                             }
 
                         }
                         else if (i == 1)
                         {
-                            bool check = checkedValidMoveContinue(board, (char)minusLine, column, i);
+                            bool check = this.checkSquareDirection(board, (char)minusLine, column, i);
                             if (check)
                             {
 
-                                changeTheSequence = true;
+                                this.v_FlipCoinsColor = true;
                             }
                         }
                         else if (i == 2)
                         {
-                            bool check = checkedValidMoveContinue(board, (char)minusLine, (char)plusColumn, i);
+                            bool check = this.checkSquareDirection(board, (char)minusLine, (char)plusColumn, i);
                             if (check)
                             {
 
-                                changeTheSequence = true;
+                                this.v_FlipCoinsColor = true;
                             }
                         }
                         else if (i == 3)
                         {
-                            bool check = checkedValidMoveContinue(board, row, (char)minusColumn, i);
+                            bool check = this.checkSquareDirection(board, row, (char)minusColumn, i);
                             if (check)
                             {
 
-                                changeTheSequence = true;
+                                this.v_FlipCoinsColor = true;
                             }
                         }
                         else if (i == 4)
                         {
-                            bool check = checkedValidMoveContinue(board, row, (char)plusColumn, i);
+                            bool check = this.checkSquareDirection(board, row, (char)plusColumn, i);
                             if (check)
                             {
 
-                                changeTheSequence = true;
+                                this.v_FlipCoinsColor = true;
                             }
                         }
                         else if (i == 5)
                         {
-                            bool check = checkedValidMoveContinue(board, (char)plusLine, (char)minusColumn, i);
+                            bool check = this.checkSquareDirection(board, (char)plusLine, (char)minusColumn, i);
                             if (check)
                             {
 
-                                changeTheSequence = true;
+                                this.v_FlipCoinsColor = true;
                             }
                         }
                         else if (i == 6)
                         {
-                            bool check = checkedValidMoveContinue(board, (char)plusLine, column, i);
+                            bool check = this.checkSquareDirection(board, (char)plusLine, column, i);
                             if (check)
                             {
 
-                                changeTheSequence = true;
+                                this.v_FlipCoinsColor = true;
                             }
                         }
                         else if (i == 7)
                         {
-                            bool check = checkedValidMoveContinue(board, (char)plusLine, (char)plusColumn, i);
+                            bool check = this.checkSquareDirection(board, (char)plusLine, (char)plusColumn, i);
                             if (check)
                             {
 
-                                changeTheSequence = true;
+                                this.v_FlipCoinsColor = true;
                             }
                         }
 
@@ -145,74 +145,74 @@ namespace B15_Ex02_1
                         
                         if (i == 0)
                         {
-                            bool check = checkedValidMoveContinue(board, (char)minusLine, (char)minusColumn, i);
+                            bool check = this.checkSquareDirection(board, (char)minusLine, (char)minusColumn, i);
                             if (check)
                             {
 
-                                changeTheSequence = true;
+                                this.v_FlipCoinsColor = true;
                             }
                         }
                         else if (i == 1)
                         {
-                            bool check = checkedValidMoveContinue(board, (char)minusLine, column, i);
+                            bool check = this.checkSquareDirection(board, (char)minusLine, column, i);
                             if (check)
                             {
 
-                                changeTheSequence = true;
+                                this.v_FlipCoinsColor = true;
                             }
                         }
                         else if (i == 2)
                         {
-                            bool check = checkedValidMoveContinue(board, (char)minusLine, (char)plusColumn, i);
+                            bool check = this.checkSquareDirection(board, (char)minusLine, (char)plusColumn, i);
                             if (check)
                             {
 
-                                changeTheSequence = true;
+                                this.v_FlipCoinsColor = true;
                             }
                         }
                         else if (i == 3)
                         {
-                            bool check = checkedValidMoveContinue(board, row, (char)minusColumn, i);
+                            bool check = this.checkSquareDirection(board, row, (char)minusColumn, i);
                             if (check)
                             {
 
-                                changeTheSequence = true;
+                                this.v_FlipCoinsColor = true;
                             }
                         }
                         else if (i == 4)
                         {
-                            bool check = checkedValidMoveContinue(board, row, (char)plusColumn, i);
+                            bool check = this.checkSquareDirection(board, row, (char)plusColumn, i);
                             if (check)
                             {
 
-                                changeTheSequence = true;
+                                this.v_FlipCoinsColor = true;
                             }
                         }
                         else if (i == 5)
                         {
-                            bool check = checkedValidMoveContinue(board, (char)plusLine, (char)minusColumn, i);
+                            bool check = this.checkSquareDirection(board, (char)plusLine, (char)minusColumn, i);
                             if (check)
                             {
 
-                                changeTheSequence = true;
+                                this.v_FlipCoinsColor = true;
                             }
                         }
                         else if (i == 6)
                         {
-                            bool check = checkedValidMoveContinue(board, (char)plusLine, column, i);
+                            bool check = this.checkSquareDirection(board, (char)plusLine, column, i);
                             if (check)
                             {
 
-                                changeTheSequence = true;
+                                this.v_FlipCoinsColor = true;
                             }
                         }
                         else if (i == 7)
                         {
-                            bool check = checkedValidMoveContinue(board, (char)plusLine, (char)plusColumn, i);
+                            bool check = this.checkSquareDirection(board, (char)plusLine, (char)plusColumn, i);
                             if (check)
                             {
 
-                                changeTheSequence = true;
+                                this.v_FlipCoinsColor = true;
                             }
                         }
 
@@ -220,7 +220,7 @@ namespace B15_Ex02_1
                     }
                 }
             }
-            if (changeTheSequence == true)
+            if (this.v_FlipCoinsColor == true)
             {
                 return true;
             }
@@ -402,7 +402,7 @@ namespace B15_Ex02_1
         }
         // if adjacent cell with opposite sign, check the sequence in a specific direction
         // if found a legal move use drawAllChangeCells method to change the sequence
-        private bool checkedValidMoveContinue(Board board, char row, char column, int i)
+        private bool checkSquareDirection(Board board, char row, char column, int i)
         {
             
             int minusLine = row - 1;
@@ -419,7 +419,7 @@ namespace B15_Ex02_1
                     if (neighber0 == 'X')
                     {
                         numberOfCellsNeededToChange++;
-                        checkedValidMoveContinue(board, (char)minusLine, (char)minusColumn, i);
+                        this.checkSquareDirection(board, (char)minusLine, (char)minusColumn, i);
                     }
                     else if (neighber0 == 'O')
                     {
@@ -438,7 +438,7 @@ namespace B15_Ex02_1
                     if (neighber0 == 'X')
                     {
                         numberOfCellsNeededToChange++;
-                        checkedValidMoveContinue(board, (char)minusLine, column, i);
+                        this.checkSquareDirection(board, (char)minusLine, column, i);
                     }
                     else if (neighber0 == 'O')
                     {
@@ -457,7 +457,7 @@ namespace B15_Ex02_1
                     if (neighber0 == 'X')
                     {
                         numberOfCellsNeededToChange++;
-                        checkedValidMoveContinue(board, (char)minusLine, (char)plusColumn, i);
+                        this.checkSquareDirection(board, (char)minusLine, (char)plusColumn, i);
                     }
                     else if (neighber0 == 'O')
                     {
@@ -476,7 +476,7 @@ namespace B15_Ex02_1
                     if (neighber0 == 'X')
                     {
                         numberOfCellsNeededToChange++;
-                        checkedValidMoveContinue(board, row, (char)minusColumn, i);
+                        this.checkSquareDirection(board, row, (char)minusColumn, i);
                     }
                     else if (neighber0 == 'O')
                     {
@@ -495,7 +495,7 @@ namespace B15_Ex02_1
                     if (neighber0 == 'X')
                     {
                         numberOfCellsNeededToChange++;
-                        checkedValidMoveContinue(board, row, (char)plusColumn, i);
+                        this.checkSquareDirection(board, row, (char)plusColumn, i);
                     }
                     else if (neighber0 == 'O')
                     {
@@ -514,7 +514,7 @@ namespace B15_Ex02_1
                     if (neighber0 == 'X')
                     {
                         numberOfCellsNeededToChange++;
-                        checkedValidMoveContinue(board, (char)plusLine, (char)minusColumn, i);
+                        this.checkSquareDirection(board, (char)plusLine, (char)minusColumn, i);
                     }
                     else if (neighber0 == 'O')
                     {
@@ -533,7 +533,7 @@ namespace B15_Ex02_1
                     if (neighber0 == 'X')
                     {
                         numberOfCellsNeededToChange++;
-                        checkedValidMoveContinue(board, (char)plusLine, column, i);
+                        this.checkSquareDirection(board, (char)plusLine, column, i);
                     }
                     else if (neighber0 == 'O')
                     {
@@ -552,7 +552,7 @@ namespace B15_Ex02_1
                     if (neighber0 == 'X')
                     {
                         numberOfCellsNeededToChange++;
-                        checkedValidMoveContinue(board, (char)plusLine, (char)plusColumn, i);
+                        this.checkSquareDirection(board, (char)plusLine, (char)plusColumn, i);
                     }
                     else if (neighber0 == 'O')
                     {
@@ -572,7 +572,7 @@ namespace B15_Ex02_1
                     if (neighber0 == 'O')
                     {
                         numberOfCellsNeededToChange++;
-                        checkedValidMoveContinue(board, (char)minusLine, (char)minusColumn, i);
+                        this.checkSquareDirection(board, (char)minusLine, (char)minusColumn, i);
                     }
                     else if (neighber0 == 'X')
                     {
@@ -591,7 +591,7 @@ namespace B15_Ex02_1
                     if (neighber0 == 'O')
                     {
                         numberOfCellsNeededToChange++;
-                        checkedValidMoveContinue(board, (char)minusLine, column, i);
+                        this.checkSquareDirection(board, (char)minusLine, column, i);
                     }
                     else if (neighber0 == 'X')
                     {
@@ -610,7 +610,7 @@ namespace B15_Ex02_1
                     if (neighber0 == 'O')
                     {
                         numberOfCellsNeededToChange++;
-                        checkedValidMoveContinue(board, (char)minusLine, (char)plusColumn, i);
+                        this.checkSquareDirection(board, (char)minusLine, (char)plusColumn, i);
                     }
                     else if (neighber0 == 'X')
                     {
@@ -629,7 +629,7 @@ namespace B15_Ex02_1
                     if (neighber0 == 'O')
                     {
                         numberOfCellsNeededToChange++;
-                        checkedValidMoveContinue(board, row, (char)minusColumn, i);
+                        this.checkSquareDirection(board, row, (char)minusColumn, i);
                     }
                     else if (neighber0 == 'X')
                     {
@@ -648,7 +648,7 @@ namespace B15_Ex02_1
                     if (neighber0 == 'O')
                     {
                         numberOfCellsNeededToChange++;
-                        checkedValidMoveContinue(board, row, (char)plusColumn, i);
+                        this.checkSquareDirection(board, row, (char)plusColumn, i);
                     }
                     else if (neighber0 == 'X')
                     {
@@ -667,7 +667,7 @@ namespace B15_Ex02_1
                     if (neighber0 == 'O')
                     {
                         numberOfCellsNeededToChange++;
-                        checkedValidMoveContinue(board, (char)plusLine, (char)minusColumn, i);
+                        this.checkSquareDirection(board, (char)plusLine, (char)minusColumn, i);
                     }
                     else if (neighber0 == 'X')
                     {
@@ -686,7 +686,7 @@ namespace B15_Ex02_1
                     if (neighber0 == 'O')
                     {
                         numberOfCellsNeededToChange++;
-                        checkedValidMoveContinue(board, (char)plusLine, column, i);
+                        this.checkSquareDirection(board, (char)plusLine, column, i);
                     }
                     else if (neighber0 == 'X')
                     {
@@ -705,7 +705,7 @@ namespace B15_Ex02_1
                     if (neighber0 == 'O')
                     {
                         numberOfCellsNeededToChange++;
-                        checkedValidMoveContinue(board, (char)plusLine, (char)plusColumn, i);
+                        this.checkSquareDirection(board, (char)plusLine, (char)plusColumn, i);
                     }
                     else if (neighber0 == 'X')
                     {

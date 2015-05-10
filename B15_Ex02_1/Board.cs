@@ -7,12 +7,16 @@ namespace B15_Ex02_1
 {
     public class Board
     {
-        char[] cells;
-        int m_boardSize;
+        private readonly int m_boardSize;
 
+        private eCoin[,] cells;
+
+        /*
+         * Creates a board instance with user size - 6 or 8
+         */
         public Board(int boardSize)
         {
-            cells = new char[boardSize * boardSize];
+            cells = new eCoin[boardSize, boardSize];
             m_boardSize = boardSize;
         }
 
@@ -25,7 +29,7 @@ namespace B15_Ex02_1
             {
                 return '-';
             }
-            return cells[numTonumber * m_boardSize + letterToNumber];
+            return cells[numTonumber, letterToNumber];
         }
 
         public char getCell(int num1, int num2)
@@ -99,4 +103,14 @@ namespace B15_Ex02_1
             }
         }
     }
+
+    internal enum eCoin
+    {
+        O,
+
+        X,
+
+        E
+    }
 }
+
