@@ -3,51 +3,51 @@
   <Comment CommentText="">
     <Position X="6.75" Y="0.5" Height="1.554" Width="3.167" />
   </Comment>
-  <Class Name="B15_Ex02_1.Player">
+  <Class Name="B15_Ex02_1.Logic.Player">
     <Position X="8.75" Y="2.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAEQAAAAAIAAACAAgAAgAAAAAAAAABAAAQIAACAAAAg=</HashCode>
+      <HashCode>AAEQAAACAIAAACAAgAAAAAAAAAAAABAAAQIAACAAAAg=</HashCode>
       <FileName>Logic\Player.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="B15_Ex02_1.Game">
+  <Class Name="B15_Ex02_1.Logic.Game">
     <Position X="5.75" Y="2.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>EAAAAAAAgAAAAAAAAABAAAAAAAAAAggAAAAAQAAAAAA=</HashCode>
+      <HashCode>EAAAAAAAgIAAAAAAAABEAAAAAAAAAggAAgAAQAAAACA=</HashCode>
       <FileName>Logic\Game.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="B15_Ex02_1.UI">
+  <Class Name="B15_Ex02_1.UI.View">
     <Position X="2.25" Y="4.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AgAAAAEAAABAAAAAAQAAAAAAAAAAAAAAAAAABAAAACA=</HashCode>
-      <FileName>UI\UI.cs</FileName>
+      <HashCode>AgAAAAEAAABAAAAAAQAAAAAAAAAAAAAAAAACBAAAACA=</HashCode>
+      <FileName>UI\View.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="B15_Ex02_1.Board">
+  <Class Name="B15_Ex02_1.Logic.Board">
     <Position X="2.25" Y="1.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAEAABAAAAAAAAAAAAAACAABAAAAAAAAABAAAAAA=</HashCode>
       <FileName>Logic\Board.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="B15_Ex02_1.Controller">
+  <Class Name="B15_Ex02_1.Control.Controller">
     <Position X="4" Y="0.75" Width="1.5" />
     <NestedTypes>
-      <Enum Name="B15_Ex02_1.Controller.ePlayerType" Collapsed="true">
+      <Enum Name="B15_Ex02_1.Control.Controller.ePlayer" Collapsed="true">
         <TypeIdentifier>
-          <NewMemberFileName>Logic\Controller.cs</NewMemberFileName>
+          <NewMemberFileName>Control\Controller.cs</NewMemberFileName>
         </TypeIdentifier>
       </Enum>
-      <Enum Name="B15_Ex02_1.Controller.eBoardSize" Collapsed="true">
+      <Enum Name="B15_Ex02_1.Control.Controller.eBoardSize" Collapsed="true">
         <TypeIdentifier>
-          <NewMemberFileName>Logic\Controller.cs</NewMemberFileName>
+          <NewMemberFileName>Control\Controller.cs</NewMemberFileName>
         </TypeIdentifier>
       </Enum>
     </NestedTypes>
     <TypeIdentifier>
-      <HashCode>ECAAAQAAgAABAAAAAQAFgAAAAAAAAAAAAAQCQgAAAAA=</HashCode>
-      <FileName>Logic\Controller.cs</FileName>
+      <HashCode>AAAAAQAAAAABAAAAAQAFgAAAAACAAAAAIAYAAAAAAIA=</HashCode>
+      <FileName>Control\Controller.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />

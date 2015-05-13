@@ -38,17 +38,21 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Logic\Board.cs" />
-    <Compile Include="Logic\Controller.cs" />
+    <Compile Include="Control\Controller.cs" />
     <Compile Include="Logic\Game.cs" />
+    <Compile Include="Logic\InputValidation.cs" />
     <Compile Include="Logic\Player.cs" />
     <Compile Include="Program.cs" />
-    <Compile Include="UI\UI.cs" />
+    <Compile Include="UI\View.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Ex02.ConsoleUtils">
       <HintPath>..\..\..\..\..\..\temp\Ex02.ConsoleUtils.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="TextFile1.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

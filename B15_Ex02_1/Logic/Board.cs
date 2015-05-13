@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace B15_Ex02_1
+namespace B15_Ex02_1.Logic
 {
     public class Board
     {

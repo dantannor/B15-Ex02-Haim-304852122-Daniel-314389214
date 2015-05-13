@@ -3,14 +3,40 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using B15_Ex02_1.Control;
 
-namespace B15_Ex02_1
+namespace B15_Ex02_1.Logic
 {
     class Game
     {
         private int foundLegalMove = 0;
         private int numberOfCellsNeededToChange = 1;
         private bool changeTheSequence = false;
+
+        private Player m_Player1;
+
+        private Player m_Player2;
+
+        private static List<String> m_Player1MovesList;
+
+        private static List<String> m_Player2MovesList;
+
+        private static eTurn m_PlayerTurn;
+
+        private static bool v_NoPlayer1Moves;
+
+        private static bool v_NoPlayer2Moves;
+
+        private static eTurn m_NextPlayerTurn;
+
+        /*
+         * Creates game instance with two player types.
+         */
+        public Game(Player io_Player1, Player io_Player2)
+        {
+            m_Player1 = io_Player1;
+            m_Player2 = io_Player2;
+        }
 
         // check all adjacent cells to  specific cell
         private bool checkedValidMove(Board board, char row, char column, Player playerType)
@@ -681,5 +707,127 @@ namespace B15_Ex02_1
             return false;
         }
 
+        /*
+         * Moves player according to whose turn and input of move
+         */
+        public static void Move(eTurn playerTurn, string playerMove)
+        {
+            switch (playerTurn)
+            {
+                case eTurn.Player1:
+                    break;
+                case eTurn.Player2:
+                    // case PC
+                    break;
+                case eTurn.GameOver:
+                    break;
+            }
+            
+            throw new NotImplementedException();
+        }
+
+        /* 
+         * Returns game status
+         */
+        public static eTurn GetTurn()
+        {
+            v_NoPlayer1Moves = false;
+            v_NoPlayer2Moves = false;
+            m_PlayerTurn = m_NextPlayerTurn;
+
+            switch (m_PlayerTurn)
+            {
+                // Player 1's turn
+                case eTurn.Player1:
+
+                    // Get Player 1 moves
+                    m_Player1MovesList = getValidMoves(eTurn.Player1);
+
+                    // Player 1 has no moves
+                    if (!m_Player1MovesList.Any())
+                    {
+                        if (v_NoPlayer2Moves)
+                        {
+                            // Both players have no moves, return game over.
+                            m_PlayerTurn = eTurn.GameOver;
+                        }
+                        else
+                        {
+                            // Switch to player 2's turn
+                            v_NoPlayer1Moves = true;
+                            m_PlayerTurn = eTurn.Player2;
+                            goto case eTurn.Player2;
+                        }
+                    }
+                    // Player 1 has moves in the move list
+                    else
+                    {
+                        m_PlayerTurn = eTurn.Player1;
+                    }
+                    break;
+
+                case eTurn.Player2:
+                    m_Player2MovesList = getValidMoves(eTurn.Player2);
+                    if (!m_Player2MovesList.Any())
+                    {
+                        if (v_NoPlayer1Moves)
+                        {
+                            m_PlayerTurn = eTurn.GameOver;
+                        }
+                        else
+                        {
+                            v_NoPlayer2Moves = true;
+                            m_PlayerTurn = eTurn.Player1;
+                            goto case eTurn.Player2;
+                        }
+                    }
+
+                    // Player 2 has moves in the move list
+                    else
+                    {
+                        m_PlayerTurn = eTurn.Player2;
+                    }
+                    break;
+
+            }
+
+            // Set next players turn
+            if (m_PlayerTurn == eTurn.Player1)
+            {
+                m_NextPlayerTurn = eTurn.Player2;
+            }
+            else
+            {
+                m_NextPlayerTurn = eTurn.Player1;
+            }
+
+            return m_PlayerTurn;
+        }
+
+
+        private static List<string> getValidMoves(eTurn player)
+        {
+            throw new NotImplementedException();
+        }
+
+        /*
+         * Compares valid move with list of legal moves
+         */
+        public static bool ValidMove(string playerMove)
+        {
+            throw new NotImplementedException();
+        }
+
+        /*
+         * Saves whose turn it is
+         */
+        internal enum eTurn
+        {
+            Player1,
+            Player2,
+            GameOver
+        }
     }
+
+
 }

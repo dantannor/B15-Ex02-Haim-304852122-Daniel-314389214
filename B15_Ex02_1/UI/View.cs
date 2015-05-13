@@ -4,11 +4,11 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace B15_Ex02_1
+namespace B15_Ex02_1.UI
 {
     using System;
 
-    public class UI
+    public class View
     {
         /*
          * Scans player name
@@ -82,6 +82,11 @@ And {2} with {3} points!
  io_Player1Points,
  io_Player2,
  io_Player2Points);       
+        }
+
+        public void Init()
+        {
+            throw new System.NotImplementedException();
         }
     }
 }
