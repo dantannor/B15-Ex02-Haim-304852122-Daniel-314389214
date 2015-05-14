@@ -46,7 +46,7 @@ namespace B15_Ex02_1.Logic
 
         private static List<String> m_Player2MovesList;
 
-        private static eTurn m_PlayerTurn;
+        private static eTurn m_PlayerTurn = eTurn.Player1;
 
         private static bool v_NoPlayer1Moves;
 
@@ -65,6 +65,7 @@ namespace B15_Ex02_1.Logic
             m_Player1 = io_Player1;
             m_Player2 = io_Player2;
             m_Board = board;
+            m_NextPlayerTurn = eTurn.Player1;
         }
 
         // check all adjacent cells to  specific cell
@@ -74,7 +75,7 @@ namespace B15_Ex02_1.Logic
          * Returns game status
          */
 
-        public static eTurn GetTurn()
+        public eTurn GetTurn()
         {
             v_NoPlayer1Moves = false;
             v_NoPlayer2Moves = false;
@@ -86,7 +87,7 @@ namespace B15_Ex02_1.Logic
                 case eTurn.Player1:
 
                     // Get Player 1 moves
-                    m_Player1MovesList = getValidMoves(eTurn.Player1);
+                    m_Player1MovesList = validCells(eTurn.Player1);
 
                     // Player 1 has no moves
                     if (!m_Player1MovesList.Any())
@@ -112,7 +113,7 @@ namespace B15_Ex02_1.Logic
                     break;
 
                 case eTurn.Player2:
-                    m_Player2MovesList = getValidMoves(eTurn.Player2);
+                    m_Player2MovesList = validCells(eTurn.Player2);
                     if (!m_Player2MovesList.Any())
                     {
                         if (v_NoPlayer1Moves)
@@ -146,6 +147,74 @@ namespace B15_Ex02_1.Logic
         private static List<string> getValidMoves(eTurn player)
         {
             throw new NotImplementedException();
+        }
+
+        public void checkAndFillListValidMoves()
+        {
+            if (m_Board.Size == 8)
+            {
+                for (int i = 49; i < 57; i++)
+                {
+                    for (int j = 65; j < 73; j++)
+                    {
+                        if (checkedValidCell(m_Board, (char)i, (char)j) && checkedValidMove(m_Board, (char)i, (char)j))
+                        {
+                            computerLegalMovesRow.Add((char)i);
+                            computerLegalMovesCol.Add((char)j);
+
+                            numberOfCellsNeededToChangeArray.Clear();
+                            foundLegalMoveNeighbours.Clear();
+                            changeTheSequence = false;
+                            CellsNeededToChange.Clear();
+                        }
+                    }
+                }
+                CellsNeededToChange.Clear();
+                foundLegalMoveNeighbours.Clear();
+                numberOfCellsNeededToChangeArray.Clear();
+                changeTheSequence = false;
+            }
+            else
+            {
+                for (int i = 49; i < 55; i++)
+                {
+                    for (int j = 65; j < 71; j++)
+                    {
+                        if (checkedValidCell(m_Board, (char)i, (char)j) && checkedValidMove(m_Board, (char)i, (char)j))
+                        {
+                            computerLegalMovesRow.Add((char)i);
+                            computerLegalMovesCol.Add((char)j);
+
+                            numberOfCellsNeededToChangeArray.Clear();
+                            foundLegalMoveNeighbours.Clear();
+                            changeTheSequence = false;
+                            CellsNeededToChange.Clear();
+                        }
+                    }
+                }
+                CellsNeededToChange.Clear();
+                foundLegalMoveNeighbours.Clear();
+                numberOfCellsNeededToChangeArray.Clear();
+                changeTheSequence = false;
+            }
+        }
+
+        public List<string> validCells(eTurn curPlayer)
+        {
+            m_PlayerTurn = curPlayer;
+            string cell = "";
+            List<string> validMoveList = new List<string>();
+            checkAndFillListValidMoves();
+            for (int i = 0; i < computerLegalMovesRow.Count; i++)
+            {
+                cell += (computerLegalMovesCol[i]);
+                cell += (computerLegalMovesRow[i]);
+                validMoveList.Add(cell);
+                cell = "";
+            }
+            computerLegalMovesRow.Clear();
+            computerLegalMovesCol.Clear();
+            return validMoveList;
         }
 
         /*
@@ -237,6 +306,7 @@ namespace B15_Ex02_1.Logic
 
 
             }
+            System.Console.ReadLine();
         }
         // check all adjacent cells to  specific cell
         private bool checkedValidMove(Board board, char row, char column)
@@ -1002,5 +1072,7 @@ namespace B15_Ex02_1.Logic
 
             return true;
         }
+
+  
     }
 }

@@ -18,6 +18,11 @@ namespace B15_Ex02_1.Logic
             m_boardSize = boardSize;
         }
 
+        public int Size
+        {
+            get { return m_boardSize; }
+        }
+
         public char getCell(char num, char letter)
         {
             int letterToNumber = letter - 65;

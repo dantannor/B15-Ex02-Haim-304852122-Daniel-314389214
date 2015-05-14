@@ -169,9 +169,9 @@ namespace B15_Ex02_1.Control
         private void play()
         {
             // Get player turn
-            m_PlayerTurn = Game.GetTurn();
+            m_PlayerTurn = m_Game.GetTurn();
 
-            while ((Game.GetTurn() != eTurn.GameOver) && (m_PlayerMove != "q"))
+            while ((m_Game.GetTurn() != eTurn.GameOver) && (m_PlayerMove != "q"))
             {
                 // Get player move, validate and pass it on to game move, which updates the board.
                 switch (m_PlayerTurn)
