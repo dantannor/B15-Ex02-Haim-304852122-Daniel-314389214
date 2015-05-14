@@ -66,7 +66,7 @@ namespace B15_Ex02_1.Control
         /// <summary>
         /// The m_ game.
         /// </summary>
-        private Game m_Game;
+        private static Game m_Game;
 
         /*
          * 2nd Player type PC/Player 2
@@ -170,9 +170,9 @@ namespace B15_Ex02_1.Control
         /// </summary>
         private void play()
         {
-            m_PlayerTurn = m_Game.GetTurn();
-            
-            while ((m_Game.GetTurn() != eTurn.GameOver) && (m_PlayerMove != "q"))
+
+
+            while ((m_PlayerTurn != eTurn.GameOver) && (m_PlayerMove != "q"))
             {
                 // Get player turn
                 m_PlayerTurn = m_Game.GetTurn();
@@ -183,7 +183,10 @@ namespace B15_Ex02_1.Control
                     case eTurn.Player1:
                         
                         m_PlayerMove = getPlayerMove(m_Player1.PlayerName, eTurn.Player1);
-
+                        if (m_PlayerMove == "q")
+                        {
+                            continue;
+                        }
                         // SetBoard with playermove
                         m_Game.Move(m_PlayerTurn, m_PlayerMove);
                         break;
@@ -201,6 +204,13 @@ namespace B15_Ex02_1.Control
                         // PC
                         else if (m_Player2.Type == ePlayer.PC)
                         {
+                            m_PlayerMove = getPcMove(eTurn.Player2);
+                            if (m_PlayerMove == "q")
+                            {
+                                continue;
+                            }
+                            // SetBoard with playermove
+                            m_Game.Move(m_PlayerTurn, m_PlayerMove);
                         }
 
                         break;
@@ -248,6 +258,19 @@ namespace B15_Ex02_1.Control
             }
 
             return playerMove;
+        }
+
+        private static string getPcMove(eTurn playerTurn)
+        {
+            Random rnd = new Random();
+            int rndCell = rnd.Next(0, m_Game.PcMovesList.Count);
+            string pcMove = m_Game.PcMovesList[rndCell];
+            
+            System.Threading.Thread.Sleep(2000);
+
+
+
+            return pcMove;
         }
 
         /*

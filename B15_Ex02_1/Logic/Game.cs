@@ -68,6 +68,11 @@ namespace B15_Ex02_1.Logic
             m_NextPlayerTurn = eTurn.Player1;
         }
 
+        public List<string> PcMovesList
+        {
+            get { return m_Player2MovesList; }
+        }
+
         // check all adjacent cells to  specific cell
 
 
@@ -92,6 +97,7 @@ namespace B15_Ex02_1.Logic
                     // Player 1 has no moves
                     if (!m_Player1MovesList.Any())
                     {
+                        //View call
                         if (v_NoPlayer2Moves)
                         {
                             // Both players have no moves, return game over.
@@ -240,13 +246,7 @@ namespace B15_Ex02_1.Logic
 
             System.Console.WriteLine();
 
-            while (cell.Length != 2)
-            {
 
-                System.Console.WriteLine("invalid input, please enter row and column in this form A1:");
-                cell = System.Console.ReadLine();
-
-            }
             row = cell[1];
             column = cell[0];
 
