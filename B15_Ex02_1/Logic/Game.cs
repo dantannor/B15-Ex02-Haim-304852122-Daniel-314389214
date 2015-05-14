@@ -7,10 +7,35 @@ using B15_Ex02_1.Control;
 
 namespace B15_Ex02_1.Logic
 {
-    class Game
+    /*
+         * Saves whose turn it is
+         */
+
+    public enum eTurn
     {
-        private int foundLegalMove = 0;
+        Player1 = 1,
+
+        Player2 = 2,
+
+        GameOver
+    }
+
+    public class Game
+    {
+        private List<Char> CellsNeededToChange = new List<Char>();
+
+        private List<int> foundLegalMoveNeighbours = new List<int>();
+
+        private List<int> numberOfCellsNeededToChangeArray = new List<int>();
+
+
+        private List<Char> computerLegalMovesRow = new List<Char>();
+
+        private List<Char> computerLegalMovesCol = new List<Char>();
+
+
         private int numberOfCellsNeededToChange = 1;
+
         private bool changeTheSequence = false;
 
         private Player m_Player1;
@@ -29,17 +54,192 @@ namespace B15_Ex02_1.Logic
 
         private static eTurn m_NextPlayerTurn;
 
+        private Board m_Board;
+
         /*
          * Creates game instance with two player types.
          */
-        public Game(Player io_Player1, Player io_Player2)
+
+        public Game(Player io_Player1, Player io_Player2, Board board)
         {
             m_Player1 = io_Player1;
             m_Player2 = io_Player2;
+            m_Board = board;
         }
 
         // check all adjacent cells to  specific cell
-        private bool checkedValidMove(Board board, char row, char column, Player playerType)
+
+
+        /* 
+         * Returns game status
+         */
+
+        public static eTurn GetTurn()
+        {
+            v_NoPlayer1Moves = false;
+            v_NoPlayer2Moves = false;
+            m_PlayerTurn = m_NextPlayerTurn;
+
+            switch (m_PlayerTurn)
+            {
+                // Player 1's turn
+                case eTurn.Player1:
+
+                    // Get Player 1 moves
+                    m_Player1MovesList = getValidMoves(eTurn.Player1);
+
+                    // Player 1 has no moves
+                    if (!m_Player1MovesList.Any())
+                    {
+                        if (v_NoPlayer2Moves)
+                        {
+                            // Both players have no moves, return game over.
+                            m_PlayerTurn = eTurn.GameOver;
+                        }
+                        else
+                        {
+                            // Switch to player 2's turn
+                            v_NoPlayer1Moves = true;
+                            m_PlayerTurn = eTurn.Player2;
+                            goto case eTurn.Player2;
+                        }
+                    }
+                    // Player 1 has moves in the move list
+                    else
+                    {
+                        m_PlayerTurn = eTurn.Player1;
+                    }
+                    break;
+
+                case eTurn.Player2:
+                    m_Player2MovesList = getValidMoves(eTurn.Player2);
+                    if (!m_Player2MovesList.Any())
+                    {
+                        if (v_NoPlayer1Moves)
+                        {
+                            m_PlayerTurn = eTurn.GameOver;
+                        }
+                        else
+                        {
+                            v_NoPlayer2Moves = true;
+                            m_PlayerTurn = eTurn.Player1;
+                            goto case eTurn.Player2;
+                        }
+                    }
+
+                    // Player 2 has moves in the move list
+                    else
+                    {
+                        m_PlayerTurn = eTurn.Player2;
+                    }
+                    break;
+
+            }
+
+            // Set next players turn
+            m_NextPlayerTurn = (m_PlayerTurn == eTurn.Player1) ? eTurn.Player2 : eTurn.Player1;
+
+            return m_PlayerTurn;
+        }
+
+
+        private static List<string> getValidMoves(eTurn player)
+        {
+            throw new NotImplementedException();
+        }
+
+        /*
+         * Compares valid move with list of legal moves
+         */
+
+        public static bool ValidMove(string playerMove, eTurn player)
+        {
+            return (player == eTurn.Player1)
+                       ? m_Player1MovesList.Contains(playerMove)
+                       : m_Player2MovesList.Contains(playerMove);
+        }
+        public void Move(eTurn curPlayer, string cell)
+        {
+            m_PlayerTurn = curPlayer;
+            Ex02.ConsoleUtils.Screen.Clear();
+            char row;
+            char column;
+            m_Board.drawBoard(m_Board);
+
+
+            System.Console.WriteLine();
+
+            while (cell.Length != 2)
+            {
+
+                System.Console.WriteLine("invalid input, please enter row and column in this form A1:");
+                cell = System.Console.ReadLine();
+
+            }
+            row = cell[1];
+            column = cell[0];
+
+            while (row < 49 || row > 56 || column < 65 || column > 72)
+            {
+                System.Console.WriteLine("invalid input, please enter row and column in this form 1A:");
+                cell = System.Console.ReadLine();
+
+                row = cell[1];
+                column = cell[0];
+
+            }
+
+            if (checkedValidCell(m_Board, row, column) && checkedValidMove(m_Board, row, column))
+            {
+                if (curPlayer == eTurn.Player1)
+                {
+                    m_Board.setCell('O', row, column);
+                    for (int i = 0, j = 0; i < foundLegalMoveNeighbours.Count; i++, j += 2)
+                    {
+                        char cellRowToChange = CellsNeededToChange[j];
+                        char cellColumnToChange = CellsNeededToChange[j + 1];
+                        int whichNeighborMove = foundLegalMoveNeighbours[i];
+                        int numberOfCellsToChange = numberOfCellsNeededToChangeArray[i];
+                        drawAllChangeCells(
+                            m_Board,
+                            cellRowToChange,
+                            cellColumnToChange,
+                            whichNeighborMove,
+                            numberOfCellsToChange);
+
+                    }
+                }
+                else
+                {
+                    m_Board.setCell('X', row, column);
+                    for (int i = 0, j = 0; i < foundLegalMoveNeighbours.Count; i++, j += 2)
+                    {
+                        char cellRowToChange = CellsNeededToChange[j];
+                        char cellColumnToChange = CellsNeededToChange[j + 1];
+                        int whichNeighborMove = foundLegalMoveNeighbours[i];
+                        int numberOfCellsToChange = numberOfCellsNeededToChangeArray[i];
+                        drawAllChangeCells(
+                            m_Board,
+                            cellRowToChange,
+                            cellColumnToChange,
+                            whichNeighborMove,
+                            numberOfCellsToChange);
+
+                    }
+
+
+                }
+
+                CellsNeededToChange.Clear();
+                foundLegalMoveNeighbours.Clear();
+                numberOfCellsNeededToChangeArray.Clear();
+                changeTheSequence = false;
+
+
+            }
+        }
+        // check all adjacent cells to  specific cell
+        private bool checkedValidMove(Board board, char row, char column)
         {
 
             int minusLine = row - 1;
@@ -47,21 +247,20 @@ namespace B15_Ex02_1.Logic
             int plusLine = row + 1;
             int plusColumn = column + 1;
             // player one turn
-            // TODO:
-            if (Player.Ty)
+            if (m_PlayerTurn == eTurn.Player1)
             {
                 // get all adjacent cells 
-                eCoin neighber0 = board.getCell((char)minusLine, (char)minusColumn);
-                eCoin neighber1 = board.getCell((char)minusLine, column);
-                eCoin neighber2 = board.getCell((char)minusLine, (char)plusColumn);
-                eCoin neighber3 = board.getCell(row, (char)minusColumn);
-                eCoin neighber4 = board.getCell(row, (char)plusColumn);
-                eCoin neighber5 = board.getCell((char)plusLine, (char)minusColumn);
-                eCoin neighber6 = board.getCell((char)plusLine, column);
-                eCoin neighber7 = board.getCell((char)plusLine, (char)plusColumn);
+                char neighbor0 = board.getCell((char)minusLine, (char)minusColumn);
+                char neighbor1 = board.getCell((char)minusLine, column);
+                char neighbor2 = board.getCell((char)minusLine, (char)plusColumn);
+                char neighbor3 = board.getCell(row, (char)minusColumn);
+                char neighbor4 = board.getCell(row, (char)plusColumn);
+                char neighbor5 = board.getCell((char)plusLine, (char)minusColumn);
+                char neighbor6 = board.getCell((char)plusLine, column);
+                char neighbor7 = board.getCell((char)plusLine, (char)plusColumn);
                 // insert adjacent cells to array 
-                char[] neighbers = new char[] {neighber0, neighber1 ,neighber2,neighber3 ,neighber4
-                ,neighber5, neighber6, neighber7};
+                char[] neighbers = new char[] {neighbor0, neighbor1 ,neighbor2,neighbor3 ,neighbor4
+                ,neighbor5, neighbor6, neighbor7};
 
                 // check for each adjacent cell whether need to change or not
                 for (int i = 0; i < 8; i++)
@@ -151,17 +350,17 @@ namespace B15_Ex02_1.Logic
             // player two turn 
             else
             {
-                char neighber0 = board.getCell((char)minusLine, (char)minusColumn);
-                char neighber1 = board.getCell((char)minusLine, column);
-                char neighber2 = board.getCell((char)minusLine, (char)plusColumn);
-                char neighber3 = board.getCell(row, (char)minusColumn);
-                char neighber4 = board.getCell(row, (char)plusColumn);
-                char neighber5 = board.getCell((char)plusLine, (char)minusColumn);
-                char neighber6 = board.getCell((char)plusLine, column);
-                char neighber7 = board.getCell((char)plusLine, (char)plusColumn);
+                char neighbor0 = board.getCell((char)minusLine, (char)minusColumn);
+                char neighbor1 = board.getCell((char)minusLine, column);
+                char neighbor2 = board.getCell((char)minusLine, (char)plusColumn);
+                char neighbor3 = board.getCell(row, (char)minusColumn);
+                char neighbor4 = board.getCell(row, (char)plusColumn);
+                char neighbor5 = board.getCell((char)plusLine, (char)minusColumn);
+                char neighbor6 = board.getCell((char)plusLine, column);
+                char neighbor7 = board.getCell((char)plusLine, (char)plusColumn);
 
-                char[] neighbers = new char[] {neighber0, neighber1 ,neighber2,neighber3 ,neighber4
-                ,neighber5, neighber6, neighber7};
+                char[] neighbers = new char[] {neighbor0, neighbor1 ,neighbor2,neighbor3 ,neighbor4
+                ,neighbor5, neighbor6, neighbor7};
 
                 for (int i = 0; i < 8; i++)
                 {
@@ -256,17 +455,17 @@ namespace B15_Ex02_1.Logic
         }
 
         // change sign for each cell in the sequence 
-        private void drawAllChangeCells(Board board, char row, char column, int i)
+        private void drawAllChangeCells(Board board, char row, char column, int i, int numTochange)
         {
 
             int row1 = ((int)row);
             int column1 = ((int)column);
             // player one turn
-            if (m_currentPlayer == 1)
+            if (m_PlayerTurn == eTurn.Player1)
             {
                 if (i == 0)
                 {
-                    for (int j = 0; j < numberOfCellsNeededToChange; j++)
+                    for (int j = 0; j < numTochange; j++)
                     {
                         board.setCell('O', (char)row1, (char)column1);
                         row1++;
@@ -276,7 +475,7 @@ namespace B15_Ex02_1.Logic
                 }
                 if (i == 1)
                 {
-                    for (int j = 0; j < numberOfCellsNeededToChange; j++)
+                    for (int j = 0; j < numTochange; j++)
                     {
                         board.setCell('O', (char)row1, (char)column1);
                         row1++;
@@ -286,7 +485,7 @@ namespace B15_Ex02_1.Logic
                 }
                 if (i == 2)
                 {
-                    for (int j = 0; j < numberOfCellsNeededToChange; j++)
+                    for (int j = 0; j < numTochange; j++)
                     {
                         board.setCell('O', (char)row1, (char)column1);
                         row1++;
@@ -296,7 +495,7 @@ namespace B15_Ex02_1.Logic
                 }
                 if (i == 3)
                 {
-                    for (int j = 0; j < numberOfCellsNeededToChange; j++)
+                    for (int j = 0; j < numTochange; j++)
                     {
                         board.setCell('O', (char)row1, (char)column1);
                         column1++;
@@ -305,7 +504,7 @@ namespace B15_Ex02_1.Logic
                 }
                 if (i == 4)
                 {
-                    for (int j = 0; j < numberOfCellsNeededToChange; j++)
+                    for (int j = 0; j < numTochange; j++)
                     {
                         board.setCell('O', (char)row1, (char)column1);
                         column1--;
@@ -314,7 +513,7 @@ namespace B15_Ex02_1.Logic
                 }
                 if (i == 5)
                 {
-                    for (int j = 0; j < numberOfCellsNeededToChange; j++)
+                    for (int j = 0; j < numTochange; j++)
                     {
                         board.setCell('O', (char)row1, (char)column1);
                         row1--;
@@ -324,7 +523,7 @@ namespace B15_Ex02_1.Logic
                 }
                 if (i == 6)
                 {
-                    for (int j = 0; j < numberOfCellsNeededToChange; j++)
+                    for (int j = 0; j < numTochange; j++)
                     {
                         board.setCell('O', (char)row1, (char)column1);
                         row1--;
@@ -334,7 +533,7 @@ namespace B15_Ex02_1.Logic
                 }
                 if (i == 7)
                 {
-                    for (int j = 0; j < numberOfCellsNeededToChange; j++)
+                    for (int j = 0; j < numTochange; j++)
                     {
                         board.setCell('O', (char)row1, (char)column1);
                         row1--;
@@ -348,7 +547,7 @@ namespace B15_Ex02_1.Logic
             {
                 if (i == 0)
                 {
-                    for (int j = 0; j < numberOfCellsNeededToChange; j++)
+                    for (int j = 0; j < numTochange; j++)
                     {
                         board.setCell('X', (char)row1, (char)column1);
                         row1++;
@@ -358,7 +557,7 @@ namespace B15_Ex02_1.Logic
                 }
                 if (i == 1)
                 {
-                    for (int j = 0; j < numberOfCellsNeededToChange; j++)
+                    for (int j = 0; j < numTochange; j++)
                     {
                         board.setCell('X', (char)row1, (char)column1);
                         row1++;
@@ -368,7 +567,7 @@ namespace B15_Ex02_1.Logic
                 }
                 if (i == 2)
                 {
-                    for (int j = 0; j < numberOfCellsNeededToChange; j++)
+                    for (int j = 0; j < numTochange; j++)
                     {
                         board.setCell('X', (char)row1, (char)column1);
                         row1++;
@@ -378,7 +577,7 @@ namespace B15_Ex02_1.Logic
                 }
                 if (i == 3)
                 {
-                    for (int j = 0; j < numberOfCellsNeededToChange; j++)
+                    for (int j = 0; j < numTochange; j++)
                     {
                         board.setCell('X', (char)row1, (char)column1);
                         column1++;
@@ -387,7 +586,7 @@ namespace B15_Ex02_1.Logic
                 }
                 if (i == 4)
                 {
-                    for (int j = 0; j < numberOfCellsNeededToChange; j++)
+                    for (int j = 0; j < numTochange; j++)
                     {
                         board.setCell('X', (char)row1, (char)column1);
                         column1--;
@@ -396,7 +595,7 @@ namespace B15_Ex02_1.Logic
                 }
                 if (i == 5)
                 {
-                    for (int j = 0; j < numberOfCellsNeededToChange; j++)
+                    for (int j = 0; j < numTochange; j++)
                     {
                         board.setCell('X', (char)row1, (char)column1);
                         row1--;
@@ -406,7 +605,7 @@ namespace B15_Ex02_1.Logic
                 }
                 if (i == 6)
                 {
-                    for (int j = 0; j < numberOfCellsNeededToChange; j++)
+                    for (int j = 0; j < numTochange; j++)
                     {
                         board.setCell('X', (char)row1, (char)column1);
                         row1--;
@@ -416,7 +615,7 @@ namespace B15_Ex02_1.Logic
                 }
                 if (i == 7)
                 {
-                    for (int j = 0; j < numberOfCellsNeededToChange; j++)
+                    for (int j = 0; j < numTochange; j++)
                     {
                         board.setCell('X', (char)row1, (char)column1);
                         row1--;
@@ -436,133 +635,176 @@ namespace B15_Ex02_1.Logic
             int plusLine = row + 1;
             int plusColumn = column + 1;
             // player one
-            if (m_currentPlayer == 1)
+            if (m_PlayerTurn == eTurn.Player1)
             {
 
                 if (i == 0)
                 {
-                    char neighber0 = board.getCell((char)minusLine, (char)minusColumn);
-                    if (neighber0 == 'X')
+                    char neighbor0 = board.getCell((char)minusLine, (char)minusColumn);
+                    if (neighbor0 == 'X')
                     {
                         numberOfCellsNeededToChange++;
+
                         checkedValidMoveContinue(board, (char)minusLine, (char)minusColumn, i);
                     }
-                    else if (neighber0 == 'O')
+                    else if (neighbor0 == 'O')
                     {
-                        foundLegalMove = 1;
-                        drawAllChangeCells(board, row, column, i);
+                        CellsNeededToChange.Add(row);
+                        CellsNeededToChange.Add(column);
+                        numberOfCellsNeededToChangeArray.Add(numberOfCellsNeededToChange);
+                        numberOfCellsNeededToChange = 1;
+                        foundLegalMoveNeighbours.Add(0);
+
+
+
                         return true;
                     }
 
                 }
                 if (i == 1)
                 {
-                    char neighber0 = board.getCell((char)minusLine, column);
-                    if (neighber0 == 'X')
+                    char neighbor0 = board.getCell((char)minusLine, column);
+                    if (neighbor0 == 'X')
                     {
                         numberOfCellsNeededToChange++;
                         checkedValidMoveContinue(board, (char)minusLine, column, i);
                     }
-                    else if (neighber0 == 'O')
+                    else if (neighbor0 == 'O')
                     {
-                        foundLegalMove = 1;
-                        drawAllChangeCells(board, row, column, i);
+                        CellsNeededToChange.Add(row);
+                        CellsNeededToChange.Add(column);
+                        numberOfCellsNeededToChangeArray.Add(numberOfCellsNeededToChange);
+                        numberOfCellsNeededToChange = 1;
+                        foundLegalMoveNeighbours.Add(1);
+
+
+
                         return true;
                     }
 
                 }
                 if (i == 2)
                 {
-                    char neighber0 = board.getCell((char)minusLine, (char)plusColumn);
-                    if (neighber0 == 'X')
+                    char neighbor0 = board.getCell((char)minusLine, (char)plusColumn);
+                    if (neighbor0 == 'X')
                     {
                         numberOfCellsNeededToChange++;
                         checkedValidMoveContinue(board, (char)minusLine, (char)plusColumn, i);
                     }
-                    else if (neighber0 == 'O')
+                    else if (neighbor0 == 'O')
                     {
-                        foundLegalMove = 1;
-                        drawAllChangeCells(board, row, column, i);
+                        CellsNeededToChange.Add(row);
+                        CellsNeededToChange.Add(column);
+                        numberOfCellsNeededToChangeArray.Add(numberOfCellsNeededToChange);
+                        numberOfCellsNeededToChange = 1;
+                        foundLegalMoveNeighbours.Add(2);
+
+
+
                         return true;
                     }
 
                 }
                 if (i == 3)
                 {
-                    char neighber0 = board.getCell(row, (char)minusColumn);
-                    if (neighber0 == 'X')
+                    char neighbor0 = board.getCell(row, (char)minusColumn);
+                    if (neighbor0 == 'X')
                     {
                         numberOfCellsNeededToChange++;
                         checkedValidMoveContinue(board, row, (char)minusColumn, i);
                     }
-                    else if (neighber0 == 'O')
+                    else if (neighbor0 == 'O')
                     {
-                        foundLegalMove = 1;
-                        drawAllChangeCells(board, row, column, i);
+                        CellsNeededToChange.Add(row);
+                        CellsNeededToChange.Add(column);
+                        numberOfCellsNeededToChangeArray.Add(numberOfCellsNeededToChange);
+                        numberOfCellsNeededToChange = 1;
+                        foundLegalMoveNeighbours.Add(3);
+
                         return true;
                     }
 
                 }
                 if (i == 4)
                 {
-                    char neighber0 = board.getCell(row, (char)plusColumn);
-                    if (neighber0 == 'X')
+                    char neighbor0 = board.getCell(row, (char)plusColumn);
+                    if (neighbor0 == 'X')
                     {
                         numberOfCellsNeededToChange++;
                         checkedValidMoveContinue(board, row, (char)plusColumn, i);
                     }
-                    else if (neighber0 == 'O')
+                    else if (neighbor0 == 'O')
                     {
-                        foundLegalMove = 1;
-                        drawAllChangeCells(board, row, column, i);
+                        CellsNeededToChange.Add(row);
+                        CellsNeededToChange.Add(column);
+                        numberOfCellsNeededToChangeArray.Add(numberOfCellsNeededToChange);
+                        numberOfCellsNeededToChange = 1;
+                        foundLegalMoveNeighbours.Add(4);
+
+
                         return true;
                     }
 
                 }
                 if (i == 5)
                 {
-                    char neighber0 = board.getCell((char)plusLine, (char)minusColumn);
-                    if (neighber0 == 'X')
+                    char neighbor0 = board.getCell((char)plusLine, (char)minusColumn);
+                    if (neighbor0 == 'X')
                     {
                         numberOfCellsNeededToChange++;
                         checkedValidMoveContinue(board, (char)plusLine, (char)minusColumn, i);
                     }
-                    else if (neighber0 == 'O')
+                    else if (neighbor0 == 'O')
                     {
-                        foundLegalMove = 1;
-                        drawAllChangeCells(board, row, column, i);
+                        CellsNeededToChange.Add(row);
+                        CellsNeededToChange.Add(column);
+                        numberOfCellsNeededToChangeArray.Add(numberOfCellsNeededToChange);
+                        numberOfCellsNeededToChange = 1;
+                        foundLegalMoveNeighbours.Add(5);
+
+
                         return true;
                     }
 
                 }
                 if (i == 6)
                 {
-                    char neighber0 = board.getCell((char)plusLine, column);
-                    if (neighber0 == 'X')
+                    char neighbor0 = board.getCell((char)plusLine, column);
+                    if (neighbor0 == 'X')
                     {
                         numberOfCellsNeededToChange++;
                         checkedValidMoveContinue(board, (char)plusLine, column, i);
                     }
-                    else if (neighber0 == 'O')
+                    else if (neighbor0 == 'O')
                     {
-                        foundLegalMove = 1;
-                        drawAllChangeCells(board, row, column, i);
+                        CellsNeededToChange.Add(row);
+                        CellsNeededToChange.Add(column);
+                        numberOfCellsNeededToChangeArray.Add(numberOfCellsNeededToChange);
+                        numberOfCellsNeededToChange = 1;
+                        foundLegalMoveNeighbours.Add(6);
+
                         return true;
                     }
 
                 }
                 if (i == 7)
                 {
-                    char neighber0 = board.getCell((char)plusLine, (char)plusColumn);
-                    if (neighber0 == 'X')
+                    char neighbor0 = board.getCell((char)plusLine, (char)plusColumn);
+                    if (neighbor0 == 'X')
                     {
+
                         numberOfCellsNeededToChange++;
                         checkedValidMoveContinue(board, (char)plusLine, (char)plusColumn, i);
                     }
-                    else if (neighber0 == 'O')
+                    else if (neighbor0 == 'O')
                     {
-                        foundLegalMove = 1;
-                        drawAllChangeCells(board, row, column, i);
+                        CellsNeededToChange.Add(row);
+                        CellsNeededToChange.Add(column);
+                        numberOfCellsNeededToChangeArray.Add(numberOfCellsNeededToChange);
+                        numberOfCellsNeededToChange = 1;
+                        foundLegalMoveNeighbours.Add(7);
+
+
                         return true;
                     }
 
@@ -573,261 +815,192 @@ namespace B15_Ex02_1.Logic
             {
                 if (i == 0)
                 {
-                    char neighber0 = board.getCell((char)minusLine, (char)minusColumn);
-                    if (neighber0 == 'O')
+                    char neighbor0 = board.getCell((char)minusLine, (char)minusColumn);
+                    if (neighbor0 == 'O')
                     {
                         numberOfCellsNeededToChange++;
                         checkedValidMoveContinue(board, (char)minusLine, (char)minusColumn, i);
                     }
-                    else if (neighber0 == 'X')
+                    else if (neighbor0 == 'X')
                     {
-                        foundLegalMove = 1;
-                        drawAllChangeCells(board, row, column, i);
+                        CellsNeededToChange.Add(row);
+                        CellsNeededToChange.Add(column);
+                        numberOfCellsNeededToChangeArray.Add(numberOfCellsNeededToChange);
+                        numberOfCellsNeededToChange = 1;
+                        foundLegalMoveNeighbours.Add(0);
+
+
+
                         return true;
                     }
 
                 }
                 if (i == 1)
                 {
-                    char neighber0 = board.getCell((char)minusLine, column);
-                    if (neighber0 == 'O')
+                    char neighbor0 = board.getCell((char)minusLine, column);
+                    if (neighbor0 == 'O')
                     {
                         numberOfCellsNeededToChange++;
                         checkedValidMoveContinue(board, (char)minusLine, column, i);
                     }
-                    else if (neighber0 == 'X')
+                    else if (neighbor0 == 'X')
                     {
-                        foundLegalMove = 1;
-                        drawAllChangeCells(board, row, column, i);
+                        CellsNeededToChange.Add(row);
+                        CellsNeededToChange.Add(column);
+                        numberOfCellsNeededToChangeArray.Add(numberOfCellsNeededToChange);
+                        numberOfCellsNeededToChange = 1;
+                        foundLegalMoveNeighbours.Add(1);
+
+
                         return true;
                     }
 
                 }
                 if (i == 2)
                 {
-                    char neighber0 = board.getCell((char)minusLine, (char)plusColumn);
-                    if (neighber0 == 'O')
+                    char neighbor0 = board.getCell((char)minusLine, (char)plusColumn);
+                    if (neighbor0 == 'O')
                     {
                         numberOfCellsNeededToChange++;
                         checkedValidMoveContinue(board, (char)minusLine, (char)plusColumn, i);
                     }
-                    else if (neighber0 == 'X')
+                    else if (neighbor0 == 'X')
                     {
-                        foundLegalMove = 1;
-                        drawAllChangeCells(board, row, column, i);
+                        CellsNeededToChange.Add(row);
+                        CellsNeededToChange.Add(column);
+                        numberOfCellsNeededToChangeArray.Add(numberOfCellsNeededToChange);
+                        numberOfCellsNeededToChange = 1;
+                        foundLegalMoveNeighbours.Add(2);
+
+                        ;
+
                         return true;
                     }
 
                 }
                 if (i == 3)
                 {
-                    char neighber0 = board.getCell(row, (char)minusColumn);
-                    if (neighber0 == 'O')
+                    char neighbor0 = board.getCell(row, (char)minusColumn);
+                    if (neighbor0 == 'O')
                     {
                         numberOfCellsNeededToChange++;
                         checkedValidMoveContinue(board, row, (char)minusColumn, i);
                     }
-                    else if (neighber0 == 'X')
+                    else if (neighbor0 == 'X')
                     {
-                        foundLegalMove = 1;
-                        drawAllChangeCells(board, row, column, i);
+                        CellsNeededToChange.Add(row);
+                        CellsNeededToChange.Add(column);
+                        numberOfCellsNeededToChangeArray.Add(numberOfCellsNeededToChange);
+                        numberOfCellsNeededToChange = 1;
+                        foundLegalMoveNeighbours.Add(3);
+
+
+
                         return true;
                     }
 
                 }
                 if (i == 4)
                 {
-                    char neighber0 = board.getCell(row, (char)plusColumn);
-                    if (neighber0 == 'O')
+                    char neighbor0 = board.getCell(row, (char)plusColumn);
+                    if (neighbor0 == 'O')
                     {
                         numberOfCellsNeededToChange++;
                         checkedValidMoveContinue(board, row, (char)plusColumn, i);
                     }
-                    else if (neighber0 == 'X')
+                    else if (neighbor0 == 'X')
                     {
-                        foundLegalMove = 1;
-                        drawAllChangeCells(board, row, column, i);
+                        CellsNeededToChange.Add(row);
+                        CellsNeededToChange.Add(column);
+                        numberOfCellsNeededToChangeArray.Add(numberOfCellsNeededToChange);
+                        numberOfCellsNeededToChange = 1;
+                        foundLegalMoveNeighbours.Add(4);
+
                         return true;
                     }
 
                 }
                 if (i == 5)
                 {
-                    char neighber0 = board.getCell((char)plusLine, (char)minusColumn);
-                    if (neighber0 == 'O')
+                    char neighbor0 = board.getCell((char)plusLine, (char)minusColumn);
+                    if (neighbor0 == 'O')
                     {
                         numberOfCellsNeededToChange++;
                         checkedValidMoveContinue(board, (char)plusLine, (char)minusColumn, i);
                     }
-                    else if (neighber0 == 'X')
+                    else if (neighbor0 == 'X')
                     {
-                        foundLegalMove = 1;
-                        drawAllChangeCells(board, row, column, i);
+                        CellsNeededToChange.Add(row);
+                        CellsNeededToChange.Add(column);
+                        numberOfCellsNeededToChangeArray.Add(numberOfCellsNeededToChange);
+                        numberOfCellsNeededToChange = 1;
+                        foundLegalMoveNeighbours.Add(5);
+
+
+
                         return true;
                     }
 
                 }
                 if (i == 6)
                 {
-                    char neighber0 = board.getCell((char)plusLine, column);
-                    if (neighber0 == 'O')
+                    char neighbor0 = board.getCell((char)plusLine, column);
+                    if (neighbor0 == 'O')
                     {
                         numberOfCellsNeededToChange++;
                         checkedValidMoveContinue(board, (char)plusLine, column, i);
                     }
-                    else if (neighber0 == 'X')
+                    else if (neighbor0 == 'X')
                     {
-                        foundLegalMove = 1;
-                        drawAllChangeCells(board, row, column, i);
+                        CellsNeededToChange.Add(row);
+                        CellsNeededToChange.Add(column);
+                        numberOfCellsNeededToChangeArray.Add(numberOfCellsNeededToChange);
+                        numberOfCellsNeededToChange = 1;
+                        foundLegalMoveNeighbours.Add(6);
+
                         return true;
                     }
 
                 }
                 if (i == 7)
                 {
-                    char neighber0 = board.getCell((char)plusLine, (char)plusColumn);
-                    if (neighber0 == 'O')
+                    char neighbor0 = board.getCell((char)plusLine, (char)plusColumn);
+                    if (neighbor0 == 'O')
                     {
                         numberOfCellsNeededToChange++;
                         checkedValidMoveContinue(board, (char)plusLine, (char)plusColumn, i);
                     }
-                    else if (neighber0 == 'X')
+                    else if (neighbor0 == 'X')
                     {
-                        foundLegalMove = 1;
-                        drawAllChangeCells(board, row, column, i);
+                        CellsNeededToChange.Add(row);
+                        CellsNeededToChange.Add(column);
+                        numberOfCellsNeededToChangeArray.Add(numberOfCellsNeededToChange);
+                        numberOfCellsNeededToChange = 1;
+                        foundLegalMoveNeighbours.Add(7);
+
                         return true;
                     }
 
                 }
             }
-            if (foundLegalMove == 1)
+            if (foundLegalMoveNeighbours.Count != 0)
             {
                 return true;
             }
             return false;
         }
 
-        /*
-         * Moves player according to whose turn and input of move
-         */
-        public static void Move(eTurn playerTurn, string playerMove)
+        public static bool checkedValidCell(Board board, char row, char column)
         {
-            switch (playerTurn)
+
+            while (board.getCell(row, column) == 'O' || board.getCell(row, column) == 'X')
             {
-                case eTurn.Player1:
-                    break;
-                case eTurn.Player2:
-                    // case PC
-                    break;
-                case eTurn.GameOver:
-                    break;
-            }
-            
-            throw new NotImplementedException();
-        }
-
-        /* 
-         * Returns game status
-         */
-        public static eTurn GetTurn()
-        {
-            v_NoPlayer1Moves = false;
-            v_NoPlayer2Moves = false;
-            m_PlayerTurn = m_NextPlayerTurn;
-
-            switch (m_PlayerTurn)
-            {
-                // Player 1's turn
-                case eTurn.Player1:
-
-                    // Get Player 1 moves
-                    m_Player1MovesList = getValidMoves(eTurn.Player1);
-
-                    // Player 1 has no moves
-                    if (!m_Player1MovesList.Any())
-                    {
-                        if (v_NoPlayer2Moves)
-                        {
-                            // Both players have no moves, return game over.
-                            m_PlayerTurn = eTurn.GameOver;
-                        }
-                        else
-                        {
-                            // Switch to player 2's turn
-                            v_NoPlayer1Moves = true;
-                            m_PlayerTurn = eTurn.Player2;
-                            goto case eTurn.Player2;
-                        }
-                    }
-                    // Player 1 has moves in the move list
-                    else
-                    {
-                        m_PlayerTurn = eTurn.Player1;
-                    }
-                    break;
-
-                case eTurn.Player2:
-                    m_Player2MovesList = getValidMoves(eTurn.Player2);
-                    if (!m_Player2MovesList.Any())
-                    {
-                        if (v_NoPlayer1Moves)
-                        {
-                            m_PlayerTurn = eTurn.GameOver;
-                        }
-                        else
-                        {
-                            v_NoPlayer2Moves = true;
-                            m_PlayerTurn = eTurn.Player1;
-                            goto case eTurn.Player2;
-                        }
-                    }
-
-                    // Player 2 has moves in the move list
-                    else
-                    {
-                        m_PlayerTurn = eTurn.Player2;
-                    }
-                    break;
+                return false;
 
             }
 
-            // Set next players turn
-            if (m_PlayerTurn == eTurn.Player1)
-            {
-                m_NextPlayerTurn = eTurn.Player2;
-            }
-            else
-            {
-                m_NextPlayerTurn = eTurn.Player1;
-            }
 
-            return m_PlayerTurn;
-        }
-
-
-        private static List<string> getValidMoves(eTurn player)
-        {
-            throw new NotImplementedException();
-        }
-
-        /*
-         * Compares valid move with list of legal moves
-         */
-        public static bool ValidMove(string playerMove)
-        {
-            throw new NotImplementedException();
-        }
-
-        /*
-         * Saves whose turn it is
-         */
-        internal enum eTurn
-        {
-            Player1,
-            Player2,
-            GameOver
+            return true;
         }
     }
-
-
 }

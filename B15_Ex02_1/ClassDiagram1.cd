@@ -6,14 +6,14 @@
   <Class Name="B15_Ex02_1.Logic.Player">
     <Position X="8.75" Y="2.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAEQAAACAIAAACAAgAAAAAAAAAAAABAAAQIAACAAAAg=</HashCode>
+      <HashCode>AAEQAAACAAAAAAAAgAAAAAAAAAAAAAAAAQAAACAAAAg=</HashCode>
       <FileName>Logic\Player.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="B15_Ex02_1.Logic.Game">
     <Position X="5.75" Y="2.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>EAAAAAAAgIAAAAAAAABEAAAAAAAAAggAAgAAQAAAACA=</HashCode>
+      <HashCode>FAAAQAAAAIAAQAAAAAhFgAAAkAQAAggAIgQAUAEAACA=</HashCode>
       <FileName>Logic\Game.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -39,14 +39,9 @@
           <NewMemberFileName>Control\Controller.cs</NewMemberFileName>
         </TypeIdentifier>
       </Enum>
-      <Enum Name="B15_Ex02_1.Control.Controller.eBoardSize" Collapsed="true">
-        <TypeIdentifier>
-          <NewMemberFileName>Control\Controller.cs</NewMemberFileName>
-        </TypeIdentifier>
-      </Enum>
     </NestedTypes>
     <TypeIdentifier>
-      <HashCode>AAAAAQAAAAABAAAAAQAFgAAAAACAAAAAIAYAAAAAAIA=</HashCode>
+      <HashCode>EAAAAQAAAAABAAAAAQAFgAAAAACAAAAAIAYAAAAAAIA=</HashCode>
       <FileName>Control\Controller.cs</FileName>
     </TypeIdentifier>
   </Class>
