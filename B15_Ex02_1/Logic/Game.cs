@@ -153,8 +153,10 @@ namespace B15_Ex02_1.Logic
         {
             if (m_Board.Size == 8)
             {
-                for (int i = 49; i < 57; i++)
+                // 49
+                for (int i = 47; i < 57; i++)
                 {
+                    //65
                     for (int j = 65; j < 73; j++)
                     {
                         if (checkedValidCell(m_Board, (char)i, (char)j) && checkedValidMove(m_Board, (char)i, (char)j))
@@ -303,10 +305,11 @@ namespace B15_Ex02_1.Logic
                 foundLegalMoveNeighbours.Clear();
                 numberOfCellsNeededToChangeArray.Clear();
                 changeTheSequence = false;
-
-
+                Ex02.ConsoleUtils.Screen.Clear();
+                m_Board.drawBoard(m_Board);
+                System.Console.WriteLine();
             }
-            System.Console.ReadLine();
+            
         }
         // check all adjacent cells to  specific cell
         private bool checkedValidMove(Board board, char row, char column)

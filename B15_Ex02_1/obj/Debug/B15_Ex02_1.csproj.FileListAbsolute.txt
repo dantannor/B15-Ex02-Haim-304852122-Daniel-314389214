@@ -21,3 +21,8 @@ C:\Users\Daniel\Documents\Visual Studio 2013\Projects\cSharp2\B15_Ex02_1\obj\Deb
 C:\Users\Daniel\Documents\Visual Studio 2013\Projects\cSharp2\B15_Ex02_1\bin\Debug\B15_Ex02_1.exe
 C:\Users\Daniel\Documents\Visual Studio 2013\Projects\cSharp2\B15_Ex02_1\bin\Debug\B15_Ex02_1.pdb
 C:\Users\Daniel\Documents\Visual Studio 2013\Projects\cSharp2\B15_Ex02_1\bin\Debug\B15_Ex02_1.XML
+C:\Users\S551LB\Desktop\Ex02\B15_Ex02_1\bin\Debug\B15_Ex02_1.XML
+C:\Users\S551LB\Desktop\Ex02\B15_Ex02_1\bin\Debug\B15_Ex02_1.exe
+C:\Users\S551LB\Desktop\Ex02\B15_Ex02_1\bin\Debug\B15_Ex02_1.pdb
+C:\Users\S551LB\Desktop\Ex02\B15_Ex02_1\bin\Debug\Ex02.ConsoleUtils.dll
+C:\Users\S551LB\Desktop\Ex02\B15_Ex02_1\obj\Debug\B15_Ex02_1.csprojResolveAssemblyReference.cache

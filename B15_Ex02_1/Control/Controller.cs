@@ -105,6 +105,8 @@ namespace B15_Ex02_1.Control
             initPlayers();
             initBoard();
             m_Game = new Game(m_Player1, m_Player2, m_Board);
+            m_Board.drawBoard(m_Board);
+            System.Console.WriteLine();
             play();
         }
 
@@ -168,15 +170,18 @@ namespace B15_Ex02_1.Control
         /// </summary>
         private void play()
         {
-            // Get player turn
             m_PlayerTurn = m_Game.GetTurn();
-
+            
             while ((m_Game.GetTurn() != eTurn.GameOver) && (m_PlayerMove != "q"))
             {
+                // Get player turn
+                m_PlayerTurn = m_Game.GetTurn();
+
                 // Get player move, validate and pass it on to game move, which updates the board.
                 switch (m_PlayerTurn)
                 {
                     case eTurn.Player1:
+                        
                         m_PlayerMove = getPlayerMove(m_Player1.PlayerName, eTurn.Player1);
 
                         // SetBoard with playermove
@@ -187,6 +192,10 @@ namespace B15_Ex02_1.Control
                         // Player2
                         if (m_Player2.Type == ePlayer.Player2)
                         {
+                            m_PlayerMove = getPlayerMove(m_Player2.PlayerName, eTurn.Player2);
+
+                            // SetBoard with playermove
+                            m_Game.Move(m_PlayerTurn, m_PlayerMove);
                         }
 
                         // PC
@@ -256,10 +265,22 @@ namespace B15_Ex02_1.Control
             {
                 case eBoardSize.Six:
                     m_Board = new Board(6);
+                        
+                            m_Board.setCell('O', '3', 'C');
+                            m_Board.setCell('X', '3', 'D');
+                            m_Board.setCell('X', '4', 'C');
+                            m_Board.setCell('O', '4', 'D');
+
                     break;
 
                 case eBoardSize.Eight:
                     m_Board = new Board(8);
+                    
+                        m_Board.setCell('O', '4', 'D');
+                        m_Board.setCell('X', '4', 'E');
+                        m_Board.setCell('X', '5', 'D');
+                        m_Board.setCell('O', '5', 'E');
+   
                     break;
             }
         }
