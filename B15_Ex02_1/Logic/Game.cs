@@ -7,6 +7,8 @@ using B15_Ex02_1.Control;
 
 namespace B15_Ex02_1.Logic
 {
+    using B15_Ex02_1.UI;
+
     /*
          * Saves whose turn it is
          */
@@ -17,7 +19,9 @@ namespace B15_Ex02_1.Logic
 
         Player2 = 2,
 
-        GameOver
+        GameOver,
+
+        NoTransfer
     }
 
     public class Game
@@ -68,10 +72,40 @@ namespace B15_Ex02_1.Logic
             m_NextPlayerTurn = eTurn.Player1;
         }
 
-        public List<string> PcMovesList
+        public static eTurn TurnTransfer()
+        {
+            eTurn turn;
+            if (v_NoPlayer1Moves == true && v_NoPlayer2Moves == false)
+            {
+                turn = eTurn.Player1;
+            }
+            else if (v_NoPlayer2Moves == true && v_NoPlayer1Moves == false)
+            {
+                turn = eTurn.Player2;
+            }
+            else
+            {
+                turn = eTurn.NoTransfer;
+            }
+
+            return turn;
+        }
+
+        public List<string> PcMovesList2
         {
             get { return m_Player2MovesList; }
         }
+        public List<string> PcMovesList
+        {
+            get { return m_Player1MovesList; }
+        }
+        //TODO: delete two methods up and put this
+        /*
+         * public List<string> PcMovesList
+        {
+            get { return m_Player2MovesList; }
+        }
+         */
 
         // check all adjacent cells to  specific cell
 
@@ -130,7 +164,7 @@ namespace B15_Ex02_1.Logic
                         {
                             v_NoPlayer2Moves = true;
                             m_PlayerTurn = eTurn.Player1;
-                            goto case eTurn.Player2;
+                            goto case eTurn.Player1;
                         }
                     }
 
@@ -159,10 +193,10 @@ namespace B15_Ex02_1.Logic
         {
             if (m_Board.Size == 8)
             {
-                // 49
-                for (int i = 47; i < 57; i++)
+                
+                for (int i = 49; i < 57; i++)
                 {
-                    //65
+                    
                     for (int j = 65; j < 73; j++)
                     {
                         if (checkedValidCell(m_Board, (char)i, (char)j) && checkedValidMove(m_Board, (char)i, (char)j))
@@ -235,13 +269,14 @@ namespace B15_Ex02_1.Logic
                        ? m_Player1MovesList.Contains(playerMove)
                        : m_Player2MovesList.Contains(playerMove);
         }
+
         public void Move(eTurn curPlayer, string cell)
         {
             m_PlayerTurn = curPlayer;
-            Ex02.ConsoleUtils.Screen.Clear();
+            //Ex02.ConsoleUtils.Screen.Clear();
             char row;
             char column;
-            m_Board.drawBoard(m_Board);
+            //View.DrawBoard(m_Board);
 
 
             System.Console.WriteLine();
@@ -249,7 +284,7 @@ namespace B15_Ex02_1.Logic
 
             row = cell[1];
             column = cell[0];
-
+            /*
             while (row < 49 || row > 56 || column < 65 || column > 72)
             {
                 System.Console.WriteLine("invalid input, please enter row and column in this form 1A:");
@@ -259,7 +294,7 @@ namespace B15_Ex02_1.Logic
                 column = cell[0];
 
             }
-
+            */
             if (checkedValidCell(m_Board, row, column) && checkedValidMove(m_Board, row, column))
             {
                 if (curPlayer == eTurn.Player1)
@@ -277,8 +312,11 @@ namespace B15_Ex02_1.Logic
                             cellColumnToChange,
                             whichNeighborMove,
                             numberOfCellsToChange);
+                        m_Player1.PlayerPoints = m_Player1.PlayerPoints + numberOfCellsToChange;
+                        m_Player2.PlayerPoints = m_Player2.PlayerPoints - numberOfCellsToChange;
 
                     }
+                    m_Player1.PlayerPoints++;
                 }
                 else
                 {
@@ -295,19 +333,21 @@ namespace B15_Ex02_1.Logic
                             cellColumnToChange,
                             whichNeighborMove,
                             numberOfCellsToChange);
+                        m_Player2.PlayerPoints = m_Player2.PlayerPoints + numberOfCellsToChange;
+                        m_Player1.PlayerPoints = m_Player1.PlayerPoints - numberOfCellsToChange;
 
                     }
 
-
+                    m_Player2.PlayerPoints++;
                 }
 
                 CellsNeededToChange.Clear();
                 foundLegalMoveNeighbours.Clear();
                 numberOfCellsNeededToChangeArray.Clear();
                 changeTheSequence = false;
-                Ex02.ConsoleUtils.Screen.Clear();
-                m_Board.drawBoard(m_Board);
-                System.Console.WriteLine();
+                //Ex02.ConsoleUtils.Screen.Clear();
+                //View.DrawBoard(m_Board);
+                //System.Console.WriteLine();
             }
             
         }

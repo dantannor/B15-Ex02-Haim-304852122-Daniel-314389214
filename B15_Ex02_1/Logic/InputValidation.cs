@@ -23,17 +23,17 @@ namespace B15_Ex02_1.Logic
         /// <summary>
         /// The validate player name.
         /// </summary>
-        /// <param name="io_playerName">
+        /// <param name="io_PlayerName">
         /// The io_player name.
         /// </param>
         /// <returns>
         /// The <see cref="bool"/>.
         /// </returns>
-        public static bool ValidatePlayerName(string io_playerName)
+        public static bool ValidPlayerName(string io_PlayerName)
         {
             const string sPattern = "[A-Za-z0-9]+";
 
-            return Regex.IsMatch(io_playerName, sPattern);
+            return Regex.IsMatch(io_PlayerName, sPattern);
         }
     }
 }

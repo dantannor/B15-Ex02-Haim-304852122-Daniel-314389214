@@ -20,7 +20,7 @@ namespace B15_Ex02_1.Logic
         public Player(string io_PlayerName, Controller.ePlayer i_Player)
         {
             this.m_PlayerName = io_PlayerName;
-            this.m_PlayerPoints = 0;
+            this.m_PlayerPoints = 2;
             this.mPlayer = i_Player;
         }
         public int PlayerPoints
