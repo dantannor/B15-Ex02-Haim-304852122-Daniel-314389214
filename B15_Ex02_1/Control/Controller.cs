@@ -340,7 +340,9 @@ namespace B15_Ex02_1.Control
             string playerType = View.AskPlayerType();
             int.TryParse(playerType, out playerTypeNum);
 
-            while (!Enum.IsDefined(typeof(ePlayer), playerTypeNum) && (playerTypeNum != (int)ePlayer.Player2))
+            int player2 = (int)ePlayer.Player2;
+
+            while (!Enum.IsDefined(typeof(ePlayer), playerTypeNum) || (playerTypeNum == (int)ePlayer.Player2))
             {
                 Console.WriteLine();
                 View.PrintInvalidInput("Sorry, that's an invalid player type. Please re-enter:");
