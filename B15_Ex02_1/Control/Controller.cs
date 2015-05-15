@@ -181,7 +181,7 @@ namespace B15_Ex02_1.Control
                 switch (m_PlayerTurn)
                 {
                     case eTurn.Player1:
-                        /* //TODO :  
+                        
                         m_PlayerMove = getPlayerMove(m_Player1.PlayerName, eTurn.Player1);
                         if (m_PlayerMove == "q")
                         {
@@ -189,14 +189,6 @@ namespace B15_Ex02_1.Control
                         }
                         // SetBoard with playermove
                         m_Game.Move(m_PlayerTurn, m_PlayerMove);
-                         */
-                         m_PlayerMove = getPcMove(eTurn.Player1);
-                            if (m_PlayerMove == "q")
-                            {
-                                continue;
-                            }
-                            // SetBoard with playermove
-                            m_Game.Move(m_PlayerTurn, m_PlayerMove);
                         break;
                     case eTurn.Player2:
 
@@ -225,23 +217,8 @@ namespace B15_Ex02_1.Control
                     case eTurn.GameOver:
                         Console.WriteLine("lala");
 
-                        string victor = "";
-                        string otherPlayer = ""; 
-                        if (m_Player1.PlayerPoints > m_Player2.PlayerPoints)
-                        {
-                            victor = m_Player1.PlayerName;
-                            otherPlayer = m_Player2.PlayerName; 
-                        }
-                        else
-                        {
-                            if (m_Player2.PlayerPoints > m_Player1.PlayerPoints)
-                            {
-                                victor = m_Player2.PlayerName; 
-                                otherPlayer = m_Player1.PlayerName; 
-                            }
-                        }
-                        View.PrintGameOver(m_Player1.PlayerPoints, m_Player2.PlayerPoints, victor, otherPlayer);
-                        System.Console.ReadLine();
+                        // TODO
+                        // View.PrintGameOver(); 
                         break;
                 }
             }
@@ -270,15 +247,15 @@ namespace B15_Ex02_1.Control
             // Read player name and check input
             string playerMove = View.ScanPlayerMove(playerName);
 
-            if (playerMove != "q")
-            {
+            
+            
                 while (!Game.ValidMove(playerMove, playerTurn))
                 {
                     Console.WriteLine();
                     View.PrintInvalidInput("Sorry, that's an invalid move. Please re-enter:");
                     playerMove = View.ScanPlayerMove(playerName);
                 }
-            }
+            
 
             return playerMove;
         }
@@ -286,20 +263,10 @@ namespace B15_Ex02_1.Control
         private static string getPcMove(eTurn playerTurn)
         {
             Random rnd = new Random();
-            string pcMove;
-            if (playerTurn == eTurn.Player1)
-            {
-                int rndCell = rnd.Next(0, m_Game.PcMovesList.Count);
-                 pcMove = m_Game.PcMovesList[rndCell];
-            }
-            else
-            {
-                int rndCell = rnd.Next(0, m_Game.PcMovesList2.Count);
-                 pcMove = m_Game.PcMovesList2[rndCell];
+            int rndCell = rnd.Next(0, m_Game.PcMovesList.Count);
+            string pcMove = m_Game.PcMovesList[rndCell];
             
-            }
-            
-           // System.Threading.Thread.Sleep(2000);
+            System.Threading.Thread.Sleep(2000);
 
 
 

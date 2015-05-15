@@ -68,21 +68,10 @@ namespace B15_Ex02_1.Logic
             m_NextPlayerTurn = eTurn.Player1;
         }
 
-        public List<string> PcMovesList2
-        {
-            get { return m_Player2MovesList; }
-        }
         public List<string> PcMovesList
         {
-            get { return m_Player1MovesList; }
-        }
-        //TODO: delete two methods up and put this
-        /*
-         * public List<string> PcMovesList
-        {
             get { return m_Player2MovesList; }
         }
-         */
 
         // check all adjacent cells to  specific cell
 
@@ -141,7 +130,7 @@ namespace B15_Ex02_1.Logic
                         {
                             v_NoPlayer2Moves = true;
                             m_PlayerTurn = eTurn.Player1;
-                            goto case eTurn.Player1;
+                            goto case eTurn.Player2;
                         }
                     }
 
@@ -170,10 +159,10 @@ namespace B15_Ex02_1.Logic
         {
             if (m_Board.Size == 8)
             {
-                
-                for (int i = 49; i < 57; i++)
+                // 49
+                for (int i = 47; i < 57; i++)
                 {
-                    
+                    //65
                     for (int j = 65; j < 73; j++)
                     {
                         if (checkedValidCell(m_Board, (char)i, (char)j) && checkedValidMove(m_Board, (char)i, (char)j))
@@ -260,7 +249,7 @@ namespace B15_Ex02_1.Logic
 
             row = cell[1];
             column = cell[0];
-            /*
+
             while (row < 49 || row > 56 || column < 65 || column > 72)
             {
                 System.Console.WriteLine("invalid input, please enter row and column in this form 1A:");
@@ -270,7 +259,7 @@ namespace B15_Ex02_1.Logic
                 column = cell[0];
 
             }
-            */
+
             if (checkedValidCell(m_Board, row, column) && checkedValidMove(m_Board, row, column))
             {
                 if (curPlayer == eTurn.Player1)
@@ -288,11 +277,8 @@ namespace B15_Ex02_1.Logic
                             cellColumnToChange,
                             whichNeighborMove,
                             numberOfCellsToChange);
-                        m_Player1.PlayerPoints = m_Player1.PlayerPoints + numberOfCellsToChange;
-                        m_Player2.PlayerPoints = m_Player2.PlayerPoints - numberOfCellsToChange;
 
                     }
-                    m_Player1.PlayerPoints++;
                 }
                 else
                 {
@@ -309,12 +295,10 @@ namespace B15_Ex02_1.Logic
                             cellColumnToChange,
                             whichNeighborMove,
                             numberOfCellsToChange);
-                        m_Player2.PlayerPoints = m_Player2.PlayerPoints + numberOfCellsToChange;
-                        m_Player1.PlayerPoints = m_Player1.PlayerPoints - numberOfCellsToChange;
 
                     }
 
-                    m_Player2.PlayerPoints++;
+
                 }
 
                 CellsNeededToChange.Clear();

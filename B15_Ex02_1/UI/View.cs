@@ -17,7 +17,10 @@ namespace B15_Ex02_1.UI
         {
             Console.WriteLine();
             Console.WriteLine("Please enter player name:");
-            return Console.ReadLine();
+
+            string playerName = Console.ReadLine();
+            Ex02.ConsoleUtils.Screen.Clear();
+            return playerName;
         }
 
         public static void PrintInvalidInput(string invalidInputMsg)
@@ -36,8 +39,9 @@ namespace B15_Ex02_1.UI
 
 1. Player
 2. PC");
-
-             return Console.ReadKey().KeyChar.ToString();
+            string playerType = Console.ReadKey().KeyChar.ToString();
+            Ex02.ConsoleUtils.Screen.Clear();
+            return playerType;
         }
 
         /**
@@ -63,8 +67,9 @@ namespace B15_Ex02_1.UI
 
 1. 6x6
 2. 8x8");
-
-            return Console.ReadKey().KeyChar.ToString();
+            string boardSize = Console.ReadKey().KeyChar.ToString();
+            Ex02.ConsoleUtils.Screen.Clear();
+            return boardSize;
         }
 
         /*
