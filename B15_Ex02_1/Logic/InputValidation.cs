@@ -6,7 +6,6 @@
 //   The input validation.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-
 namespace B15_Ex02_1.Logic
 {
     using System.Text.RegularExpressions;

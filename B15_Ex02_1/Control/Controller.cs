@@ -39,6 +39,174 @@ namespace B15_Ex02_1.Control
     public class Controller
     {
         /// <summary>
+        /// The get board size.
+        /// </summary>
+        /// *
+        /// <returns>
+        /// The <see cref="eBoardSize"/>.
+        /// </returns>
+        private static eBoardSize getBoardSize()
+        {
+            int boardSizeNum;
+            string boardSize = View.AskBoardSize();
+            int.TryParse(boardSize, out boardSizeNum);
+
+            while (!Enum.IsDefined(typeof(eBoardSize), boardSizeNum))
+            {
+                Console.WriteLine();
+                View.PrintInvalidInput("Sorry, that's an invalid board size. Please re-enter:");
+                int.TryParse(View.AskBoardSize(), out boardSizeNum);
+            }
+
+            return (eBoardSize)boardSizeNum;
+        }
+        /*
+ * Gets player move from user
+ */
+
+        /// <summary>
+        /// The get player move.
+        /// </summary>
+        /// <param name="playerName">
+        /// The player name.
+        /// </param>
+        /// <param name="playerTurn">
+        /// The player turn.
+        /// </param>
+        /// <returns>
+        /// The <see cref="string"/>.
+        /// </returns>
+        private static string getPlayerMove(string playerName, eTurn playerTurn)
+        {
+            // Read player name and check input
+            string playerMove = View.ScanPlayerMove(playerName);
+
+            while (!Game.ValidMove(playerMove, playerTurn))
+            {
+                Console.WriteLine();
+                View.PrintInvalidInput("Sorry, that's an invalid move. Please re-enter:");
+                View.DrawBoard(m_Board);
+                playerMove = View.ScanPlayerMove(playerName);
+            }
+
+            return playerMove;
+        }
+
+        /// <summary>
+        /// The get pc move.
+        /// </summary>
+        /// <param name="playerTurn">
+        /// The player turn.
+        /// </param>
+        /// <returns>
+        /// The <see cref="string"/>.
+        /// </returns>
+        private static string getPcMove(eTurn playerTurn)
+        {
+            Random rnd = new Random();
+            string pcMove;
+            if (playerTurn == eTurn.Player1)
+            {
+                int rndCell = rnd.Next(0, m_Game.PcMovesList.Count);
+                pcMove = m_Game.PcMovesList[rndCell];
+            }
+            else
+            {
+                int rndCell = rnd.Next(0, m_Game.PcMovesList2.Count);
+                pcMove = m_Game.PcMovesList2[rndCell];
+            }
+
+            // System.Threading.Thread.Sleep(2000);
+            return pcMove;
+        }
+
+        /*
+         * Initializes the board by scanning a size and creating.
+         */
+
+        /// <summary>
+        /// The init board.
+        /// </summary>
+        /// <param name="boardSize">
+        /// The board Size.
+        /// </param>
+        private static void initBoard(eBoardSize boardSize)
+        {
+            switch (boardSize)
+            {
+                case eBoardSize.Six:
+                    m_Board = new Board(6);
+
+                    m_Board.setCell('O', '3', 'C');
+                    m_Board.setCell('X', '3', 'D');
+                    m_Board.setCell('X', '4', 'C');
+                    m_Board.setCell('O', '4', 'D');
+
+                    break;
+
+                case eBoardSize.Eight:
+                    m_Board = new Board(8);
+
+                    m_Board.setCell('O', '4', 'D');
+                    m_Board.setCell('X', '4', 'E');
+                    m_Board.setCell('X', '5', 'D');
+                    m_Board.setCell('O', '5', 'E');
+
+                    break;
+            }
+        }
+
+        /*
+         * Scan player names and create player instances
+         */
+
+        /// <summary>
+        /// The init players.
+        /// </summary>
+        private static void initPlayers()
+        {
+            string player1Name = getPlayerName();
+            m_Player1 = new Player(player1Name, ePlayer.Player);
+
+            // Determine player2 type and act accordingly
+            m_PlayerOrPc = getPlayer2Type();
+
+            switch (m_PlayerOrPc)
+            {
+                case ePlayer.Player:
+                    string player2Name = getPlayerName();
+                    m_Player2 = new Player(player2Name, ePlayer.Player2);
+                    break;
+
+                case ePlayer.PC:
+                    m_Player2 = new Player("*PC*", ePlayer.PC);
+                    break;
+            }
+        }
+
+        /*
+         * Restart the players for another round
+         */
+
+        /// <summary>
+        /// The restart players.
+        /// </summary>
+        private static void restartPlayers()
+        {
+            m_Player1 = new Player(m_Player1.PlayerName, ePlayer.Player);
+
+            switch (m_PlayerOrPc)
+            {
+                case ePlayer.Player:
+                    m_Player2 = new Player(m_Player2.PlayerName, ePlayer.Player2);
+                    break;
+
+                case ePlayer.PC:
+                    m_Player2 = new Player("*PC*", ePlayer.PC);
+                    break;
+            }
+        }
+        /// <summary>
         /// The m_ board.
         /// </summary>
         private static Board m_Board;
@@ -68,12 +236,24 @@ namespace B15_Ex02_1.Control
         /// </summary>
         private static Game m_Game;
 
+        /// <summary>
+        /// The m_ victor.
+        /// </summary>
         private string m_Victor;
 
+        /// <summary>
+        /// The m_ other player.
+        /// </summary>
         private string m_OtherPlayer;
 
+        /// <summary>
+        /// The m_ board size.
+        /// </summary>
         private eBoardSize m_BoardSize;
 
+        /// <summary>
+        /// The m_ player or pc.
+        /// </summary>
         private static ePlayer m_PlayerOrPc;
 
         /*
@@ -110,8 +290,9 @@ namespace B15_Ex02_1.Control
         /// </summary>
         public Controller()
         {
+            View.Welcome();
             initPlayers();
-            m_BoardSize = (eBoardSize)Enum.Parse(typeof(eBoardSize), View.AskBoardSize());
+            m_BoardSize = getBoardSize();
             initBoard(m_BoardSize);
             m_Game = new Game(m_Player1, m_Player2, m_Board);
             View.DrawBoard(m_Board);
@@ -197,28 +378,30 @@ namespace B15_Ex02_1.Control
                 switch (m_PlayerTurn)
                 {
                     case eTurn.Player1:
-                         //TODO :  
-                        /*
+
+                        // TODO :  
+                        
                         m_PlayerMove = getPlayerMove(m_Player1.PlayerName, eTurn.Player1);
                         if (m_PlayerMove == "q")
                         {
                             continue;
                         }
                         // SetBoard with playermove
-                        m_Game.Move(m_PlayerTurn, m_PlayerMove);
-                         * */
+                        
                          
-                        //AnotherPC OPTION
-                         m_PlayerMove = getPcMove(eTurn.Player1);
-                            if (m_PlayerMove == "Q")
-                            {
-                                continue;
-                            }
-                            // SetBoard with playermove
-                            m_Game.Move(m_PlayerTurn, m_PlayerMove);
+                        /*
+                        // AnotherPC OPTION
+                        m_PlayerMove = getPcMove(eTurn.Player1);
+                        if (m_PlayerMove == "Q")
+                        {
+                            continue;
+                        }
+                        */
+                        // SetBoard with playermove
+                        m_Game.Move(m_PlayerTurn, m_PlayerMove);
 
-                            View.DrawBoard(m_Board);
-                            
+                        View.DrawBoard(m_Board);
+                        
                         break;
                     case eTurn.Player2:
 
@@ -229,24 +412,25 @@ namespace B15_Ex02_1.Control
 
                             // SetBoard with playermove
                             m_Game.Move(m_PlayerTurn, m_PlayerMove);
-                            //Ex02.ConsoleUtils.Screen.Clear();
-                            View.DrawBoard(m_Board);
-                            
-                        }
 
-                        // PC
+                            // Ex02.ConsoleUtils.Screen.Clear();
+                            View.DrawBoard(m_Board);
+                        }
                         else if (m_Player2.Type == ePlayer.PC)
+
+                            // PC
                         {
                             m_PlayerMove = getPcMove(eTurn.Player2);
                             if (m_PlayerMove == "Q")
                             {
                                 continue;
                             }
+
                             // SetBoard with playermove
                             m_Game.Move(m_PlayerTurn, m_PlayerMove);
-                            //Ex02.ConsoleUtils.Screen.Clear();
+
+                            // Ex02.ConsoleUtils.Screen.Clear();
                             View.DrawBoard(m_Board);
-                            
                         }
 
                         break;
@@ -269,6 +453,10 @@ namespace B15_Ex02_1.Control
         /*
          * Another round!
          */
+
+        /// <summary>
+        /// The new game.
+        /// </summary>
         private void newGame()
         {
             restartPlayers();
@@ -281,15 +469,31 @@ namespace B15_Ex02_1.Control
         /*
          * Player answer for another game
          */
-        enum eAnotherGame
+
+        /// <summary>
+        /// The e another game.
+        /// </summary>
+        private enum eAnotherGame
         {
-            Y = 1,
+            /// <summary>
+            /// The y.
+            /// </summary>
+            Y = 1, 
+/*
+            /// <summary>
+            /// The n.
+            /// </summary>
             N = 2
+*/
         }
 
         /*
          * Decides victor and prints status to screen
          */
+
+        /// <summary>
+        /// The end game.
+        /// </summary>
         private void endGame()
         {
             if (m_Player1.PlayerPoints > m_Player2.PlayerPoints)
@@ -306,16 +510,25 @@ namespace B15_Ex02_1.Control
             View.PrintGameOver(m_Player1.PlayerPoints, m_Player2.PlayerPoints, m_Victor, m_OtherPlayer);
         }
 
+        /// <summary>
+        /// The player no moves.
+        /// </summary>
+        /// <param name="noMovesPlayer">
+        /// The no moves player.
+        /// </param>
+        /// <returns>
+        /// The <see cref="string"/>.
+        /// </returns>
         private string playerNoMoves(eTurn noMovesPlayer)
         {
             string noMovesPlayerName = null;
 
             switch (noMovesPlayer)
             {
-                 case eTurn.Player1:
+                case eTurn.Player1:
                     noMovesPlayerName = m_Player1.PlayerName;
                     break;
-                 case eTurn.Player2:
+                case eTurn.Player2:
                     noMovesPlayerName = m_Player2.PlayerName;
                     break;
             }
@@ -323,165 +536,6 @@ namespace B15_Ex02_1.Control
             return noMovesPlayerName;
         }
 
-        /*
-         * Gets player move from user
-         */
 
-        /// <summary>
-        /// The get player move.
-        /// </summary>
-        /// <param name="playerName">
-        /// The player name.
-        /// </param>
-        /// <param name="playerTurn">
-        /// The player turn.
-        /// </param>
-        /// <returns>
-        /// The <see cref="string"/>.
-        /// </returns>
-        private static string getPlayerMove(string playerName, eTurn playerTurn)
-        {
-            // Read player name and check input
-            string playerMove = View.ScanPlayerMove(playerName);
-
-                while (!Game.ValidMove(playerMove, playerTurn))
-                {
-                    Console.WriteLine();
-                    View.PrintInvalidInput("Sorry, that's an invalid move. Please re-enter:");
-                    View.DrawBoard(m_Board);
-                    playerMove = View.ScanPlayerMove(playerName);
-                }
-            
-
-            return playerMove;
-        }
-
-        private static string getPcMove(eTurn playerTurn)
-        {
-            Random rnd = new Random();
-            string pcMove;
-            if (playerTurn == eTurn.Player1)
-            {
-                int rndCell = rnd.Next(0, m_Game.PcMovesList.Count);
-                 pcMove = m_Game.PcMovesList[rndCell];
-            }
-            else
-            {
-                int rndCell = rnd.Next(0, m_Game.PcMovesList2.Count);
-                 pcMove = m_Game.PcMovesList2[rndCell];
-            
-            }
-            
-           // System.Threading.Thread.Sleep(2000);
-
-
-
-            return pcMove;
-        }
-
-        /*
-         * Initializes the board by scanning a size and creating.
-         */
-
-        /// <summary>
-        /// The init board.
-        /// </summary>
-        private static void initBoard(eBoardSize boardSize)
-        {
-
-            switch (boardSize)
-            {
-                case eBoardSize.Six:
-                    m_Board = new Board(6);
-                        
-                            m_Board.setCell('O', '3', 'C');
-                            m_Board.setCell('X', '3', 'D');
-                            m_Board.setCell('X', '4', 'C');
-                            m_Board.setCell('O', '4', 'D');
-
-                    break;
-
-                case eBoardSize.Eight:
-                    m_Board = new Board(8);
-                    
-                        m_Board.setCell('O', '4', 'D');
-                        m_Board.setCell('X', '4', 'E');
-                        m_Board.setCell('X', '5', 'D');
-                        m_Board.setCell('O', '5', 'E');
-   
-                    break;
-            }
-        }
-
-        /// <summary>
-        /// The get board size.
-        /// </summary>
-        /// *
-        /// <returns>
-        /// The <see cref="eBoardSize"/>.
-        /// </returns>
-        private static eBoardSize getBoardSize()
-        {
-            int boardSizeNum;
-            string boardSize = View.AskBoardSize();
-            int.TryParse(boardSize, out boardSizeNum);
-
-            while (!Enum.IsDefined(typeof(eBoardSize), boardSizeNum))
-            {
-                Console.WriteLine();
-                View.PrintInvalidInput("Sorry, that's an invalid board size. Please re-enter:");
-                int.TryParse(View.AskPlayerType(), out boardSizeNum);
-            }
-
-            return (eBoardSize)boardSizeNum;
-        }
-
-        /*
-         * Scan player names and create player instances
-         */
-
-        /// <summary>
-        /// The init players.
-        /// </summary>
-        private static void initPlayers()
-        {
-            string player1Name = getPlayerName();
-            m_Player1 = new Player(player1Name, ePlayer.Player);
-
-            // Determine player2 type and act accordingly
-            m_PlayerOrPc = getPlayer2Type();
-
-            switch (m_PlayerOrPc)
-            {
-                case ePlayer.Player:
-                    string player2Name = getPlayerName();
-                    m_Player2 = new Player(player2Name, ePlayer.Player2);
-                    break;
-
-                case ePlayer.PC:
-                    m_Player2 = new Player("*PC*", ePlayer.PC);
-                    break;
-            }
-        }
-
-        /*
-         * Restart the players for another round
-         */
-        private static void restartPlayers()
-        {
-            
-            m_Player1 = new Player(m_Player1.PlayerName, ePlayer.Player);
-
-            switch (m_PlayerOrPc)
-            {
-                case ePlayer.Player:
-                    m_Player2 = new Player(m_Player2.PlayerName, ePlayer.Player2);
-                    break;
-
-                case ePlayer.PC:
-                    m_Player2 = new Player("*PC*", ePlayer.PC);
-                    break;
-            }
-        }
     }
 }

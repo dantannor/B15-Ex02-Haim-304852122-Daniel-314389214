@@ -1,69 +1,173 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using B15_Ex02_1.Control;
-
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="Game.cs" company="">
+//   
+// </copyright>
+// <summary>
+//   The e turn.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 namespace B15_Ex02_1.Logic
 {
-    using B15_Ex02_1.UI;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
 
     /*
          * Saves whose turn it is
          */
 
+    /// <summary>
+    /// The e turn.
+    /// </summary>
     public enum eTurn
     {
-        Player1 = 1,
+        /// <summary>
+        /// The player 1.
+        /// </summary>
+        Player1 = 1, 
 
-        Player2 = 2,
+        /// <summary>
+        /// The player 2.
+        /// </summary>
+        Player2 = 2, 
 
-        GameOver,
+        /// <summary>
+        /// The game over.
+        /// </summary>
+        GameOver, 
 
+        /// <summary>
+        /// The no transfer.
+        /// </summary>
         NoTransfer
     }
 
+    /// <summary>
+    /// The game.
+    /// </summary>
     public class Game
     {
-        private List<Char> CellsNeededToChange = new List<Char>();
+        /// <summary>
+        /// The checked valid cell.
+        /// </summary>
+        /// <param name="board">
+        /// The board.
+        /// </param>
+        /// <param name="row">
+        /// The row.
+        /// </param>
+        /// <param name="column">
+        /// The column.
+        /// </param>
+        /// <returns>
+        /// The <see cref="bool"/>.
+        /// </returns>
+        public static bool checkedValidCell(Board board, char row, char column)
+        {
+            while (board.getCell(row, column) == 'O' || board.getCell(row, column) == 'X')
+            {
+                return false;
+            }
 
-        private List<int> foundLegalMoveNeighbours = new List<int>();
+            return true;
+        }
 
-        private List<int> numberOfCellsNeededToChangeArray = new List<int>();
-
-
-        private List<Char> computerLegalMovesRow = new List<Char>();
-
-        private List<Char> computerLegalMovesCol = new List<Char>();
-
-
-        private int numberOfCellsNeededToChange = 1;
-
-        private bool changeTheSequence = false;
-
-        private Player m_Player1;
-
-        private Player m_Player2;
-
-        private static List<String> m_Player1MovesList;
-
-        private static List<String> m_Player2MovesList;
-
-        private static eTurn m_PlayerTurn = eTurn.Player1;
-
-        private static bool v_NoPlayer1Moves;
-
-        private static bool v_NoPlayer2Moves;
-
+        /// <summary>
+        /// The m_ next player turn.
+        /// </summary>
         private static eTurn m_NextPlayerTurn;
 
+        /// <summary>
+        /// The m_ player 1 moves list.
+        /// </summary>
+        private static List<string> m_Player1MovesList;
+
+        /// <summary>
+        /// The m_ player 2 moves list.
+        /// </summary>
+        private static List<string> m_Player2MovesList;
+
+        /// <summary>
+        /// The m_ player turn.
+        /// </summary>
+        private static eTurn m_PlayerTurn = eTurn.Player1;
+
+        /// <summary>
+        /// The v_ no player 1 moves.
+        /// </summary>
+        private static bool v_NoPlayer1Moves;
+
+        /// <summary>
+        /// The v_ no player 2 moves.
+        /// </summary>
+        private static bool v_NoPlayer2Moves;
+
+        /// <summary>
+        /// The cells needed to change.
+        /// </summary>
+        private List<char> CellsNeededToChange = new List<char>();
+
+        /// <summary>
+        /// The found legal move neighbours.
+        /// </summary>
+        private List<int> foundLegalMoveNeighbours = new List<int>();
+
+        /// <summary>
+        /// The number of cells needed to change array.
+        /// </summary>
+        private List<int> numberOfCellsNeededToChangeArray = new List<int>();
+
+        /// <summary>
+        /// The computer legal moves row.
+        /// </summary>
+        private List<char> computerLegalMovesRow = new List<char>();
+
+        /// <summary>
+        /// The computer legal moves col.
+        /// </summary>
+        private List<char> computerLegalMovesCol = new List<char>();
+
+        /// <summary>
+        /// The number of cells needed to change.
+        /// </summary>
+        private int numberOfCellsNeededToChange = 1;
+
+        /// <summary>
+        /// The change the sequence.
+        /// </summary>
+        private bool changeTheSequence;
+
+        /// <summary>
+        /// The m_ player 1.
+        /// </summary>
+        private Player m_Player1;
+
+        /// <summary>
+        /// The m_ player 2.
+        /// </summary>
+        private Player m_Player2;
+
+        /// <summary>
+        /// The m_ board.
+        /// </summary>
         private Board m_Board;
 
         /*
          * Creates game instance with two player types.
          */
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Game"/> class.
+        /// </summary>
+        /// <param name="io_Player1">
+        /// The io_ player 1.
+        /// </param>
+        /// <param name="io_Player2">
+        /// The io_ player 2.
+        /// </param>
+        /// <param name="board">
+        /// The board.
+        /// </param>
         public Game(Player io_Player1, Player io_Player2, Board board)
         {
             m_Player1 = io_Player1;
@@ -72,14 +176,20 @@ namespace B15_Ex02_1.Logic
             m_NextPlayerTurn = eTurn.Player1;
         }
 
+        /// <summary>
+        /// The turn transfer.
+        /// </summary>
+        /// <returns>
+        /// The <see cref="eTurn"/>.
+        /// </returns>
         public static eTurn TurnTransfer()
         {
             eTurn turn;
-            if (v_NoPlayer1Moves == true && v_NoPlayer2Moves == false)
+            if (v_NoPlayer1Moves && v_NoPlayer2Moves == false)
             {
                 turn = eTurn.Player1;
             }
-            else if (v_NoPlayer2Moves == true && v_NoPlayer1Moves == false)
+            else if (v_NoPlayer2Moves && v_NoPlayer1Moves == false)
             {
                 turn = eTurn.Player2;
             }
@@ -91,15 +201,48 @@ namespace B15_Ex02_1.Logic
             return turn;
         }
 
+        /// <summary>
+        /// The valid move.
+        /// </summary>
+        /// <param name="playerMove">
+        /// The player move.
+        /// </param>
+        /// <param name="player">
+        /// The player.
+        /// </param>
+        /// <returns>
+        /// The <see cref="bool"/>.
+        /// </returns>
+        public static bool ValidMove(string playerMove, eTurn player)
+        {
+            return (player == eTurn.Player1)
+                       ? m_Player1MovesList.Contains(playerMove)
+                       : m_Player2MovesList.Contains(playerMove);
+        }
+
+        /// <summary>
+        /// Gets the pc moves list 2.
+        /// </summary>
         public List<string> PcMovesList2
         {
-            get { return m_Player2MovesList; }
+            get
+            {
+                return m_Player2MovesList;
+            }
         }
+
+        /// <summary>
+        /// Gets the pc moves list.
+        /// </summary>
         public List<string> PcMovesList
         {
-            get { return m_Player1MovesList; }
+            get
+            {
+                return m_Player1MovesList;
+            }
         }
-        //TODO: delete two methods up and put this
+
+        // TODO: delete two methods up and put this
         /*
          * public List<string> PcMovesList
         {
@@ -109,11 +252,16 @@ namespace B15_Ex02_1.Logic
 
         // check all adjacent cells to  specific cell
 
-
         /* 
          * Returns game status
          */
 
+        /// <summary>
+        /// The get turn.
+        /// </summary>
+        /// <returns>
+        /// The <see cref="eTurn"/>.
+        /// </returns>
         public eTurn GetTurn()
         {
             v_NoPlayer1Moves = false;
@@ -131,7 +279,7 @@ namespace B15_Ex02_1.Logic
                     // Player 1 has no moves
                     if (!m_Player1MovesList.Any())
                     {
-                        //View call
+                        // View call
                         if (v_NoPlayer2Moves)
                         {
                             // Both players have no moves, return game over.
@@ -145,11 +293,12 @@ namespace B15_Ex02_1.Logic
                             goto case eTurn.Player2;
                         }
                     }
-                    // Player 1 has moves in the move list
                     else
                     {
+                        // Player 1 has moves in the move list
                         m_PlayerTurn = eTurn.Player1;
                     }
+
                     break;
 
                 case eTurn.Player2:
@@ -167,14 +316,13 @@ namespace B15_Ex02_1.Logic
                             goto case eTurn.Player1;
                         }
                     }
-
-                    // Player 2 has moves in the move list
                     else
                     {
+                        // Player 2 has moves in the move list
                         m_PlayerTurn = eTurn.Player2;
                     }
-                    break;
 
+                    break;
             }
 
             // Set next players turn
@@ -183,20 +331,15 @@ namespace B15_Ex02_1.Logic
             return m_PlayerTurn;
         }
 
-
-        private static List<string> getValidMoves(eTurn player)
-        {
-            throw new NotImplementedException();
-        }
-
+        /// <summary>
+        /// The check and fill list valid moves.
+        /// </summary>
         public void checkAndFillListValidMoves()
         {
             if (m_Board.Size == 8)
             {
-                
                 for (int i = 49; i < 57; i++)
                 {
-                    
                     for (int j = 65; j < 73; j++)
                     {
                         if (checkedValidCell(m_Board, (char)i, (char)j) && checkedValidMove(m_Board, (char)i, (char)j))
@@ -211,6 +354,7 @@ namespace B15_Ex02_1.Logic
                         }
                     }
                 }
+
                 CellsNeededToChange.Clear();
                 foundLegalMoveNeighbours.Clear();
                 numberOfCellsNeededToChangeArray.Clear();
@@ -234,6 +378,7 @@ namespace B15_Ex02_1.Logic
                         }
                     }
                 }
+
                 CellsNeededToChange.Clear();
                 foundLegalMoveNeighbours.Clear();
                 numberOfCellsNeededToChangeArray.Clear();
@@ -241,49 +386,57 @@ namespace B15_Ex02_1.Logic
             }
         }
 
+        /// <summary>
+        /// The valid cells.
+        /// </summary>
+        /// <param name="curPlayer">
+        /// The cur player.
+        /// </param>
+        /// <returns>
+        /// The List of valid moves.
+        /// </returns>
         public List<string> validCells(eTurn curPlayer)
         {
             m_PlayerTurn = curPlayer;
-            string cell = "";
+            string cell = string.Empty;
             List<string> validMoveList = new List<string>();
             checkAndFillListValidMoves();
             for (int i = 0; i < computerLegalMovesRow.Count; i++)
             {
-                cell += (computerLegalMovesCol[i]);
-                cell += (computerLegalMovesRow[i]);
+                cell += computerLegalMovesCol[i];
+                cell += computerLegalMovesRow[i];
                 validMoveList.Add(cell);
-                cell = "";
+                cell = string.Empty;
             }
+
             computerLegalMovesRow.Clear();
             computerLegalMovesCol.Clear();
             return validMoveList;
         }
 
-        /*
-         * Compares valid move with list of legal moves
-         */
-
-        public static bool ValidMove(string playerMove, eTurn player)
-        {
-            return (player == eTurn.Player1)
-                       ? m_Player1MovesList.Contains(playerMove)
-                       : m_Player2MovesList.Contains(playerMove);
-        }
-
+        /// <summary>
+        /// The move.
+        /// </summary>
+        /// <param name="curPlayer">
+        /// The cur player.
+        /// </param>
+        /// <param name="cell">
+        /// The cell.
+        /// </param>
         public void Move(eTurn curPlayer, string cell)
         {
             m_PlayerTurn = curPlayer;
-            //Ex02.ConsoleUtils.Screen.Clear();
+
+            // Ex02.ConsoleUtils.Screen.Clear();
             char row;
             char column;
-            //View.DrawBoard(m_Board);
 
-
-            System.Console.WriteLine();
-
+            // View.DrawBoard(m_Board);
+            Console.WriteLine();
 
             row = cell[1];
             column = cell[0];
+
             /*
             while (row < 49 || row > 56 || column < 65 || column > 72)
             {
@@ -307,15 +460,15 @@ namespace B15_Ex02_1.Logic
                         int whichNeighborMove = foundLegalMoveNeighbours[i];
                         int numberOfCellsToChange = numberOfCellsNeededToChangeArray[i];
                         drawAllChangeCells(
-                            m_Board,
-                            cellRowToChange,
-                            cellColumnToChange,
-                            whichNeighborMove,
+                            m_Board, 
+                            cellRowToChange, 
+                            cellColumnToChange, 
+                            whichNeighborMove, 
                             numberOfCellsToChange);
                         m_Player1.PlayerPoints = m_Player1.PlayerPoints + numberOfCellsToChange;
                         m_Player2.PlayerPoints = m_Player2.PlayerPoints - numberOfCellsToChange;
-
                     }
+
                     m_Player1.PlayerPoints++;
                 }
                 else
@@ -328,14 +481,13 @@ namespace B15_Ex02_1.Logic
                         int whichNeighborMove = foundLegalMoveNeighbours[i];
                         int numberOfCellsToChange = numberOfCellsNeededToChangeArray[i];
                         drawAllChangeCells(
-                            m_Board,
-                            cellRowToChange,
-                            cellColumnToChange,
-                            whichNeighborMove,
+                            m_Board, 
+                            cellRowToChange, 
+                            cellColumnToChange, 
+                            whichNeighborMove, 
                             numberOfCellsToChange);
                         m_Player2.PlayerPoints = m_Player2.PlayerPoints + numberOfCellsToChange;
                         m_Player1.PlayerPoints = m_Player1.PlayerPoints - numberOfCellsToChange;
-
                     }
 
                     m_Player2.PlayerPoints++;
@@ -345,412 +497,453 @@ namespace B15_Ex02_1.Logic
                 foundLegalMoveNeighbours.Clear();
                 numberOfCellsNeededToChangeArray.Clear();
                 changeTheSequence = false;
-                //Ex02.ConsoleUtils.Screen.Clear();
-                //View.DrawBoard(m_Board);
-                //System.Console.WriteLine();
+
+                // Ex02.ConsoleUtils.Screen.Clear();
+                // View.DrawBoard(m_Board);
+                // System.Console.WriteLine();
             }
-            
         }
+
         // check all adjacent cells to  specific cell
+
+        /// <summary>
+        /// The checked valid move.
+        /// </summary>
+        /// <param name="board">
+        /// The board.
+        /// </param>
+        /// <param name="row">
+        /// The row.
+        /// </param>
+        /// <param name="column">
+        /// The column.
+        /// </param>
+        /// <returns>
+        /// The <see cref="bool"/>.
+        /// </returns>
         private bool checkedValidMove(Board board, char row, char column)
         {
-
             int minusLine = row - 1;
             int minusColumn = column - 1;
             int plusLine = row + 1;
             int plusColumn = column + 1;
+
             // player one turn
-            if (m_PlayerTurn == eTurn.Player1)
+            switch (m_PlayerTurn)
             {
-                // get all adjacent cells 
-                char neighbor0 = board.getCell((char)minusLine, (char)minusColumn);
-                char neighbor1 = board.getCell((char)minusLine, column);
-                char neighbor2 = board.getCell((char)minusLine, (char)plusColumn);
-                char neighbor3 = board.getCell(row, (char)minusColumn);
-                char neighbor4 = board.getCell(row, (char)plusColumn);
-                char neighbor5 = board.getCell((char)plusLine, (char)minusColumn);
-                char neighbor6 = board.getCell((char)plusLine, column);
-                char neighbor7 = board.getCell((char)plusLine, (char)plusColumn);
-                // insert adjacent cells to array 
-                char[] neighbers = new char[] {neighbor0, neighbor1 ,neighbor2,neighbor3 ,neighbor4
-                ,neighbor5, neighbor6, neighbor7};
-
-                // check for each adjacent cell whether need to change or not
-                for (int i = 0; i < 8; i++)
-                {
-                    numberOfCellsNeededToChange = 1;
-                    if (neighbers[i] == 'X')
+                case eTurn.Player1:
                     {
+                        // get all adjacent cells 
+                        char neighbor0 = board.getCell((char)minusLine, (char)minusColumn);
+                        char neighbor1 = board.getCell((char)minusLine, column);
+                        char neighbor2 = board.getCell((char)minusLine, (char)plusColumn);
+                        char neighbor3 = board.getCell(row, (char)minusColumn);
+                        char neighbor4 = board.getCell(row, (char)plusColumn);
+                        char neighbor5 = board.getCell((char)plusLine, (char)minusColumn);
+                        char neighbor6 = board.getCell((char)plusLine, column);
+                        char neighbor7 = board.getCell((char)plusLine, (char)plusColumn);
 
-                        if (i == 0)
-                        {
-                            bool check = checkedValidMoveContinue(board, (char)minusLine, (char)minusColumn, i);
-                            if (check)
+                        // insert adjacent cells to array 
+                        char[] neighbers =
                             {
+                                neighbor0, neighbor1, neighbor2, neighbor3, neighbor4, neighbor5, neighbor6, 
+                                neighbor7
+                            };
 
-                                changeTheSequence = true;
-                            }
-
-                        }
-                        else if (i == 1)
+                        // check for each adjacent cell whether need to change or not
+                        for (int i = 0; i < 8; i++)
                         {
-                            bool check = checkedValidMoveContinue(board, (char)minusLine, column, i);
-                            if (check)
+                            this.numberOfCellsNeededToChange = 1;
+                            if (neighbers[i] == 'X')
                             {
-
-                                changeTheSequence = true;
+                                if (i == 0)
+                                {
+                                    bool check = this.checkedValidMoveContinue(board, (char)minusLine, (char)minusColumn, i);
+                                    if (check)
+                                    {
+                                        this.changeTheSequence = true;
+                                    }
+                                }
+                                else if (i == 1)
+                                {
+                                    bool check = this.checkedValidMoveContinue(board, (char)minusLine, column, i);
+                                    if (check)
+                                    {
+                                        this.changeTheSequence = true;
+                                    }
+                                }
+                                else if (i == 2)
+                                {
+                                    bool check = this.checkedValidMoveContinue(board, (char)minusLine, (char)plusColumn, i);
+                                    if (check)
+                                    {
+                                        this.changeTheSequence = true;
+                                    }
+                                }
+                                else if (i == 3)
+                                {
+                                    bool check = this.checkedValidMoveContinue(board, row, (char)minusColumn, i);
+                                    if (check)
+                                    {
+                                        this.changeTheSequence = true;
+                                    }
+                                }
+                                else if (i == 4)
+                                {
+                                    bool check = this.checkedValidMoveContinue(board, row, (char)plusColumn, i);
+                                    if (check)
+                                    {
+                                        this.changeTheSequence = true;
+                                    }
+                                }
+                                else if (i == 5)
+                                {
+                                    bool check = this.checkedValidMoveContinue(board, (char)plusLine, (char)minusColumn, i);
+                                    if (check)
+                                    {
+                                        this.changeTheSequence = true;
+                                    }
+                                }
+                                else if (i == 6)
+                                {
+                                    bool check = this.checkedValidMoveContinue(board, (char)plusLine, column, i);
+                                    if (check)
+                                    {
+                                        this.changeTheSequence = true;
+                                    }
+                                }
+                                else if (i == 7)
+                                {
+                                    bool check = this.checkedValidMoveContinue(board, (char)plusLine, (char)plusColumn, i);
+                                    if (check)
+                                    {
+                                        this.changeTheSequence = true;
+                                    }
+                                }
                             }
                         }
-                        else if (i == 2)
-                        {
-                            bool check = checkedValidMoveContinue(board, (char)minusLine, (char)plusColumn, i);
-                            if (check)
-                            {
-
-                                changeTheSequence = true;
-                            }
-                        }
-                        else if (i == 3)
-                        {
-                            bool check = checkedValidMoveContinue(board, row, (char)minusColumn, i);
-                            if (check)
-                            {
-
-                                changeTheSequence = true;
-                            }
-                        }
-                        else if (i == 4)
-                        {
-                            bool check = checkedValidMoveContinue(board, row, (char)plusColumn, i);
-                            if (check)
-                            {
-
-                                changeTheSequence = true;
-                            }
-                        }
-                        else if (i == 5)
-                        {
-                            bool check = checkedValidMoveContinue(board, (char)plusLine, (char)minusColumn, i);
-                            if (check)
-                            {
-
-                                changeTheSequence = true;
-                            }
-                        }
-                        else if (i == 6)
-                        {
-                            bool check = checkedValidMoveContinue(board, (char)plusLine, column, i);
-                            if (check)
-                            {
-
-                                changeTheSequence = true;
-                            }
-                        }
-                        else if (i == 7)
-                        {
-                            bool check = checkedValidMoveContinue(board, (char)plusLine, (char)plusColumn, i);
-                            if (check)
-                            {
-
-                                changeTheSequence = true;
-                            }
-                        }
-
-
                     }
-                }
-            }
-            // player two turn 
-            else
-            {
-                char neighbor0 = board.getCell((char)minusLine, (char)minusColumn);
-                char neighbor1 = board.getCell((char)minusLine, column);
-                char neighbor2 = board.getCell((char)minusLine, (char)plusColumn);
-                char neighbor3 = board.getCell(row, (char)minusColumn);
-                char neighbor4 = board.getCell(row, (char)plusColumn);
-                char neighbor5 = board.getCell((char)plusLine, (char)minusColumn);
-                char neighbor6 = board.getCell((char)plusLine, column);
-                char neighbor7 = board.getCell((char)plusLine, (char)plusColumn);
 
-                char[] neighbers = new char[] {neighbor0, neighbor1 ,neighbor2,neighbor3 ,neighbor4
-                ,neighbor5, neighbor6, neighbor7};
-
-                for (int i = 0; i < 8; i++)
-                {
-                    numberOfCellsNeededToChange = 1;
-                    if (neighbers[i] == 'O')
+                    break;
+                default:
                     {
+                        char neighbor0 = board.getCell((char)minusLine, (char)minusColumn);
+                        char neighbor1 = board.getCell((char)minusLine, column);
+                        char neighbor2 = board.getCell((char)minusLine, (char)plusColumn);
+                        char neighbor3 = board.getCell(row, (char)minusColumn);
+                        char neighbor4 = board.getCell(row, (char)plusColumn);
+                        char neighbor5 = board.getCell((char)plusLine, (char)minusColumn);
+                        char neighbor6 = board.getCell((char)plusLine, column);
+                        char neighbor7 = board.getCell((char)plusLine, (char)plusColumn);
 
-                        if (i == 0)
-                        {
-                            bool check = checkedValidMoveContinue(board, (char)minusLine, (char)minusColumn, i);
-                            if (check)
+                        char[] neighbers =
                             {
+                                neighbor0, neighbor1, neighbor2, neighbor3, neighbor4, neighbor5, neighbor6, 
+                                neighbor7
+                            };
 
-                                changeTheSequence = true;
+                        for (int i = 0; i < 8; i++)
+                        {
+                            this.numberOfCellsNeededToChange = 1;
+                            if (neighbers[i] == 'O')
+                            {
+                                if (i == 0)
+                                {
+                                    bool check = this.checkedValidMoveContinue(board, (char)minusLine, (char)minusColumn, i);
+                                    if (check)
+                                    {
+                                        this.changeTheSequence = true;
+                                    }
+                                }
+                                else if (i == 1)
+                                {
+                                    bool check = this.checkedValidMoveContinue(board, (char)minusLine, column, i);
+                                    if (check)
+                                    {
+                                        this.changeTheSequence = true;
+                                    }
+                                }
+                                else if (i == 2)
+                                {
+                                    bool check = this.checkedValidMoveContinue(board, (char)minusLine, (char)plusColumn, i);
+                                    if (check)
+                                    {
+                                        this.changeTheSequence = true;
+                                    }
+                                }
+                                else if (i == 3)
+                                {
+                                    bool check = this.checkedValidMoveContinue(board, row, (char)minusColumn, i);
+                                    if (check)
+                                    {
+                                        this.changeTheSequence = true;
+                                    }
+                                }
+                                else if (i == 4)
+                                {
+                                    bool check = this.checkedValidMoveContinue(board, row, (char)plusColumn, i);
+                                    if (check)
+                                    {
+                                        this.changeTheSequence = true;
+                                    }
+                                }
+                                else if (i == 5)
+                                {
+                                    bool check = this.checkedValidMoveContinue(board, (char)plusLine, (char)minusColumn, i);
+                                    if (check)
+                                    {
+                                        this.changeTheSequence = true;
+                                    }
+                                }
+                                else if (i == 6)
+                                {
+                                    bool check = this.checkedValidMoveContinue(board, (char)plusLine, column, i);
+                                    if (check)
+                                    {
+                                        this.changeTheSequence = true;
+                                    }
+                                }
+                                else if (i == 7)
+                                {
+                                    bool check = this.checkedValidMoveContinue(board, (char)plusLine, (char)plusColumn, i);
+                                    if (check)
+                                    {
+                                        this.changeTheSequence = true;
+                                    }
+                                }
                             }
                         }
-                        else if (i == 1)
-                        {
-                            bool check = checkedValidMoveContinue(board, (char)minusLine, column, i);
-                            if (check)
-                            {
-
-                                changeTheSequence = true;
-                            }
-                        }
-                        else if (i == 2)
-                        {
-                            bool check = checkedValidMoveContinue(board, (char)minusLine, (char)plusColumn, i);
-                            if (check)
-                            {
-
-                                changeTheSequence = true;
-                            }
-                        }
-                        else if (i == 3)
-                        {
-                            bool check = checkedValidMoveContinue(board, row, (char)minusColumn, i);
-                            if (check)
-                            {
-
-                                changeTheSequence = true;
-                            }
-                        }
-                        else if (i == 4)
-                        {
-                            bool check = checkedValidMoveContinue(board, row, (char)plusColumn, i);
-                            if (check)
-                            {
-
-                                changeTheSequence = true;
-                            }
-                        }
-                        else if (i == 5)
-                        {
-                            bool check = checkedValidMoveContinue(board, (char)plusLine, (char)minusColumn, i);
-                            if (check)
-                            {
-
-                                changeTheSequence = true;
-                            }
-                        }
-                        else if (i == 6)
-                        {
-                            bool check = checkedValidMoveContinue(board, (char)plusLine, column, i);
-                            if (check)
-                            {
-
-                                changeTheSequence = true;
-                            }
-                        }
-                        else if (i == 7)
-                        {
-                            bool check = checkedValidMoveContinue(board, (char)plusLine, (char)plusColumn, i);
-                            if (check)
-                            {
-
-                                changeTheSequence = true;
-                            }
-                        }
-
-
                     }
-                }
+
+                    break;
             }
-            if (changeTheSequence == true)
+
+            if (this.changeTheSequence)
             {
                 return true;
             }
-
 
             return false;
         }
 
         // change sign for each cell in the sequence 
+
+        /// <summary>
+        /// The draw all change cells.
+        /// </summary>
+        /// <param name="board">
+        /// The board.
+        /// </param>
+        /// <param name="row">
+        /// The row.
+        /// </param>
+        /// <param name="column">
+        /// The column.
+        /// </param>
+        /// <param name="i">
+        /// The i.
+        /// </param>
+        /// <param name="numTochange">
+        /// The num tochange.
+        /// </param>
         private void drawAllChangeCells(Board board, char row, char column, int i, int numTochange)
         {
+            int row1 = row;
+            int column1 = column;
 
-            int row1 = ((int)row);
-            int column1 = ((int)column);
             // player one turn
-            if (m_PlayerTurn == eTurn.Player1)
+            switch (m_PlayerTurn)
             {
-                if (i == 0)
-                {
-                    for (int j = 0; j < numTochange; j++)
+                case eTurn.Player1:
+                    if (i == 0)
                     {
-                        board.setCell('O', (char)row1, (char)column1);
-                        row1++;
-                        column1++;
+                        for (int j = 0; j < numTochange; j++)
+                        {
+                            board.setCell('O', (char)row1, (char)column1);
+                            row1++;
+                            column1++;
+                        }
                     }
 
-                }
-                if (i == 1)
-                {
-                    for (int j = 0; j < numTochange; j++)
+                    if (i == 1)
                     {
-                        board.setCell('O', (char)row1, (char)column1);
-                        row1++;
-
+                        for (int j = 0; j < numTochange; j++)
+                        {
+                            board.setCell('O', (char)row1, (char)column1);
+                            row1++;
+                        }
                     }
 
-                }
-                if (i == 2)
-                {
-                    for (int j = 0; j < numTochange; j++)
+                    if (i == 2)
                     {
-                        board.setCell('O', (char)row1, (char)column1);
-                        row1++;
-                        column1--;
+                        for (int j = 0; j < numTochange; j++)
+                        {
+                            board.setCell('O', (char)row1, (char)column1);
+                            row1++;
+                            column1--;
+                        }
                     }
 
-                }
-                if (i == 3)
-                {
-                    for (int j = 0; j < numTochange; j++)
+                    if (i == 3)
                     {
-                        board.setCell('O', (char)row1, (char)column1);
-                        column1++;
+                        for (int j = 0; j < numTochange; j++)
+                        {
+                            board.setCell('O', (char)row1, (char)column1);
+                            column1++;
+                        }
                     }
 
-                }
-                if (i == 4)
-                {
-                    for (int j = 0; j < numTochange; j++)
+                    if (i == 4)
                     {
-                        board.setCell('O', (char)row1, (char)column1);
-                        column1--;
+                        for (int j = 0; j < numTochange; j++)
+                        {
+                            board.setCell('O', (char)row1, (char)column1);
+                            column1--;
+                        }
                     }
 
-                }
-                if (i == 5)
-                {
-                    for (int j = 0; j < numTochange; j++)
+                    if (i == 5)
                     {
-                        board.setCell('O', (char)row1, (char)column1);
-                        row1--;
-                        column1++;
+                        for (int j = 0; j < numTochange; j++)
+                        {
+                            board.setCell('O', (char)row1, (char)column1);
+                            row1--;
+                            column1++;
+                        }
                     }
 
-                }
-                if (i == 6)
-                {
-                    for (int j = 0; j < numTochange; j++)
+                    if (i == 6)
                     {
-                        board.setCell('O', (char)row1, (char)column1);
-                        row1--;
-
+                        for (int j = 0; j < numTochange; j++)
+                        {
+                            board.setCell('O', (char)row1, (char)column1);
+                            row1--;
+                        }
                     }
 
-                }
-                if (i == 7)
-                {
-                    for (int j = 0; j < numTochange; j++)
+                    if (i == 7)
                     {
-                        board.setCell('O', (char)row1, (char)column1);
-                        row1--;
-                        column1--;
+                        for (int j = 0; j < numTochange; j++)
+                        {
+                            board.setCell('O', (char)row1, (char)column1);
+                            row1--;
+                            column1--;
+                        }
                     }
 
-                }
-            }
-            //player2
-            else
-            {
-                if (i == 0)
-                {
-                    for (int j = 0; j < numTochange; j++)
+                    break;
+                default:
+                    if (i == 0)
                     {
-                        board.setCell('X', (char)row1, (char)column1);
-                        row1++;
-                        column1++;
+                        for (int j = 0; j < numTochange; j++)
+                        {
+                            board.setCell('X', (char)row1, (char)column1);
+                            row1++;
+                            column1++;
+                        }
                     }
 
-                }
-                if (i == 1)
-                {
-                    for (int j = 0; j < numTochange; j++)
+                    if (i == 1)
                     {
-                        board.setCell('X', (char)row1, (char)column1);
-                        row1++;
-
+                        for (int j = 0; j < numTochange; j++)
+                        {
+                            board.setCell('X', (char)row1, (char)column1);
+                            row1++;
+                        }
                     }
 
-                }
-                if (i == 2)
-                {
-                    for (int j = 0; j < numTochange; j++)
+                    if (i == 2)
                     {
-                        board.setCell('X', (char)row1, (char)column1);
-                        row1++;
-                        column1--;
+                        for (int j = 0; j < numTochange; j++)
+                        {
+                            board.setCell('X', (char)row1, (char)column1);
+                            row1++;
+                            column1--;
+                        }
                     }
 
-                }
-                if (i == 3)
-                {
-                    for (int j = 0; j < numTochange; j++)
+                    if (i == 3)
                     {
-                        board.setCell('X', (char)row1, (char)column1);
-                        column1++;
+                        for (int j = 0; j < numTochange; j++)
+                        {
+                            board.setCell('X', (char)row1, (char)column1);
+                            column1++;
+                        }
                     }
 
-                }
-                if (i == 4)
-                {
-                    for (int j = 0; j < numTochange; j++)
+                    if (i == 4)
                     {
-                        board.setCell('X', (char)row1, (char)column1);
-                        column1--;
+                        for (int j = 0; j < numTochange; j++)
+                        {
+                            board.setCell('X', (char)row1, (char)column1);
+                            column1--;
+                        }
                     }
 
-                }
-                if (i == 5)
-                {
-                    for (int j = 0; j < numTochange; j++)
+                    if (i == 5)
                     {
-                        board.setCell('X', (char)row1, (char)column1);
-                        row1--;
-                        column1++;
+                        for (int j = 0; j < numTochange; j++)
+                        {
+                            board.setCell('X', (char)row1, (char)column1);
+                            row1--;
+                            column1++;
+                        }
                     }
 
-                }
-                if (i == 6)
-                {
-                    for (int j = 0; j < numTochange; j++)
+                    if (i == 6)
                     {
-                        board.setCell('X', (char)row1, (char)column1);
-                        row1--;
-
+                        for (int j = 0; j < numTochange; j++)
+                        {
+                            board.setCell('X', (char)row1, (char)column1);
+                            row1--;
+                        }
                     }
 
-                }
-                if (i == 7)
-                {
-                    for (int j = 0; j < numTochange; j++)
+                    if (i == 7)
                     {
-                        board.setCell('X', (char)row1, (char)column1);
-                        row1--;
-                        column1--;
+                        for (int j = 0; j < numTochange; j++)
+                        {
+                            board.setCell('X', (char)row1, (char)column1);
+                            row1--;
+                            column1--;
+                        }
                     }
 
-                }
+                    break;
             }
         }
+
         // if adjacent cell with opposite sign, check the sequence in a specific direction
         // if found a legal move use drawAllChangeCells method to change the sequence
+
+        /// <summary>
+        /// The checked valid move continue.
+        /// </summary>
+        /// <param name="board">
+        /// The board.
+        /// </param>
+        /// <param name="row">
+        /// The row.
+        /// </param>
+        /// <param name="column">
+        /// The column.
+        /// </param>
+        /// <param name="i">
+        /// The i.
+        /// </param>
+        /// <returns>
+        /// The <see cref="bool"/>.
+        /// </returns>
         private bool checkedValidMoveContinue(Board board, char row, char column, int i)
         {
-
             int minusLine = row - 1;
             int minusColumn = column - 1;
             int plusLine = row + 1;
             int plusColumn = column + 1;
+
             // player one
             if (m_PlayerTurn == eTurn.Player1)
             {
-
                 if (i == 0)
                 {
                     char neighbor0 = board.getCell((char)minusLine, (char)minusColumn);
@@ -768,12 +961,10 @@ namespace B15_Ex02_1.Logic
                         numberOfCellsNeededToChange = 1;
                         foundLegalMoveNeighbours.Add(0);
 
-
-
                         return true;
                     }
-
                 }
+
                 if (i == 1)
                 {
                     char neighbor0 = board.getCell((char)minusLine, column);
@@ -790,12 +981,10 @@ namespace B15_Ex02_1.Logic
                         numberOfCellsNeededToChange = 1;
                         foundLegalMoveNeighbours.Add(1);
 
-
-
                         return true;
                     }
-
                 }
+
                 if (i == 2)
                 {
                     char neighbor0 = board.getCell((char)minusLine, (char)plusColumn);
@@ -812,12 +1001,10 @@ namespace B15_Ex02_1.Logic
                         numberOfCellsNeededToChange = 1;
                         foundLegalMoveNeighbours.Add(2);
 
-
-
                         return true;
                     }
-
                 }
+
                 if (i == 3)
                 {
                     char neighbor0 = board.getCell(row, (char)minusColumn);
@@ -836,8 +1023,8 @@ namespace B15_Ex02_1.Logic
 
                         return true;
                     }
-
                 }
+
                 if (i == 4)
                 {
                     char neighbor0 = board.getCell(row, (char)plusColumn);
@@ -854,11 +1041,10 @@ namespace B15_Ex02_1.Logic
                         numberOfCellsNeededToChange = 1;
                         foundLegalMoveNeighbours.Add(4);
 
-
                         return true;
                     }
-
                 }
+
                 if (i == 5)
                 {
                     char neighbor0 = board.getCell((char)plusLine, (char)minusColumn);
@@ -875,11 +1061,10 @@ namespace B15_Ex02_1.Logic
                         numberOfCellsNeededToChange = 1;
                         foundLegalMoveNeighbours.Add(5);
 
-
                         return true;
                     }
-
                 }
+
                 if (i == 6)
                 {
                     char neighbor0 = board.getCell((char)plusLine, column);
@@ -898,14 +1083,13 @@ namespace B15_Ex02_1.Logic
 
                         return true;
                     }
-
                 }
+
                 if (i == 7)
                 {
                     char neighbor0 = board.getCell((char)plusLine, (char)plusColumn);
                     if (neighbor0 == 'X')
                     {
-
                         numberOfCellsNeededToChange++;
                         checkedValidMoveContinue(board, (char)plusLine, (char)plusColumn, i);
                     }
@@ -917,15 +1101,13 @@ namespace B15_Ex02_1.Logic
                         numberOfCellsNeededToChange = 1;
                         foundLegalMoveNeighbours.Add(7);
 
-
                         return true;
                     }
-
                 }
             }
-            // player two
             else
             {
+                // player two
                 if (i == 0)
                 {
                     char neighbor0 = board.getCell((char)minusLine, (char)minusColumn);
@@ -942,12 +1124,10 @@ namespace B15_Ex02_1.Logic
                         numberOfCellsNeededToChange = 1;
                         foundLegalMoveNeighbours.Add(0);
 
-
-
                         return true;
                     }
-
                 }
+
                 if (i == 1)
                 {
                     char neighbor0 = board.getCell((char)minusLine, column);
@@ -964,11 +1144,10 @@ namespace B15_Ex02_1.Logic
                         numberOfCellsNeededToChange = 1;
                         foundLegalMoveNeighbours.Add(1);
 
-
                         return true;
                     }
-
                 }
+
                 if (i == 2)
                 {
                     char neighbor0 = board.getCell((char)minusLine, (char)plusColumn);
@@ -985,12 +1164,10 @@ namespace B15_Ex02_1.Logic
                         numberOfCellsNeededToChange = 1;
                         foundLegalMoveNeighbours.Add(2);
 
-                        ;
-
                         return true;
                     }
-
                 }
+
                 if (i == 3)
                 {
                     char neighbor0 = board.getCell(row, (char)minusColumn);
@@ -1007,12 +1184,10 @@ namespace B15_Ex02_1.Logic
                         numberOfCellsNeededToChange = 1;
                         foundLegalMoveNeighbours.Add(3);
 
-
-
                         return true;
                     }
-
                 }
+
                 if (i == 4)
                 {
                     char neighbor0 = board.getCell(row, (char)plusColumn);
@@ -1031,8 +1206,8 @@ namespace B15_Ex02_1.Logic
 
                         return true;
                     }
-
                 }
+
                 if (i == 5)
                 {
                     char neighbor0 = board.getCell((char)plusLine, (char)minusColumn);
@@ -1049,12 +1224,10 @@ namespace B15_Ex02_1.Logic
                         numberOfCellsNeededToChange = 1;
                         foundLegalMoveNeighbours.Add(5);
 
-
-
                         return true;
                     }
-
                 }
+
                 if (i == 6)
                 {
                     char neighbor0 = board.getCell((char)plusLine, column);
@@ -1073,8 +1246,8 @@ namespace B15_Ex02_1.Logic
 
                         return true;
                     }
-
                 }
+
                 if (i == 7)
                 {
                     char neighbor0 = board.getCell((char)plusLine, (char)plusColumn);
@@ -1093,29 +1266,15 @@ namespace B15_Ex02_1.Logic
 
                         return true;
                     }
-
                 }
             }
+
             if (foundLegalMoveNeighbours.Count != 0)
             {
                 return true;
             }
+
             return false;
         }
-
-        public static bool checkedValidCell(Board board, char row, char column)
-        {
-
-            while (board.getCell(row, column) == 'O' || board.getCell(row, column) == 'X')
-            {
-                return false;
-
-            }
-
-
-            return true;
-        }
-
-  
     }
 }

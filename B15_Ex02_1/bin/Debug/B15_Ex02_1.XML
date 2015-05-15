@@ -1,0 +1,714 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>B15_Ex02_1</name>
+    </assembly>
+    <members>
+        <member name="T:B15_Ex02_1.Logic.Board">
+            <summary>
+            The board.
+            </summary>
+        </member>
+        <member name="F:B15_Ex02_1.Logic.Board.cells">
+            <summary>
+            The cells.
+            </summary>
+        </member>
+        <member name="F:B15_Ex02_1.Logic.Board.m_boardSize">
+            <summary>
+            The m_board size.
+            </summary>
+        </member>
+        <member name="M:B15_Ex02_1.Logic.Board.#ctor(System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:B15_Ex02_1.Logic.Board"/> class.
+            </summary>
+            <param name="boardSize">
+            The board size.
+            </param>
+        </member>
+        <member name="M:B15_Ex02_1.Logic.Board.getCell(System.Char,System.Char)">
+            <summary>
+            The get cell.
+            </summary>
+            <param name="num">
+            The num.
+            </param>
+            <param name="letter">
+            The letter.
+            </param>
+            <returns>
+            The <see cref="T:System.Char"/>.
+            </returns>
+        </member>
+        <member name="M:B15_Ex02_1.Logic.Board.getCell(System.Int32,System.Int32)">
+            <summary>
+            The get cell.
+            </summary>
+            <param name="num1">
+            The num 1.
+            </param>
+            <param name="num2">
+            The num 2.
+            </param>
+            <returns>
+            The <see cref="T:System.Char"/>.
+            </returns>
+        </member>
+        <member name="M:B15_Ex02_1.Logic.Board.setCell(System.Char,System.Char,System.Char)">
+            <summary>
+            The set cell.
+            </summary>
+            <param name="c">
+            The c.
+            </param>
+            <param name="num">
+            The num.
+            </param>
+            <param name="letter">
+            The letter.
+            </param>
+        </member>
+        <member name="P:B15_Ex02_1.Logic.Board.Size">
+            <summary>
+            Gets the size.
+            </summary>
+        </member>
+        <member name="T:B15_Ex02_1.Control.eBoardSize">
+            <summary>
+            The e board size.
+            </summary>
+        </member>
+        <member name="F:B15_Ex02_1.Control.eBoardSize.Six">
+            <summary>
+            The six.
+            </summary>
+        </member>
+        <member name="F:B15_Ex02_1.Control.eBoardSize.Eight">
+            <summary>
+            The eight.
+            </summary>
+        </member>
+        <member name="T:B15_Ex02_1.Control.Controller">
+            <summary>
+            The controller.
+            </summary>
+        </member>
+        <member name="M:B15_Ex02_1.Control.Controller.getBoardSize">
+            <summary>
+            The get board size.
+            </summary>
+            *
+            <returns>
+            The <see cref="T:B15_Ex02_1.Control.eBoardSize"/>.
+            </returns>
+        </member>
+        <member name="M:B15_Ex02_1.Control.Controller.getPlayerMove(System.String,B15_Ex02_1.Logic.eTurn)">
+            <summary>
+            The get player move.
+            </summary>
+            <param name="playerName">
+            The player name.
+            </param>
+            <param name="playerTurn">
+            The player turn.
+            </param>
+            <returns>
+            The <see cref="T:System.String"/>.
+            </returns>
+        </member>
+        <member name="M:B15_Ex02_1.Control.Controller.getPcMove(B15_Ex02_1.Logic.eTurn)">
+            <summary>
+            The get pc move.
+            </summary>
+            <param name="playerTurn">
+            The player turn.
+            </param>
+            <returns>
+            The <see cref="T:System.String"/>.
+            </returns>
+        </member>
+        <member name="M:B15_Ex02_1.Control.Controller.initBoard(B15_Ex02_1.Control.eBoardSize)">
+            <summary>
+            The init board.
+            </summary>
+            <param name="boardSize">
+            The board Size.
+            </param>
+        </member>
+        <member name="M:B15_Ex02_1.Control.Controller.initPlayers">
+            <summary>
+            The init players.
+            </summary>
+        </member>
+        <member name="M:B15_Ex02_1.Control.Controller.restartPlayers">
+            <summary>
+            The restart players.
+            </summary>
+        </member>
+        <member name="F:B15_Ex02_1.Control.Controller.m_Board">
+            <summary>
+            The m_ board.
+            </summary>
+        </member>
+        <member name="F:B15_Ex02_1.Control.Controller.m_Player1">
+            <summary>
+            The m_ player 1.
+            </summary>
+        </member>
+        <member name="F:B15_Ex02_1.Control.Controller.m_Player2">
+            <summary>
+            The m_ player 2.
+            </summary>
+        </member>
+        <member name="F:B15_Ex02_1.Control.Controller.m_PlayerMove">
+            <summary>
+            The m_ player move.
+            </summary>
+        </member>
+        <member name="F:B15_Ex02_1.Control.Controller.m_PlayerTurn">
+            <summary>
+            The m_ player turn.
+            </summary>
+        </member>
+        <member name="F:B15_Ex02_1.Control.Controller.m_Game">
+            <summary>
+            The m_ game.
+            </summary>
+        </member>
+        <member name="F:B15_Ex02_1.Control.Controller.m_Victor">
+            <summary>
+            The m_ victor.
+            </summary>
+        </member>
+        <member name="F:B15_Ex02_1.Control.Controller.m_OtherPlayer">
+            <summary>
+            The m_ other player.
+            </summary>
+        </member>
+        <member name="F:B15_Ex02_1.Control.Controller.m_BoardSize">
+            <summary>
+            The m_ board size.
+            </summary>
+        </member>
+        <member name="F:B15_Ex02_1.Control.Controller.m_PlayerOrPc">
+            <summary>
+            The m_ player or pc.
+            </summary>
+        </member>
+        <member name="M:B15_Ex02_1.Control.Controller.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:B15_Ex02_1.Control.Controller"/> class.
+            </summary>
+        </member>
+        <member name="M:B15_Ex02_1.Control.Controller.getPlayerName">
+            <summary>
+            The get player name.
+            </summary>
+            <returns>
+            The <see cref="T:System.String"/>.
+            </returns>
+        </member>
+        <member name="M:B15_Ex02_1.Control.Controller.getPlayer2Type">
+            <summary>
+            The get player 2 type.
+            </summary>
+            <returns>
+            The <see cref="T:B15_Ex02_1.Control.Controller.ePlayer"/>.
+            </returns>
+        </member>
+        <member name="M:B15_Ex02_1.Control.Controller.play">
+            <summary>
+            The play.
+            </summary>
+        </member>
+        <member name="M:B15_Ex02_1.Control.Controller.newGame">
+            <summary>
+            The new game.
+            </summary>
+        </member>
+        <member name="M:B15_Ex02_1.Control.Controller.endGame">
+            <summary>
+            The end game.
+            </summary>
+        </member>
+        <member name="M:B15_Ex02_1.Control.Controller.playerNoMoves(B15_Ex02_1.Logic.eTurn)">
+            <summary>
+            The player no moves.
+            </summary>
+            <param name="noMovesPlayer">
+            The no moves player.
+            </param>
+            <returns>
+            The <see cref="T:System.String"/>.
+            </returns>
+        </member>
+        <member name="T:B15_Ex02_1.Control.Controller.ePlayer">
+            <summary>
+            The e player.
+            </summary>
+        </member>
+        <member name="F:B15_Ex02_1.Control.Controller.ePlayer.Player">
+            <summary>
+            The player.
+            </summary>
+        </member>
+        <member name="F:B15_Ex02_1.Control.Controller.ePlayer.PC">
+            <summary>
+            The pc.
+            </summary>
+        </member>
+        <member name="F:B15_Ex02_1.Control.Controller.ePlayer.Player2">
+            <summary>
+            The player 2.
+            </summary>
+        </member>
+        <member name="T:B15_Ex02_1.Control.Controller.eAnotherGame">
+            <summary>
+            The e another game.
+            </summary>
+        </member>
+        <member name="F:B15_Ex02_1.Control.Controller.eAnotherGame.Y">
+            <summary>
+            The y.
+            </summary>
+        </member>
+        <member name="T:B15_Ex02_1.Logic.eTurn">
+            <summary>
+            The e turn.
+            </summary>
+        </member>
+        <member name="F:B15_Ex02_1.Logic.eTurn.Player1">
+            <summary>
+            The player 1.
+            </summary>
+        </member>
+        <member name="F:B15_Ex02_1.Logic.eTurn.Player2">
+            <summary>
+            The player 2.
+            </summary>
+        </member>
+        <member name="F:B15_Ex02_1.Logic.eTurn.GameOver">
+            <summary>
+            The game over.
+            </summary>
+        </member>
+        <member name="F:B15_Ex02_1.Logic.eTurn.NoTransfer">
+            <summary>
+            The no transfer.
+            </summary>
+        </member>
+        <member name="T:B15_Ex02_1.Logic.Game">
+            <summary>
+            The game.
+            </summary>
+        </member>
+        <member name="M:B15_Ex02_1.Logic.Game.checkedValidCell(B15_Ex02_1.Logic.Board,System.Char,System.Char)">
+            <summary>
+            The checked valid cell.
+            </summary>
+            <param name="board">
+            The board.
+            </param>
+            <param name="row">
+            The row.
+            </param>
+            <param name="column">
+            The column.
+            </param>
+            <returns>
+            The <see cref="T:System.Boolean"/>.
+            </returns>
+        </member>
+        <member name="F:B15_Ex02_1.Logic.Game.m_NextPlayerTurn">
+            <summary>
+            The m_ next player turn.
+            </summary>
+        </member>
+        <member name="F:B15_Ex02_1.Logic.Game.m_Player1MovesList">
+            <summary>
+            The m_ player 1 moves list.
+            </summary>
+        </member>
+        <member name="F:B15_Ex02_1.Logic.Game.m_Player2MovesList">
+            <summary>
+            The m_ player 2 moves list.
+            </summary>
+        </member>
+        <member name="F:B15_Ex02_1.Logic.Game.m_PlayerTurn">
+            <summary>
+            The m_ player turn.
+            </summary>
+        </member>
+        <member name="F:B15_Ex02_1.Logic.Game.v_NoPlayer1Moves">
+            <summary>
+            The v_ no player 1 moves.
+            </summary>
+        </member>
+        <member name="F:B15_Ex02_1.Logic.Game.v_NoPlayer2Moves">
+            <summary>
+            The v_ no player 2 moves.
+            </summary>
+        </member>
+        <member name="F:B15_Ex02_1.Logic.Game.CellsNeededToChange">
+            <summary>
+            The cells needed to change.
+            </summary>
+        </member>
+        <member name="F:B15_Ex02_1.Logic.Game.foundLegalMoveNeighbours">
+            <summary>
+            The found legal move neighbours.
+            </summary>
+        </member>
+        <member name="F:B15_Ex02_1.Logic.Game.numberOfCellsNeededToChangeArray">
+            <summary>
+            The number of cells needed to change array.
+            </summary>
+        </member>
+        <member name="F:B15_Ex02_1.Logic.Game.computerLegalMovesRow">
+            <summary>
+            The computer legal moves row.
+            </summary>
+        </member>
+        <member name="F:B15_Ex02_1.Logic.Game.computerLegalMovesCol">
+            <summary>
+            The computer legal moves col.
+            </summary>
+        </member>
+        <member name="F:B15_Ex02_1.Logic.Game.numberOfCellsNeededToChange">
+            <summary>
+            The number of cells needed to change.
+            </summary>
+        </member>
+        <member name="F:B15_Ex02_1.Logic.Game.changeTheSequence">
+            <summary>
+            The change the sequence.
+            </summary>
+        </member>
+        <member name="F:B15_Ex02_1.Logic.Game.m_Player1">
+            <summary>
+            The m_ player 1.
+            </summary>
+        </member>
+        <member name="F:B15_Ex02_1.Logic.Game.m_Player2">
+            <summary>
+            The m_ player 2.
+            </summary>
+        </member>
+        <member name="F:B15_Ex02_1.Logic.Game.m_Board">
+            <summary>
+            The m_ board.
+            </summary>
+        </member>
+        <member name="M:B15_Ex02_1.Logic.Game.#ctor(B15_Ex02_1.Logic.Player,B15_Ex02_1.Logic.Player,B15_Ex02_1.Logic.Board)">
+            <summary>
+            Initializes a new instance of the <see cref="T:B15_Ex02_1.Logic.Game"/> class.
+            </summary>
+            <param name="io_Player1">
+            The io_ player 1.
+            </param>
+            <param name="io_Player2">
+            The io_ player 2.
+            </param>
+            <param name="board">
+            The board.
+            </param>
+        </member>
+        <member name="M:B15_Ex02_1.Logic.Game.TurnTransfer">
+            <summary>
+            The turn transfer.
+            </summary>
+            <returns>
+            The <see cref="T:B15_Ex02_1.Logic.eTurn"/>.
+            </returns>
+        </member>
+        <member name="M:B15_Ex02_1.Logic.Game.ValidMove(System.String,B15_Ex02_1.Logic.eTurn)">
+            <summary>
+            The valid move.
+            </summary>
+            <param name="playerMove">
+            The player move.
+            </param>
+            <param name="player">
+            The player.
+            </param>
+            <returns>
+            The <see cref="T:System.Boolean"/>.
+            </returns>
+        </member>
+        <member name="M:B15_Ex02_1.Logic.Game.GetTurn">
+            <summary>
+            The get turn.
+            </summary>
+            <returns>
+            The <see cref="T:B15_Ex02_1.Logic.eTurn"/>.
+            </returns>
+        </member>
+        <member name="M:B15_Ex02_1.Logic.Game.checkAndFillListValidMoves">
+            <summary>
+            The check and fill list valid moves.
+            </summary>
+        </member>
+        <member name="M:B15_Ex02_1.Logic.Game.validCells(B15_Ex02_1.Logic.eTurn)">
+            <summary>
+            The valid cells.
+            </summary>
+            <param name="curPlayer">
+            The cur player.
+            </param>
+            <returns>
+            The List of valid moves.
+            </returns>
+        </member>
+        <member name="M:B15_Ex02_1.Logic.Game.Move(B15_Ex02_1.Logic.eTurn,System.String)">
+            <summary>
+            The move.
+            </summary>
+            <param name="curPlayer">
+            The cur player.
+            </param>
+            <param name="cell">
+            The cell.
+            </param>
+        </member>
+        <member name="M:B15_Ex02_1.Logic.Game.checkedValidMove(B15_Ex02_1.Logic.Board,System.Char,System.Char)">
+            <summary>
+            The checked valid move.
+            </summary>
+            <param name="board">
+            The board.
+            </param>
+            <param name="row">
+            The row.
+            </param>
+            <param name="column">
+            The column.
+            </param>
+            <returns>
+            The <see cref="T:System.Boolean"/>.
+            </returns>
+        </member>
+        <member name="M:B15_Ex02_1.Logic.Game.drawAllChangeCells(B15_Ex02_1.Logic.Board,System.Char,System.Char,System.Int32,System.Int32)">
+            <summary>
+            The draw all change cells.
+            </summary>
+            <param name="board">
+            The board.
+            </param>
+            <param name="row">
+            The row.
+            </param>
+            <param name="column">
+            The column.
+            </param>
+            <param name="i">
+            The i.
+            </param>
+            <param name="numTochange">
+            The num tochange.
+            </param>
+        </member>
+        <member name="M:B15_Ex02_1.Logic.Game.checkedValidMoveContinue(B15_Ex02_1.Logic.Board,System.Char,System.Char,System.Int32)">
+            <summary>
+            The checked valid move continue.
+            </summary>
+            <param name="board">
+            The board.
+            </param>
+            <param name="row">
+            The row.
+            </param>
+            <param name="column">
+            The column.
+            </param>
+            <param name="i">
+            The i.
+            </param>
+            <returns>
+            The <see cref="T:System.Boolean"/>.
+            </returns>
+        </member>
+        <member name="P:B15_Ex02_1.Logic.Game.PcMovesList2">
+            <summary>
+            Gets the pc moves list 2.
+            </summary>
+        </member>
+        <member name="P:B15_Ex02_1.Logic.Game.PcMovesList">
+            <summary>
+            Gets the pc moves list.
+            </summary>
+        </member>
+        <member name="T:B15_Ex02_1.Logic.InputValidation">
+            <summary>
+            The input validation.
+            </summary>
+        </member>
+        <member name="M:B15_Ex02_1.Logic.InputValidation.ValidPlayerName(System.String)">
+            <summary>
+            The validate player name.
+            </summary>
+            <param name="io_PlayerName">
+            The io_player name.
+            </param>
+            <returns>
+            The <see cref="T:System.Boolean"/>.
+            </returns>
+        </member>
+        <member name="T:B15_Ex02_1.Logic.Player">
+            <summary>
+            The player.
+            </summary>
+        </member>
+        <member name="F:B15_Ex02_1.Logic.Player.m_PlayerName">
+            <summary>
+            The m_ player name.
+            </summary>
+        </member>
+        <member name="F:B15_Ex02_1.Logic.Player.mPlayer">
+            <summary>
+            The m player.
+            </summary>
+        </member>
+        <member name="F:B15_Ex02_1.Logic.Player.m_PlayerPoints">
+            <summary>
+            The m_ player points.
+            </summary>
+        </member>
+        <member name="M:B15_Ex02_1.Logic.Player.#ctor(System.String,B15_Ex02_1.Control.Controller.ePlayer)">
+            <summary>
+            Initializes a new instance of the <see cref="T:B15_Ex02_1.Logic.Player"/> class.
+            </summary>
+            <param name="io_PlayerName">
+            The io_ player name.
+            </param>
+            <param name="i_Player">
+            The i_ player.
+            </param>
+        </member>
+        <member name="M:B15_Ex02_1.Logic.Player.UpdatePlayerPoints(System.Int32)">
+            <summary>
+            The update player points.
+            </summary>
+            <param name="io_PlayerPoints">
+            The io_ player points.
+            </param>
+        </member>
+        <member name="P:B15_Ex02_1.Logic.Player.PlayerPoints">
+            <summary>
+            Gets or sets the player points.
+            </summary>
+        </member>
+        <member name="P:B15_Ex02_1.Logic.Player.Type">
+            <summary>
+            Gets the type.
+            </summary>
+        </member>
+        <member name="P:B15_Ex02_1.Logic.Player.PlayerName">
+            <summary>
+            Gets the player name.
+            </summary>
+        </member>
+        <member name="T:B15_Ex02_1.Program">
+            <summary>
+            The program.
+            </summary>
+        </member>
+        <member name="M:B15_Ex02_1.Program.Main(System.String[])">
+            <summary>
+            The main.
+            </summary>
+            <param name="args">
+            The args.
+            </param>
+        </member>
+        <member name="T:B15_Ex02_1.UI.View">
+            <summary>
+            The view.
+            </summary>
+        </member>
+        <member name="M:B15_Ex02_1.UI.View.ScanPlayerName">
+            <summary>
+            The scan player name.
+            </summary>
+            <returns>
+            The <see cref="T:System.String"/>.
+            </returns>
+        </member>
+        <member name="M:B15_Ex02_1.UI.View.PrintInvalidInput(System.String)">
+            <summary>
+            The print invalid input.
+            </summary>
+            <param name="invalidInputMsg">
+            The invalid input msg.
+            </param>
+        </member>
+        <member name="M:B15_Ex02_1.UI.View.AskPlayerType">
+            <summary>
+            The ask player type.
+            </summary>
+            <returns>
+            The <see cref="T:System.String"/>.
+            </returns>
+        </member>
+        <member name="M:B15_Ex02_1.UI.View.ScanPlayerMove(System.String)">
+            <summary>
+            The scan player move.
+            </summary>
+            <param name="io_PlayerName">
+            The io_ player name.
+            </param>
+            <returns>
+            The <see cref="T:System.String"/>.
+            </returns>
+        </member>
+        <member name="M:B15_Ex02_1.UI.View.AskBoardSize">
+            <summary>
+            The ask board size.
+            </summary>
+            <returns>
+            The <see cref="T:System.String"/>.
+            </returns>
+        </member>
+        <member name="M:B15_Ex02_1.UI.View.DrawBoard(B15_Ex02_1.Logic.Board)">
+            <summary>
+            The draw board.
+            </summary>
+            <param name="io_Board">
+            The io_ board.
+            </param>
+        </member>
+        <member name="M:B15_Ex02_1.UI.View.PrintGameOver(System.Int32,System.Int32,System.String,System.String)">
+            <summary>
+            The print game over.
+            </summary>
+            <param name="io_Player1Points">
+            The io_ player 1 points.
+            </param>
+            <param name="io_Player2Points">
+            The io_ player 2 points.
+            </param>
+            <param name="i_Victor">
+            The i_ victor.
+            </param>
+            <param name="io_Player2">
+            The io_ player 2.
+            </param>
+        </member>
+        <member name="M:B15_Ex02_1.UI.View.DisplayTurnSwitch(System.String)">
+            <summary>
+            The display turn switch.
+            </summary>
+            <param name="noMovesPlayer">
+            The no moves player.
+            </param>
+        </member>
+        <member name="M:B15_Ex02_1.UI.View.AskPlayAgain">
+            <summary>
+            The ask play again.
+            </summary>
+            <returns>
+            The <see cref="T:System.String"/>.
+            </returns>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,48 @@
+﻿C# 2
+
+Logic
+Main
+// Scans input and initializes
+UI.StartGame();
+
+UI
+
+DrawBoard(int size)
+DisplayGameOver(string)  
+GetPlayerMove(string)
+ReRequestInput();
+
+public ScanInput()
+
+Contoller.Init(...);
+
+
+Board
+// Updates board arr values according to which player chose which location
+public void UpdateBoard(string location, string player)
+	getValidMove()
+updateColors()
+	
+private bool isValidMove()
+
+// Checks if coin colors should be changed
+private void updateColors(string position)
+
+
+Controller
+// Player.playersTurn(string player)
+// Init(stridng Player1, string Player2, int boardSize,) 
+// Check correct input(string input)
+// opponent is computer (Board board)
+// opponent is player (Board board)
+// Game over()
+// All rules of the game in this class
+// getValidMoves()  
+
+Player
+public getMove
+playersTurn(string player)
+	updatePoints(player)
+ 
+// private updatePoints(string player) 
+
